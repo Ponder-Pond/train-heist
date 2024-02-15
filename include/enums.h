@@ -2357,6 +2357,8 @@ enum Locations {
     LOCATION_STARBORN_VALLEY            = 0x2A,
     LOCATION_SHIVER_MOUNTAIN            = 0x2B,
     LOCATION_MARIOS_HOUSE               = 0x2C,
+    // Boss Mod
+    LOCATION_THEATER                    = 0x2D,
 };
 
 typedef enum ScreenTransition {

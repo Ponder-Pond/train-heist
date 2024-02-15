@@ -859,6 +859,12 @@ MapConfig mgm_maps[] = {
     { MAP(mgm_03) },
 };
 
+/// Theater
+#include "area_ttr/ttr.h"
+MapConfig ttr_maps[] = {
+    { MAP(ttr_01) },
+};
+
 /// Game Over
 #include "area_gv/gv.h"
 MapConfig gv_maps[] = {
@@ -894,5 +900,6 @@ AreaConfig gAreas[] = {
     AREA(mgm, "ミニゲーム"),  // minige-mu [Minigames]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     AREA(tst, "テストマップ"),  // tesuto mappu [Test map]
+    AREA(ttr, "Theater"),  // [Theater]
     {},
 };

@@ -72,7 +72,7 @@ vram_classes:
   - [entity_model_anim, 0x00000000]
   - { name: dgb_01_smash_bridges, vram: 0x80200000, vram_symbol: D_80200000 }
 asset_stack:
-#  - star_rod_build
+  - star_rod_build
   - boss_mod
   - dx
   - us
@@ -13148,6 +13148,14 @@ segments:
     subsegments:
     - [auto, c, mgm_03_0_header]
     - [auto, c, mgm_03_1_main]
+  - name: ttr_01
+    dir: world/area_ttr/ttr_01
+    type: code
+    start: auto
+    vram_class: map
+    subsegments:
+    - [auto, c, ttr_01_0_header]
+    - [auto, c, ttr_01_1_main]
   - name: gv_01
     dir: world/area_gv/gv_01
     type: code

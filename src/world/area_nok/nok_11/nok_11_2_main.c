@@ -78,12 +78,12 @@ EvtScript N(EVS_BindExitTriggers) = {
 };
 
 EvtScript N(EVS_AddBadges) = {
-    Call(AddBadge, ITEM_POWER_RUSH, LVar0)
-    Call(AddBadge, ITEM_MEGA_RUSH, LVar1)
-    Call(AddBadge, ITEM_CLOSE_CALL, LVar2)
-    Call(AddBadge, ITEM_PRETTY_LUCKY, LVar3)
-    Call(AddBadge, ITEM_LUCKY_DAY, LVar4)
-    Call(AddBadge, ITEM_PEEKABOO, LVar5)
+    Call(AddItem, ITEM_POWER_RUSH, LVar0)
+    Call(AddItem, ITEM_MEGA_RUSH, LVar1)
+    Call(AddItem, ITEM_CLOSE_CALL, LVar2)
+    Call(AddItem, ITEM_PRETTY_LUCKY, LVar3)
+    Call(AddItem, ITEM_LUCKY_DAY, LVar4)
+    Call(AddItem, ITEM_PEEKABOO, LVar5)
     Wait(5)
     Return
     End

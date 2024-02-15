@@ -913,7 +913,7 @@ MsgVoice MsgVoices[] = {
     [MSG_VOICE_BOWSER] {
         .voiceA = SOUND_MSG_VOICE_4A,
         .voiceB = SOUND_MSG_VOICE_4B,
-        .pitchShift = -50
+        .pitchShift = -500
     },
     [MSG_VOICE_STAR] {
         .voiceA = SOUND_MSG_VOICE_STAR,

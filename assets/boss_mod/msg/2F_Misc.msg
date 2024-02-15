@@ -36,3 +36,9 @@
 	[Style right]
 	This is Chikako.[Wait][End]
 }
+
+#message:2F:(Misc_BowserInteract) {
+	[Style right]
+	[Voice bowser]
+	Gwaah ha ha ha ha ha!!!!![BR][Wait][End]
+}

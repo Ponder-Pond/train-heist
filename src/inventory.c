@@ -118,6 +118,7 @@ void clear_player_data(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(playerData->equippedBadges); i++) {
+        playerData->equippedBadges[1] = ITEM_PEEKABOO;
         playerData->equippedBadges[i] = ITEM_NONE;
     }
 

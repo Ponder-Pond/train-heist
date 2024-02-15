@@ -6742,7 +6742,6 @@ segments:
     subsegments:
     - [auto, c, area]
     - [auto, c, actor/king_boo]
-    - [auto, c, actor/pink_shy_guy]
 
 #######################
 ### Battle Partners ###

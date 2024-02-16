@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Map name="ttr_01" author="unnamed" textures="ttr_tex">
+<Map name="ttr_01" author="ManaPesto" textures="ttr_tex">
 	<Editor>
-		<Camera pos="8.463257,116.468567,266.591217" pitch="9.000000" yaw="0.000000"/>
-		<Camera pos="-716.000000,65536.000000,-178.000000"/>
-		<Camera pos="65536.000000,0.000000,-178.000000"/>
-		<Camera pos="-716.000000,0.000000,65536.000000"/>
+		<Camera pos="2.593750,141.332596,225.864868" pitch="19.000006" yaw="333.799988"/>
+		<Camera pos="-102.063538,65536.000000,0.000000"/>
+		<Camera pos="65536.000000,0.000000,0.000000"/>
+		<Camera pos="0.000000,0.000000,65536.000000"/>
 	</Editor>
 	<ModelTree>
 		<Node name="Root" id="52">
@@ -128,14 +128,15 @@
 		</Node>
 	</ZoneTree>
 	<MarkerTree>
-		<Node name="Root" id="5">
-			<Node name="Entrances" id="2">
-				<Node name="Entry_Lounge" id="FFFFFFFF"/>
-				<Node name="Entry_Gift_Shop" id="0"/>
-				<Node name="Entry_Auditorium" id="1"/>
+		<Node name="Root" id="6">
+			<Node name="Entrances" id="3">
+				<Node name="Entry_Testing" id="FFFFFFFF"/>
+				<Node name="Entry_Lounge" id="0"/>
+				<Node name="Entry_Gift_Shop" id="1"/>
+				<Node name="Entry_Auditorium" id="2"/>
 			</Node>
-			<Node name="Entities" id="3"/>
-			<Node name="NPCs" id="4"/>
+			<Node name="Entities" id="4"/>
+			<Node name="NPCs" id="5"/>
 		</Node>
 	</MarkerTree>
 	<LightSets>
@@ -10159,25 +10160,28 @@
 	</Zones>
 	<Markers>
 		<Marker ver="4" type="Root">
-			<MapObject name="Root" id="5"/>
+			<MapObject name="Root" id="6"/>
 		</Marker>
 		<Marker ver="4" type="Group">
-			<MapObject name="NPCs" id="4"/>
+			<MapObject name="NPCs" id="5"/>
 		</Marker>
 		<Marker ver="4" type="Group">
-			<MapObject name="Entities" id="3"/>
+			<MapObject name="Entities" id="4"/>
 		</Marker>
 		<Marker ver="4" type="Group">
-			<MapObject name="Entrances" id="2"/>
+			<MapObject name="Entrances" id="3"/>
 		</Marker>
 		<Marker ver="4" type="Entry" pos="-195,0,-599" yaw="0.000000">
-			<MapObject name="Entry_Auditorium" id="1"/>
+			<MapObject name="Entry_Auditorium" id="2"/>
 		</Marker>
 		<Marker ver="4" type="Entry" pos="511,0,-180" yaw="0.000000">
-			<MapObject name="Entry_Gift_Shop" id="0"/>
+			<MapObject name="Entry_Gift_Shop" id="1"/>
 		</Marker>
 		<Marker ver="4" type="Entry" pos="-724,0,-180" yaw="0.000000">
-			<MapObject name="Entry_Lounge" id="FFFFFFFF"/>
+			<MapObject name="Entry_Lounge" id="0"/>
+		</Marker>
+		<Marker ver="4" type="Entry" pos="-111,0,0" yaw="0.000000">
+			<MapObject name="Entry_Testing" id="FFFFFFFF"/>
 		</Marker>
 	</Markers>
 	<ScriptData>

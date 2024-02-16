@@ -1337,9 +1337,10 @@ enum {
     tst_13_ENTRY_0   = 0,
     tst_20_ENTRY_0   = 0,
     // Boss Mod
-    ttr_01_ENTRY_Lounge      = 0,
-    ttr_01_ENTRY_Gift_Shop   = 1,
-    ttr_01_ENTRY_Auditorium  = 2,
+    ttr_01_ENTRY_Testing     = 0,
+    ttr_01_ENTRY_Lounge      = 1,
+    ttr_01_ENTRY_Gift_Shop   = 2,
+    ttr_01_ENTRY_Auditorium  = 3,
 };
 
 #endif

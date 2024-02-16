@@ -862,7 +862,7 @@ MapConfig mgm_maps[] = {
 /// Theater
 #include "area_ttr/ttr.h"
 MapConfig ttr_maps[] = {
-    { MAP(ttr_01) },
+    { MAP_WITH_INIT(ttr_01), .bgName = "None"},
 };
 
 /// Game Over

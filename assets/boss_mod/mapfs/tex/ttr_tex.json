@@ -1,372 +1,372 @@
 [
     {
-	    "name": "ttr_curtain.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_woodfloor.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	        },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_starcarpet.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_frametif.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_topcurtain.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "mirror",
-		    "vwrap": "clamp"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_wall.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_papers.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_crate1.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_crate2.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_jar.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_brick.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_carpet1.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_carpet2.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_pole.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_trim.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "mirror",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_starlight.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_postercar.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_postersewer.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_posterdk.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_postertennis.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_posterairship.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_tile.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_mariostatue1.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_mariostatue2.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_rail.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_phantotrim.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_cushion.png",
-	    "main": {
-		    "format": "IA-8",
-		    "hwrap": "mirror",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_couchwood.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_divider.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_port1.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_port2.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "mirror"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
-    },
-    {
-	    "name": "ttr_starcarpet2.png",
-	    "main": {
-		    "format": "IA-8",
-		    "hwrap": "mirror",
-		    "vwrap": "mirror"
-	    },
+        "name": "curtain",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
         "filter": true,
-	    "combine": "Multiply"
+        "combine": "Multiply"
     },
     {
-	    "name": "ttr_door.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
+        "name": "woodfloor",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
         "filter": true,
-	    "combine": "Multiply"
+        "combine": "Multiply"
     },
     {
-	    "name": "ttr_hedge.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
+        "name": "starcarpet",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
     },
     {
-	    "name": "ttr_postersmb1.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
+        "name": "frame",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
     },
     {
-	    "name": "ttr_postersmb3.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
+        "name": "topcurtai",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
     },
     {
-	    "name": "ttr_posterdk.png",
-	    "main": {
-		    "format": "CI-4",
-		    "hwrap": "repeat",
-		    "vwrap": "repeat"
-	    },
-	    "filter": true,
-	    "combine": "Multiply"
+        "name": "wall",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "papers",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "crate1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "crate2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "jar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "brick",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "carpet1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "carpet2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "pole",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "trim",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "starlight",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postercar",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postersewer",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "posterdk",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postertennis",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "posterairship",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "tile",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "mariostatue1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "mariostatue2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "rail",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "phantotrim",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "cushion",
+        "main": {
+            "format": "IA8",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "couchwood",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "divider",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "port1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "port2",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "starcarpet2",
+        "main": {
+            "format": "IA8",
+            "hwrap": "Mirror",
+            "vwrap": "Mirror"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "door",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "hedge",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postersmb1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postersmb3",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "postersmb1",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
     }
 ]

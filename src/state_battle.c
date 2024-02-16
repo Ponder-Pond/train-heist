@@ -70,13 +70,13 @@ void state_step_battle(void) {
         currentBattleSelection = UNPACK_BTL_AREA(gCurrentBattleID);
         currentBattleIndex = UNPACK_BTL_INDEX(gCurrentBattleID);
 
-        if (gGameStatusPtr->peachFlags & PEACH_FLAG_IS_PEACH ||
-            (currentBattleSelection == BTL_AREA_KKJ && currentBattleIndex == 0)) {
-            gGameStatusPtr->peachFlags |= PEACH_FLAG_IS_PEACH;
-            spr_init_sprites(PLAYER_SPRITES_PEACH_BATTLE);
-        } else {
+        // if (gGameStatusPtr->peachFlags & PEACH_FLAG_IS_PEACH ||
+        //     (currentBattleSelection == BTL_AREA_KKJ && currentBattleIndex == 0)) {
+        //     gGameStatusPtr->peachFlags |= PEACH_FLAG_IS_PEACH;
+        //     spr_init_sprites(PLAYER_SPRITES_PEACH_BATTLE);
+        // } else {
             spr_init_sprites(PLAYER_SPRITES_MARIO_BATTLE);
-        }
+        // }
 
         clear_model_data();
         clear_sprite_shading_data();

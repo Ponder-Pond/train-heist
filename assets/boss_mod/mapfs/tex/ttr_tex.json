@@ -40,7 +40,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "topcurtai",
+        "name": "topcurtain",
         "main": {
             "format": "CI4",
             "hwrap": "Mirror",

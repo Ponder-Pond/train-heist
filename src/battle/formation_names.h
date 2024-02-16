@@ -567,6 +567,6 @@ enum BattleNames {
     BTL_DIG_FORMATION_08       = 0x2708,
     BTL_DIG_FORMATION_09       = 0x2709,
     // New Battle Names
-    BTL_MOD_FORMATION_00,
-    BTL_MOD_FORMATION_01,
+    BTL_MOD_FORMATION_00       = 0x0000,
+    BTL_MOD_FORMATION_01       = 0x0001,
 };

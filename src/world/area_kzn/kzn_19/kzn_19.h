@@ -34,14 +34,14 @@ extern NpcGroupList N(BossNPCs);
 extern NpcGroupList N(EscapeNPCs);
 
 extern EvtScript N(EVS_TrySpawningStarCard);
-extern StaticAnimatorNode* N(AnimModel_MainHeadVine)[];
-extern StaticAnimatorNode* N(AnimModel_SideHeadVine)[];
-extern StaticAnimatorNode* N(AnimModel_ExtraVine)[];
+// extern StaticAnimatorNode* N(AnimModel_MainHeadVine)[];
+// extern StaticAnimatorNode* N(AnimModel_SideHeadVine)[];
+// extern StaticAnimatorNode* N(AnimModel_ExtraVine)[];
 
 extern NpcSettings N(NpcSettings_Kolorado);
 extern NpcSettings N(NpcSettings_StarSpirit);
-extern NpcSettings N(NpcSettings_LavaPiranhaHead);
+// extern NpcSettings N(NpcSettings_LavaPiranhaHead);
 
-extern API_CALLABLE(SetAnimatorFlags);
-extern API_CALLABLE(GetAnimatedPositionByTreeIndex);
-extern API_CALLABLE(GetAnimatedRotationByTreeIndex);
+// extern API_CALLABLE(SetAnimatorFlags);
+// extern API_CALLABLE(GetAnimatedPositionByTreeIndex);
+// extern API_CALLABLE(GetAnimatedRotationByTreeIndex);

@@ -38,12 +38,12 @@ jobs:
         run: ninja
       - name: Create patch file
         # flips works but returns a non-zero exit code if the rom shrunk
-        run: ./flips-linux ver/us/baserom.z64 ver/us/build/papermario.z64 papermario.bps || true
+        run: ./flips-linux ver/us/baserom.z64 ver/us/build/papermario.z64 paper-mario-boss-mod.bps || true
       - name: Upload patch as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: papermario.bps
-          path: papermario.bps
+          name: paper-mario-boss-mod.bps
+          path: paper-mario-boss-mod.bps
   prerelease:
     name: Prerelease
     runs-on: ubuntu-latest
@@ -53,15 +53,15 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: papermario.bps
-          path: papermario.bps
+          name: paper-mario-boss-mod.bps
+          path: paper-mario-boss-mod.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: Development build
-          files: papermario.bps
+          files: paper-mario-boss-mod.bps
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -71,10 +71,10 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: papermario.bps
-          path: papermario.bps
+          name: paper-mario-boss-mod.bps
+          path: paper-mario-boss-mod.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
-          files: papermario.bps
+          files: paper-mario-boss-mod.bps

@@ -5956,6 +5956,10 @@ segments:
     vram_class: battle_area
     subsegments:
     - [auto, c, area]
+    - [auto, c, actor/goomba]
+    - [auto, c, actor/koopa_troopa]
+    - [auto, c, actor/piranha_plant]
+    - [auto, c, actor/fake_bowser]
     - [auto, c, actor/king_boo]
 
 #######################

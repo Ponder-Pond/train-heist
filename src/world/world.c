@@ -859,16 +859,16 @@ MapConfig mgm_maps[] = {
     { MAP(mgm_03) },
 };
 
-/// Theater
-#include "area_ttr/ttr.h"
-MapConfig ttr_maps[] = {
-    { MAP_WITH_INIT(ttr_01), .bgName = "None"},
-};
-
 /// Game Over
 #include "area_gv/gv.h"
 MapConfig gv_maps[] = {
     { MAP(gv_01) },
+};
+
+/// Theater
+#include "area_ttr/ttr.h"
+MapConfig ttr_maps[] = {
+    { MAP(ttr_01), .bgName = "None"},
 };
 
 AreaConfig gAreas[] = {

@@ -23,6 +23,5 @@ enum {
 #define AF_TTR(index) AreaFlag(index)
 
 extern MapSettings ttr_01_settings;
-s32 ttr_01_map_init(void);
 
 #endif

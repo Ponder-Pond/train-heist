@@ -228,6 +228,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseEq(EVENT_DEATH)
             SetConst(LVar1, ANIM_BattleBowser_Hurt)
             ExecWait(N(EVS_Hit))
+            Wait(10)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_BattleBowser_Hurt)
             ExecWait(N(EVS_Death))
@@ -318,57 +319,22 @@ EvtScript N(EVS_Hit) = {
 EvtScript N(EVS_Death) = {
     Call(HideHealthBar, ACTOR_SELF)
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    IfNe(LVar1, -1)
-        Call(SetAnimation, ACTOR_SELF, LVar0, LVar1)
-        Wait(10)
-    EndIf
-    Call(GetDamageSource, LVar5)
-    Switch(LVar5)
-        CaseOrEq(DMG_SRC_NEXT_SLAP_LEFT)
-        CaseOrEq(DMG_SRC_NEXT_FAN_SMACK_LEFT)
-        CaseOrEq(DMG_SRC_LAST_SLAP_LEFT)
-        CaseOrEq(DMG_SRC_LAST_FAN_SMACK_LEFT)
-        CaseOrEq(DMG_SRC_NEXT_SLAP_RIGHT)
-        CaseOrEq(DMG_SRC_NEXT_FAN_SMACK_RIGHT)
-        CaseOrEq(DMG_SRC_LAST_SLAP_RIGHT)
-        CaseOrEq(DMG_SRC_LAST_FAN_SMACK_RIGHT)
-        CaseOrEq(DMG_SRC_SPIN_SMASH)
-        EndCaseGroup
-        CaseDefault
-            Set(LFlag0, FALSE)
-            Call(GetOriginalActorType, ACTOR_SELF, LVar1)
-            Switch(LVar1)
-                CaseOrEq(ACTOR_TYPE_BOB_OMB)
-                CaseOrEq(ACTOR_TYPE_BULLET_BILL)
-                CaseOrEq(ACTOR_TYPE_BOMBSHELL_BILL)
-                EndCaseGroup
-                CaseDefault
-            EndSwitch
-            IfNe(LVar2, EXEC_DEATH_NO_SPINNING)
-                Set(LVar2, 0)
-                Loop(24)
-                    Call(SetActorYaw, ACTOR_SELF, LVar2)
-                    Add(LVar2, 30)
-                    Wait(1)
-                EndLoop
-                Call(SetActorYaw, ACTOR_SELF, 0)
-            EndIf
-    EndSwitch
+    Set(LVar2, EXEC_DEATH_NO_SPINNING)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Set(LVar3, 1000)
+    Set(LVar4, 1000)
+    PlayEffect(EFFECT_SHAPE_SPELL, 2, LVar0, LVar1, LVar2, LVar3, LVar4, LVar5, 30, 0)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar1, 10)
     Add(LVar2, 10)
     PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_ACTOR_DEATH)
     Call(DropStarPoints, ACTOR_SELF)
-    Call(SetActorYaw, ACTOR_SELF, 0)
-    Set(LVar3, 0)
-    Loop(12)
-        Call(SetActorRotation, ACTOR_SELF, LVar3, 0, 0)
-        Add(LVar3, 8)
-        Wait(1)
-    EndLoop
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
+    Wait(30)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    ExecWait(EVS_ForceNextTarget)
+    // ExecWait(EVS_ForceNextTarget)
     Call(RemoveActor, ACTOR_SELF)
     Return
     End
@@ -664,12 +630,11 @@ EvtScript N(EVS_Attack_Jump) = {
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_PostJump)
     Wait(3)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
-    Wait(20)
+    Wait(15)
     Switch(LVarF)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
         CaseOrEq(HIT_RESULT_10)
-            // Wait(15)
             IfEq(LVarF, HIT_RESULT_10)
                 Return
             EndIf
@@ -751,7 +716,6 @@ EvtScript N(EVS_Attack_FireBall) = {
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_PostFireBreath)
             Wait(15)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
-            // Wait(15)
             IfEq(LVarF, HIT_RESULT_10)
                 Return
             EndIf

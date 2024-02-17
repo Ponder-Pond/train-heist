@@ -12108,6 +12108,14 @@ segments:
     subsegments:
     - [auto, c, mgm_03_0_header]
     - [auto, c, mgm_03_1_main]
+  - name: gv_01
+    dir: world/area_gv/gv_01
+    type: code
+    start: 0xE1E460
+    vram_class: map
+    subsegments:
+    - [auto, c, gv_01_0_header]
+    - [auto, c, gv_01_1_main]
   - name: ttr_01
     dir: world/area_ttr/ttr_01
     type: code
@@ -12117,14 +12125,6 @@ segments:
     - [auto, c, ttr_01_0_header]
     - [auto, c, ttr_01_1_main]
     - [auto, c, ttr_01_2_tex_panners]
-  - name: gv_01
-    dir: world/area_gv/gv_01
-    type: code
-    start: 0xE1E460
-    vram_class: map
-    subsegments:
-    - [auto, c, gv_01_0_header]
-    - [auto, c, gv_01_1_main]
   - name: heaps2
     type: code
     start: 0xE20110

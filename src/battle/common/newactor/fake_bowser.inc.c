@@ -1,6 +1,7 @@
 #include "battle/battle.h"
 #include "script_api/battle.h"
 #include "sprite/npc/BattleBowser.h"
+#include "dx/debug_menu.h"
 
 #define NAMESPACE A(fake_bowser)
 
@@ -556,6 +557,11 @@ EvtScript N(EVS_UseAttack) = {
             Set(LVar0, LBL_FIRE_BALL_ATTACK)
     EndSwitch
     // Set(LVar0, LBL_JUMP_ATTACK)
+    IfEq(LVar0, LBL_JUMP_ATTACK)
+        DebugPrintf("Attack: %s\n", "Jump")
+    Else
+        DebugPrintf("Attack: %s\n", "Fire Ball")
+    EndIf
     Switch(LVar0)
         CaseEq(LBL_JUMP_ATTACK)
             ExecWait(N(EVS_Attack_Jump))
@@ -640,9 +646,9 @@ EvtScript N(EVS_Attack_Jump) = {
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Land)
-    Call(SetDamageSource, DMG_SRC_CRUSH)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarF, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_TRIGGER_EVENTS)
-    Call(LandJump, ACTOR_SELF)
+    // Call(SetDamageSource, DMG_SRC_CRUSH)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVarF, 0, 0, 0, DMG_JUMP, BS_FLAGS1_TRIGGER_EVENTS)
+    // Call(LandJump, ACTOR_SELF)
     Call(N(StartRumbleWithParams), 80, 14)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar0, 40)
@@ -663,7 +669,7 @@ EvtScript N(EVS_Attack_Jump) = {
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
         CaseOrEq(HIT_RESULT_10)
-            Wait(30)
+            // Wait(15)
             IfEq(LVarF, HIT_RESULT_10)
                 Return
             EndIf
@@ -722,7 +728,7 @@ EvtScript N(EVS_Attack_FireBall) = {
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_PostFireBreath)
             Wait(15)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
-            Wait(30)
+            // Wait(15)
             // ExecWait(N(EVS_AttackMissed))
             IfEq(LVarA, HIT_RESULT_LUCKY)
                 Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
@@ -745,7 +751,7 @@ EvtScript N(EVS_Attack_FireBall) = {
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_PostFireBreath)
             Wait(15)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
-            Wait(30)
+            // Wait(15)
             IfEq(LVarF, HIT_RESULT_10)
                 Return
             EndIf

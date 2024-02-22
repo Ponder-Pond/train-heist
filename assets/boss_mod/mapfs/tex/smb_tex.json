@@ -1,6 +1,6 @@
 [
     {
-        "name": "l",
+        "name": "lava",
         "main": {
             "format": "RGBA16",
             "hwrap": "Repeat",
@@ -15,7 +15,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "lavaf",
+        "name": "lavaflow",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -25,7 +25,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlebr",
+        "name": "castlebrick",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -35,7 +35,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlepatt",
+        "name": "castlepattern",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -45,7 +45,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlet",
+        "name": "castletile",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -55,7 +55,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlet",
+        "name": "castletrim",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -65,7 +65,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlew",
+        "name": "castlewall",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -75,7 +75,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "castlefl",
+        "name": "castlefloor",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -85,7 +85,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "bowsersta",
+        "name": "bowserstatue",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -95,7 +95,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "pil",
+        "name": "pillar",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -105,7 +105,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "lavaf",
+        "name": "lavaflow",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -115,7 +115,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "pil",
+        "name": "pillar",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",
@@ -125,7 +125,7 @@
         "combine": "Multiply"
     },
     {
-        "name": "lavaw",
+        "name": "lavawave",
         "main": {
             "format": "CI4",
             "hwrap": "Repeat",

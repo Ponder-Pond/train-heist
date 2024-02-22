@@ -9,16 +9,16 @@
 EvtScript N(EVS_PreBattle) = {
     Call(SetSpriteShading, SHADING_NONE)
     Call(SetCamBGColor, CAM_BATTLE, 0, 0, 0)
-    Set(LVar0, MODEL_smb_bt01_LavaFlow)
-    Set(LVar1, TEX_PANNER_1)
-    Set(LVar2, -160)
-    Set(LVar3, 0)
-    Exec(N(EVS_TexturePanMain))
-    Set(LVar0, MODEL_smb_bt01_Lava)
-    Set(LVar1, TEX_PANNER_2)
-    Set(LVar2, 0)
-    Set(LVar3, 140)
-    Exec(N(EVS_TexturePanMain))
+    // Set(LVar0, 0x11)
+    // Set(LVar1, TEX_PANNER_1)
+    // Set(LVar2, -160)
+    // Set(LVar3, 0)
+    // Exec(N(EVS_TexturePanMain))
+    // Set(LVar0, 0xF)
+    // Set(LVar1, TEX_PANNER_2)
+    // Set(LVar2, 0)
+    // Set(LVar3, 140)
+    // Exec(N(EVS_TexturePanMain))
     Return
     End
 };

@@ -871,6 +871,11 @@ MapConfig ttr_maps[] = {
     { MAP(ttr_01), .bgName = "None"},
 };
 
+// #include "area_smb/smb.h"
+// MapConfig smb_maps[] = {
+//     { MAP_WITH_INIT(smb_bt01), .bgName = "None"},
+// };
+
 AreaConfig gAreas[] = {
     AREA(kmr, "クリむら"),  // kuri mura [kuribou village, Goomba Village]
     AREA(mac, "まち"),  // machi [town, Toad Town]
@@ -899,6 +904,7 @@ AreaConfig gAreas[] = {
     AREA(end, "エンディング"),  // endingu [Ending]
     AREA(mgm, "ミニゲーム"),  // minige-mu [Minigames]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
+    // AREA(smb, "テストマップ"),
     AREA(tst, "テストマップ"),  // tesuto mappu [Test map]
     AREA(ttr, "Theater"),  // [Theater]
     {},

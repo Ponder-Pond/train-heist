@@ -60,6 +60,7 @@
 // };
 
 enum BattleAreaIDs {
+    BTL_AREA_SMB,
     BTL_AREA_MOD,
 };
 

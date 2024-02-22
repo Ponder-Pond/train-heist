@@ -1,0 +1,137 @@
+[
+    {
+        "name": "l",
+        "main": {
+            "format": "RGBA16",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "aux": {
+            "format": "Shared",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavaf",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlebr",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlepatt",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlet",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlet",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlew",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "castlefl",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "bowsersta",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "pil",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavaf",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "pil",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "lavaw",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    }
+]

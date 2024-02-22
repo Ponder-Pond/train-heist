@@ -1,3 +1,40 @@
+# Boss Mod
+# Theater
+- smb_bt01_hit
+- smb_bt01_shape
+- ttr_01_shape
+- ttr_01_hit
+- ttr_tex
+# Super Mario Bros
+- smb_bt01_shape
+- smb_bt01_hit
+- smb_tex
+# Subcon
+
+# Construction Site
+
+# Demolition Site
+
+# The Mansion
+- lmn_bt00_shape
+- lmn_bt00_hit
+- lmn_tex
+# Space Zone
+- stz_bt00_shape
+- stz_bt00_hit
+- stz_tex
+# Greenhouse
+
+# Mushroom Kingdom General
+
+# Sewers
+
+# Other
+- mod_bt00_shape
+- mod_bt00_hit
+- aaa_tex
+
+# Vanilla
 - dro_01_shape
 - dro_01_hit
 - dro_02_shape
@@ -976,20 +1013,6 @@
 - kkj_bt01_hit
 - kkj_bt02_shape
 - kkj_bt02_hit
-# Boss Mod
-# Theater
-- ttr_01_shape
-- ttr_01_hit
-- ttr_tex
-- mod_bt00_shape
-- mod_bt00_hit
-- lmn_bt00_shape
-- lmn_bt00_hit
-- stz_bt00_shape
-- stz_bt00_hit
-- lmn_tex
-- stz_tex
-- aaa_tex
 - mac_tex
 - tik_tex
 - kgr_tex

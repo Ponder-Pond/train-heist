@@ -5,7 +5,7 @@
 extern ActorBlueprint A(goomba);
 extern ActorBlueprint A(koopa_troopa);
 extern ActorBlueprint A(piranha_plant);
-extern ActorBlueprint A(fake_bowser);
+extern ActorBlueprint A(bowsers_brother);
 extern ActorBlueprint A(king_boo);
 
 extern Stage A(mod_00);
@@ -23,7 +23,7 @@ Formation A(Formation_02) = {
 };
 
 Formation A(Formation_03) = {
-    ACTOR_BY_IDX(A(fake_bowser), BTL_POS_GROUND_C, 10),
+    ACTOR_BY_IDX(A(bowsers_brother), BTL_POS_GROUND_C, 10),
 };
 
 Vec3i A(KingBooPos) = { 70, 50, 5 };

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="smb_bt01" author="unnamed" textures="smb_tex">
 	<Editor>
-		<Camera pos="-117.823456,27.883327,-113.030014" pitch="22.383474" yaw="107.680038"/>
+		<Camera pos="-220.941086,25.845663,17.615831" pitch="5.599960" yaw="34.720097"/>
 		<Camera pos="198.491776,65536.000000,22.839003"/>
 		<Camera pos="65536.000000,-24.109179,28.087612"/>
 		<Camera pos="131.789383,25.969406,65536.000000"/>
@@ -154,7 +154,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -200,7 +200,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -268,7 +268,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -295,8 +295,8 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -332,7 +332,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -376,7 +376,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -444,7 +444,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
@@ -801,7 +801,7 @@
 				<Property v="5D,1,C2340000"/>
 				<Property v="5D,1,C1200000"/>
 				<Property v="5D,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="2">
@@ -1085,7 +1085,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1117,7 +1117,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1147,7 +1147,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1184,7 +1184,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1222,7 +1222,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1260,7 +1260,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1288,7 +1288,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1316,7 +1316,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1348,7 +1348,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1390,7 +1390,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1510,7 +1510,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,4"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1554,7 +1554,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1666,7 +1666,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1722,7 +1722,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -1884,7 +1884,7 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
-				<Property v="5F,0,0"/>
+				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>
 	</Models>

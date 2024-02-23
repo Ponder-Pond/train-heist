@@ -3,7 +3,7 @@
 #include "sprite/npc/BattleBowser.h"
 #include "dx/debug_menu.h"
 
-#define NAMESPACE A(fake_bowser)
+#define NAMESPACE A(bowsers_brother)
 
 extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
@@ -122,8 +122,8 @@ ActorPartBlueprint N(ActorParts)[] = {
 
 ActorBlueprint NAMESPACE = {
     .flags = 0,
-    .type = ACTOR_TYPE_HALLWAY_BOWSER,
-    .level = ACTOR_LEVEL_HALLWAY_BOWSER,
+    .type = ACTOR_TYPE_BOWSERS_BROTHER,
+    .level = ACTOR_LEVEL_BOWSERS_BROTHER,
     .maxHP = 10,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
@@ -151,7 +151,6 @@ EvtScript N(EVS_Init) = {
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
-    Call(ModifyActorDecoration, ACTOR_SELF, PRT_MAIN, 1, 100, 0, 0, 0)
     Return
     End
 };
@@ -181,8 +180,8 @@ EvtScript N(EVS_PlayFootstepSounds) = {
     Call(GetAnimation, ACTOR_SELF, PRT_MAIN, LVar7)
     IfNe(LVar7, ANIM_BattleBowser_Walk)
         IfEq(LVar3, ANIM_BattleBowser_Walk)
-            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEAVY_NPC_STEP_B)
-            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEAVY_NPC_STEP_C)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_GOOMBA_STEP)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_GOOMBA_STEP)
         EndIf
         Set(LVar3, LVar7)
         Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -197,8 +196,8 @@ EvtScript N(EVS_PlayFootstepSounds) = {
         EndIf
     EndIf
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEAVY_NPC_STEP_B)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEAVY_NPC_STEP_C)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_GOOMBA_STEP)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_GOOMBA_STEP)
     Set(LVar3, LVar7)
     Return
     End
@@ -266,7 +265,7 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_BattleBowser_Hurt)
             ExecWait(N(EVS_ShockReaction))
-            Call(SetActorSpeed, ACTOR_SELF, Float(8.0))
+            Call(SetActorSpeed, ACTOR_SELF, Float(6.0))
             Set(LVar1, ANIM_BattleBowser_Walk)
             ExecWait(N(EVS_ReturnHome))
         CaseEq(EVENT_SHOCK_DEATH)
@@ -559,7 +558,7 @@ EvtScript N(EVS_Attack_Jump) = {
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Walk)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(AddGoalPos, ACTOR_SELF, 60, 0, 0)
-    Call(SetActorSpeed, ACTOR_SELF, Float(3.0))
+    Call(SetActorSpeed, ACTOR_SELF, Float(4.5))
     Call(RunToGoal, ACTOR_SELF, 0, FALSE)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BattleBowser_Idle)
     Wait(15)
@@ -597,7 +596,7 @@ EvtScript N(EVS_Attack_Jump) = {
             IfEq(LVarA, HIT_RESULT_LUCKY)
                 Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
             EndIf
-            Call(SetActorSpeed, ACTOR_SELF, Float(8.0))
+            Call(SetActorSpeed, ACTOR_SELF, Float(6.0))
             Set(LVar1, ANIM_BattleBowser_Walk)
             ExecWait(N(EVS_ReturnHome))
             Return
@@ -639,7 +638,7 @@ EvtScript N(EVS_Attack_Jump) = {
                 Return
             EndIf
             Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-            Call(SetActorSpeed, ACTOR_SELF, Float(8.0))
+            Call(SetActorSpeed, ACTOR_SELF, Float(6.0))
             Set(LVar1, ANIM_BattleBowser_Walk)
             ExecWait(N(EVS_ReturnHome))
         EndCaseGroup

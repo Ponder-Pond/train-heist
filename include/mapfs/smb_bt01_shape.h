@@ -1,5 +1,4 @@
-#define MODEL_smb_bt01_Root 0x1A
-#define MODEL_smb_bt01_g1 0x19
+#define MODEL_smb_bt01_Root 0x19
 #define MODEL_smb_bt01_Pillar1 0x0
 #define MODEL_smb_bt01_Pillar2 0x1
 #define MODEL_smb_bt01_Pillar3 0x2

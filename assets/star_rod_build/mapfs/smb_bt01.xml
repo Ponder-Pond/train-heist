@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map name="smb_bt01" author="unnamed" textures="smb_tex">
 	<Editor>
-		<Camera pos="-220.941086,25.845663,17.615831" pitch="5.599960" yaw="34.720097"/>
+		<Camera pos="230.528152,-52.817257,31.250298" pitch="-32.319988" yaw="265.281982"/>
 		<Camera pos="198.491776,65536.000000,22.839003"/>
 		<Camera pos="65536.000000,-24.109179,28.087612"/>
 		<Camera pos="131.789383,25.969406,65536.000000"/>
 	</Editor>
 	<ModelTree>
-		<Node name="Root" id="1A">
-			<Node name="g1" id="19">
-				<Node name="Pillar1" id="0"/>
-				<Node name="Pillar2" id="1"/>
-				<Node name="Pillar3" id="2"/>
-				<Node name="Pillar4" id="3"/>
-				<Node name="Pillar5" id="4"/>
-				<Node name="BackWall" id="5"/>
-				<Node name="BrickFloorBack" id="6"/>
-				<Node name="Rails" id="7"/>
-				<Node name="CeilingBricks" id="8"/>
-				<Node name="StageWallFront" id="9"/>
-				<Node name="StageWallSide" id="A"/>
-				<Node name="StageFloor" id="B"/>
-				<Node name="StageFloorMain" id="C"/>
-				<Node name="StageFloorWall" id="D"/>
-				<Node name="PlatformBottomLava" id="E"/>
-				<Node name="Lava" id="F"/>
-				<Node name="LavaShade" id="10"/>
-				<Node name="LavaFlow" id="11"/>
-				<Node name="BricksFloating" id="12"/>
-				<Node name="Wall1" id="13"/>
-				<Node name="Path" id="14"/>
-				<Node name="BowserStatueBust" id="15"/>
-				<Node name="BowserStatuePodium" id="16"/>
-				<Node name="BowserStatuePillar" id="17"/>
-				<Node name="BowserStatueBase" id="18"/>
-			</Node>
+		<Node name="Root" id="19">
+			<Node name="Pillar1" id="0"/>
+			<Node name="Pillar2" id="1"/>
+			<Node name="Pillar3" id="2"/>
+			<Node name="Pillar4" id="3"/>
+			<Node name="Pillar5" id="4"/>
+			<Node name="BackWall" id="5"/>
+			<Node name="BrickFloorBack" id="6"/>
+			<Node name="Rails" id="7"/>
+			<Node name="CeilingBricks" id="8"/>
+			<Node name="StageWallFront" id="9"/>
+			<Node name="StageWallSide" id="A"/>
+			<Node name="StageFloor" id="B"/>
+			<Node name="StageFloorMain" id="C"/>
+			<Node name="StageFloorWall" id="D"/>
+			<Node name="PlatformBottomLava" id="E"/>
+			<Node name="Lava" id="F"/>
+			<Node name="LavaShade" id="10"/>
+			<Node name="LavaFlow" id="11"/>
+			<Node name="BricksFloating" id="12"/>
+			<Node name="Wall1" id="13"/>
+			<Node name="Path" id="14"/>
+			<Node name="BowserStatueBust" id="15"/>
+			<Node name="BowserStatuePodium" id="16"/>
+			<Node name="BowserStatuePillar" id="17"/>
+			<Node name="BowserStatueBase" id="18"/>
 		</Node>
 	</ModelTree>
 	<ColliderTree>
@@ -76,17 +74,9 @@
 	</LightSets>
 	<Models>
 		<Model ver="2" type="ROOT" lightset="1">
-			<MapObject name="Root" id="1A" dumped="true" fileOffset="35E0"/>
+			<MapObject name="Root" id="19" dumped="true" fileOffset="35E0"/>
 			<BoundingBox empty="false" min="-272,-50,-380" max="272,175,63"/>
 			<PropertyList>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="GROUP" lightset="0">
-			<MapObject name="g1" id="19" dumped="true" fileOffset="2ED4"/>
-			<BoundingBox empty="false" min="-272,-50,-380" max="272,175,63"/>
-			<PropertyList>
-				<Property v="60,0,1"/>
-				<Property v="60,0,4"/>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
@@ -789,7 +779,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,11"/>
+				<Property v="5C,0,16"/>
 				<Property v="5D,0,0"/>
 				<Property v="5D,1,43C80000"/>
 				<Property v="5D,1,41A00000"/>
@@ -1084,7 +1074,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
+				<Property v="5C,0,11"/>
 				<Property v="5F,0,F"/>
 			</PropertyList>
 		</Model>

@@ -4,7 +4,7 @@ extern ActorBlueprint A(green_ninja_koopa);
 extern ActorBlueprint A(yellow_ninja_koopa);
 extern ActorBlueprint A(black_ninja_koopa);
 extern ActorBlueprint A(red_ninja_koopa);
-extern ActorBlueprint A(fake_bowser);
+extern ActorBlueprint A(false_bowser);
 
 extern Stage A(trd_00);
 extern Stage A(trd_01);
@@ -24,7 +24,7 @@ Formation A(Formation_00) = {
     ACTOR_BY_IDX(A(yellow_ninja_koopa), BTL_POS_GROUND_A, 9),
     ACTOR_BY_IDX(A(black_ninja_koopa), BTL_POS_GROUND_A, 8),
     ACTOR_BY_IDX(A(red_ninja_koopa), BTL_POS_GROUND_A, 7),
-    ACTOR_BY_IDX(A(fake_bowser), BTL_POS_GROUND_D, 6),
+    ACTOR_BY_IDX(A(false_bowser), BTL_POS_GROUND_D, 6),
 };
 
 BattleList A(Formations) = {

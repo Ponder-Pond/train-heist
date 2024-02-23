@@ -2334,10 +2334,10 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0
-- BowsersBrother:
+- FalseBowser:
     level: 10
-    nameMsg: MSG_Misc_BowsersBrother
-    tattleMsg: MSG_Misc_BowsersBrother
+    nameMsg: MSG_Misc_FalseBowser
+    tattleMsg: MSG_Misc_FalseBowserTattle # TODO
     walkSound: [ SOUND_NONE, SOUND_NONE ]
     flySound: [ SOUND_NONE, SOUND_NONE ]
     jumpSound: SOUND_LARGE_ACTOR_JUMP

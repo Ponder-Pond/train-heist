@@ -10,11 +10,11 @@
 	Increases maximum BP by 3.[End]
 }
 
-#message:2F:(Misc_BowsersBrother) {
+#message:2F:(Misc_FalseBowser) {
 	Bowser?[End]
 }
 
-#message:2F:(Misc_BowsersBrotherTattle) {
+#message:2F:(Misc_FalseBowserTattle) {
 	[Style right]
 	This is Bowser?[Wait][End]
 }

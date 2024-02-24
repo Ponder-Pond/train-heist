@@ -12028,38 +12028,47 @@ segments:
     - [auto, c, omo_17_3_train]
     - [auto, c, omo_17_4_npc]
     - [auto, c, omo_17_5_entity]
-  - name: end_00
-    dir: world/area_end/end_00
+  - name: ttr_01
+    dir: world/area_ttr/ttr_01
     type: code
     start: 0xDF6A00
     vram_class: map
     subsegments:
-    - [auto, c, end_00_0_header]
-    - [auto, c, end_00_1_main]
-    - [auto, c, end_00_2_credits]
-    - [auto, c, end_00_3_parade_setup]
-    - [auto, c, end_00_4_allies]
-    - [auto, c, end_00_5_koopas]
-    - [auto, c, end_00_6_caravan]
-    - [auto, c, end_00_7_boos]
-    - [auto, c, end_00_8_yoshis]
-    - [auto, c, end_00_9_huff_n_puff]
-    - [auto, c, end_00_A_crystal_king]
-    - [auto, c, end_00_B_bowser]
-  - name: end_01
-    dir: world/area_end/end_01
-    type: code
-    start: 0xE05360
-    vram_class: map
-    subsegments:
-    - [auto, c, end_01_0_header]
-    - [auto, c, end_01_1_main]
-    - [auto, c, end_01_2_credits]
-    - [auto, c, end_01_3_parade_setup]
-    - [auto, c, end_01_4_opera_float]
-    - [auto, c, end_01_5_flower_float]
-    - [auto, c, end_01_6_shyguy_float]
-    - [auto, c, end_01_7_peach_float]
+    - [auto, c, ttr_01_0_header]
+    - [auto, c, ttr_01_1_main]
+    - [auto, c, ttr_01_2_tex_panners]
+  # - name: end_00
+  #   dir: world/area_end/end_00
+  #   type: code
+  #   start: 0xDF6A00
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, c, end_00_0_header]
+  #   - [auto, c, end_00_1_main]
+  #   - [auto, c, end_00_2_credits]
+  #   - [auto, c, end_00_3_parade_setup]
+  #   - [auto, c, end_00_4_allies]
+  #   - [auto, c, end_00_5_koopas]
+  #   - [auto, c, end_00_6_caravan]
+  #   - [auto, c, end_00_7_boos]
+  #   - [auto, c, end_00_8_yoshis]
+  #   - [auto, c, end_00_9_huff_n_puff]
+  #   - [auto, c, end_00_A_crystal_king]
+  #   - [auto, c, end_00_B_bowser]
+  # - name: end_01
+  #   dir: world/area_end/end_01
+  #   type: code
+  #   start: 0xE05360
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, c, end_01_0_header]
+  #   - [auto, c, end_01_1_main]
+  #   - [auto, c, end_01_2_credits]
+  #   - [auto, c, end_01_3_parade_setup]
+  #   - [auto, c, end_01_4_opera_float]
+  #   - [auto, c, end_01_5_flower_float]
+  #   - [auto, c, end_01_6_shyguy_float]
+  #   - [auto, c, end_01_7_peach_float]
   - name: mgm_00
     dir: world/area_mgm/mgm_00
     type: code
@@ -12127,15 +12136,6 @@ segments:
     subsegments:
     - [auto, c, gv_01_0_header]
     - [auto, c, gv_01_1_main]
-  - name: ttr_01
-    dir: world/area_ttr/ttr_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, c, ttr_01_0_header]
-    - [auto, c, ttr_01_1_main]
-    - [auto, c, ttr_01_2_tex_panners]
   - name: heaps2
     type: code
     start: 0xE20110

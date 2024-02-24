@@ -1,7 +1,5 @@
 # Boss Mod
 # Theater
-- smb_bt01_hit
-- smb_bt01_shape
 - ttr_01_shape
 - ttr_01_hit
 - ttr_tex
@@ -819,10 +817,10 @@
 - omo_16_hit
 - omo_17_shape
 - omo_17_hit
-- end_00_shape
-- end_00_hit
-- end_01_shape
-- end_01_hit
+# - end_00_shape
+# - end_00_hit
+# - end_01_shape
+# - end_01_hit
 - mgm_00_shape
 - mgm_00_hit
 - mgm_01_shape

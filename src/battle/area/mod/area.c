@@ -1,6 +1,6 @@
 #include "area.h"
 
-#include "battle/common/stage/area_mod/mod_00.inc.c"
+#include "battle/common/newstage/area_mod/mod_00.inc.c"
 
 extern ActorBlueprint A(goomba);
 extern ActorBlueprint A(koopa_troopa);

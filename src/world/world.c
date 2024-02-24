@@ -844,11 +844,11 @@ MapConfig tst_maps[] = {
 };
 
 /// Credits
-#include "area_end/end.h"
-MapConfig end_maps[] = {
-    { MAP_WITH_INIT(end_00) },
-    { MAP_WITH_INIT(end_01) },
-};
+// #include "area_end/end.h"
+// MapConfig end_maps[] = {
+//     { MAP_WITH_INIT(end_00) },
+//     { MAP_WITH_INIT(end_01) },
+// };
 
 /// Toad Town Playroom
 #include "area_mgm/mgm.h"
@@ -868,12 +868,12 @@ MapConfig gv_maps[] = {
 /// Theater
 #include "area_ttr/ttr.h"
 MapConfig ttr_maps[] = {
-    { MAP(ttr_01), .bgName = "None"},
+    { MAP(ttr_01) },
 };
 
 // #include "area_smb/smb.h"
 // MapConfig smb_maps[] = {
-//     { MAP_WITH_INIT(smb_bt01), .bgName = "None"},
+//     { MAP(smb_bt01) },
 // };
 
 AreaConfig gAreas[] = {
@@ -901,7 +901,7 @@ AreaConfig gAreas[] = {
     AREA(pra, "パラレルきゅうでん"),  // parareru kyuuden [parallel palace, Crystal Palace]
     AREA(kpa, "クッパ城"),  // kuppa shiro [koopa's castle, Bowser's Castle]
     AREA(osr, "きのこ城そと"),  // kinoko shiro soto [outside mushroom castle, Outside Peach's Castle]
-    AREA(end, "エンディング"),  // endingu [Ending]
+    // AREA(end, "エンディング"),  // endingu [Ending]
     AREA(mgm, "ミニゲーム"),  // minige-mu [Minigames]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     // AREA(smb, "テストマップ"),

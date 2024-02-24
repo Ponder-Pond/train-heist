@@ -250,5 +250,7 @@ enum StageNames {
     BTL_DIG_STAGE_04           = 0x04,
     // New Stage Names
     BTL_SMB_STAGE_00           = 0x00,
+    BTL_SMB_STAGE_01           = 0x01,
+    BTL_SMB_STAGE_02           = 0x02,
     BTL_MOD_STAGE_00           = 0x00,
 };

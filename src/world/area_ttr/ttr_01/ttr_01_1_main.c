@@ -1,7 +1,5 @@
 #include "ttr_01.h"
 
-extern EvtScript N(EVS_Main);
-
 EvtScript N(EVS_Main) = {
     Set(GB_WorldLocation, LOCATION_THEATER)
     Call(SetSpriteShading, SHADING_NONE)

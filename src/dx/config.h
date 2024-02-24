@@ -29,10 +29,10 @@
 #define DX_SKIP_DEMO 1
 
 /// Map to load when starting a new game.
-#define NEW_GAME_MAP_ID "tst_13"
+#define NEW_GAME_MAP_ID "ttr_01"
 
 /// Entry to use when starting a new game.
-#define NEW_GAME_ENTRY_ID tst_13_ENTRY_0
+#define NEW_GAME_ENTRY_ID ttr_01_ENTRY_Testing
 
 /// Story progress when starting a new game.
 #define NEW_GAME_STORY_PROGRESS STORY_CH1_MADE_FIRST_BRIDGE

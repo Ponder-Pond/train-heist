@@ -17,7 +17,7 @@
 
 /// Quick launch into this battle.
 /// Comment out to disable,
-// #define DX_QUICK_LAUNCH_BATTLE BTL_SMB_FORMATION_03, BTL_SMB_STAGE_00
+#define DX_QUICK_LAUNCH_BATTLE BTL_SMB_FORMATION_00, BTL_SMB_STAGE_00
 
 /// Skips logos (Nintendo, Intelligent Systems, etc.).
 #define DX_SKIP_LOGOS 1

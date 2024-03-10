@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="2" paletteGroups="1">
 	<PaletteList>
-		<Palette id="0" name="Default" src="Default.png"/>
-		<Palette id="1" name="FirePalette0" src="FirePalette0.png"/>
-		<Palette id="2" name="FirePalette1" src="FirePalette1.png"/>
-		<Palette id="3" name="FirePalette2" src="FirePalette2.png"/>
-		<Palette id="4" name="FirePalette3" src="FirePalette3.png"/>
-		<Palette id="5" name="FirePalette4" src="FirePalette4.png"/>
-		<Palette id="6" name="Boo" src="Boo.png"/>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="FirePalette0.png"/>
+		<Palette id="2" src="FirePalette1.png"/>
+		<Palette id="3" src="FirePalette2.png"/>
+		<Palette id="4" src="FirePalette3.png"/>
+		<Palette id="5" src="FirePalette4.png"/>
+		<Palette id="6" src="Boo.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="Idle1" palette="0" src="Idle1.png"/>

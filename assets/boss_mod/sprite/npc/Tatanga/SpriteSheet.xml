@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SpriteSheet maxComponents="1" paletteGroups="2">
 	<PaletteList>
-		<Palette id="0" name="Default" src="PaletteTatangaShip.png"/>
-		<Palette id="1" name="TatangaBody" src="PaletteTatangaBody.png"/>
-		<Palette id="2" name="Smoke" src="PaletteSmoke.png"/>
-		<Palette id="3" name="Biff" src="PaletteBiff.png"/>
-		<Palette id="4" name="Energy" src="PaletteEnergy.png"/>
-		<Palette id="5" name="Chikako" src="PaletteChikako.png"/>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Body.png"/>
+		<Palette id="2" src="Smoke.png"/>
+		<Palette id="3" src="Biff.png"/>
+		<Palette id="4" src="Energy.png"/>
+		<Palette id="5" src="Chikako.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="BodyIdle1" palette="1" src="BodyIdle1.png"/>

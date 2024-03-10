@@ -1,6 +1,7 @@
 #include "battle/battle.h"
 #include "script_api/battle.h"
 #include "sprite/npc/KingBoo.h"
+#include "dx/debug_menu.h"
 
 #define NAMESPACE A(king_boo)
 
@@ -38,13 +39,12 @@ enum N(ActorPartIDs) {
 };
 
 enum N(ActorVars) {
-    AVAR_Flags                  = 0,
-    AVAR_Phase                  = 1,
-    AVAR_Clone1Exists           = 2,
-    AVAR_Clone2Exists           = 3,
-    AVAR_TurnsUntilClones       = 4,
-    AVAR_Clone1_ID              = 5,
-    AVAR_Clone2_ID              = 6,
+    AVAR_Phase                  = 0,
+    AVAR_Clone1Exists           = 1,
+    AVAR_Clone2Exists           = 2,
+    AVAR_TurnsUntilClones       = 3,
+    AVAR_Clone1_ID              = 4,
+    AVAR_Clone2_ID              = 5,
 };
 
 enum N(ActorValues) {
@@ -203,7 +203,6 @@ EvtScript N(EVS_Init) = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
-    Call(SetActorVar, ACTOR_SELF, AVAR_Flags, 0)
 	Call(SetActorVar, ACTOR_SELF, AVAR_Phase, 0)
 	Call(SetActorVar, ACTOR_SELF, AVAR_Clone1Exists, FALSE)
 	Call(SetActorVar, ACTOR_SELF, AVAR_Clone2Exists, FALSE)
@@ -230,7 +229,6 @@ EvtScript N(EVS_HandleEvent) = {
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
         CaseOrEq(EVENT_HIT_COMBO)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_Flags, LVar0)
 			Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
 			Call(ActorExists, LVar0, LVar1)
 			IfEq(LVar1, TRUE)
@@ -260,9 +258,7 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_KingBoo_Hurt)
             ExecWait(EVS_Enemy_Hit)
-			ExecWait(N(EVS_OnHit))
         CaseOrEq(EVENT_HIT)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_Flags, LVar0)
 			Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
 			Call(ActorExists, LVar0, LVar1)
 			IfEq(LVar1, TRUE)
@@ -295,7 +291,6 @@ EvtScript N(EVS_HandleEvent) = {
 			ExecWait(N(EVS_OnHit))
         EndCaseGroup
         CaseEq(EVENT_BURN_HIT)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_Flags, LVar0)
 			Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
 			Call(ActorExists, LVar0, LVar1)
 			IfEq(LVar1, TRUE)
@@ -327,7 +322,6 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_BurnHit)
 			ExecWait(N(EVS_OnHit))
         CaseEq(EVENT_BURN_DEATH)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_Flags, LVar0)
 			Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
 			Call(ActorExists, LVar0, LVar1)
 			IfEq(LVar1, TRUE)
@@ -370,7 +364,6 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_NoDamageHit)
         EndCaseGroup
         CaseEq(EVENT_DEATH)
-            Call(SetActorVar, ACTOR_ENEMY0, AVAR_Flags, LVar0)
 			Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
 			Call(ActorExists, LVar0, LVar1)
 			IfEq(LVar1, TRUE)
@@ -446,6 +439,7 @@ EvtScript N(EVS_OnHit) = {
             Call(SetActorVar, ACTOR_SELF, AVAR_Clone1Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar9)
             Exec(N(EVS_RemoveClone))
+            Call(SetActorVar, ACTOR_SELF, AVAR_Clone2Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone2_ID, LVar9)
             ExecGetTID(N(EVS_RemoveClone), LVar0)
             Label(1)
@@ -454,6 +448,7 @@ EvtScript N(EVS_OnHit) = {
                 Wait(1)
                 Goto(1)
             EndIf
+        EndIf
     EndIf
 	// Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar9)
 	// Call(ActorExists, LVar9, LVarA)
@@ -502,6 +497,7 @@ EvtScript N(EVS_OnDeath) = {
             Call(SetActorVar, ACTOR_SELF, AVAR_Clone1Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar9)
             Exec(N(EVS_RemoveClone))
+            Call(SetActorVar, ACTOR_SELF, AVAR_Clone2Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone2_ID, LVar9)
             ExecGetTID(N(EVS_RemoveClone), LVar0)
             Label(1)
@@ -510,6 +506,7 @@ EvtScript N(EVS_OnDeath) = {
                 Wait(1)
                 Goto(1)
             EndIf
+        EndIf
     EndIf
     // Clone 1
 	// Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar9)
@@ -570,8 +567,6 @@ EvtScript (N(EVS_RemoveClone)) = {
 	Call(SetAnimation, LVar9, PRT_MAIN, ANIM_KingBoo_CloneReact)
 	Wait(20)
 	Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KingBoo_Idle)
-	Call(EnableActorBlur, LVar9, TRUE)
-	Call(SetActorFlagBits, LVar9, ACTOR_FLAG_NO_DMG_APPLY, TRUE)
 	Call(RemoveActor, LVar9)
 	Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultAnims)))
 	Call(UseIdleAnimation, ACTOR_SELF, TRUE)
@@ -579,11 +574,6 @@ EvtScript (N(EVS_RemoveClone)) = {
 	Return
 	End
 };
-
-
-
-
-
 
 EvtScript N(EVS_TakeTurn) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
@@ -1357,7 +1347,7 @@ EvtScript N(EVS_IllusoryClones) = {
 	Call(PlaySoundAtActor, ACTOR_SELF, SOUND_JUMP_SCARE)
 	SetF(LVar3, 256)
 	Call(SetPartAlpha, ACTOR_SELF, PRT_MAIN, LVar3)
-	Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
+	Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, FALSE)
 
 	// Clone 1 Appears
 	Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar0)
@@ -1391,7 +1381,7 @@ EvtScript N(EVS_IllusoryClones) = {
 EvtScript N(EVS_ClonePosition) = {
 	Call(RandInt, 1000, LVar0)
     Mod(LVar0, 3)
-	Set(LVar0, 1) // To see the Position
+	// Set(LVar0, 1) // To see the Position
     Switch(LVar0)
 		CaseEq(0)
             Set(LVarA, ACTOR_SELF)
@@ -1414,18 +1404,21 @@ EvtScript N(EVS_ClonePosition) = {
 	Set(LVar0, 20)
 	Set(LVar2, 5)
 	Call(SetActorPos, LVarA, LVar0, LVar1, LVar2)
+    DebugPrintf("LVarA Pos: %d %d %d\n", LVar0, LVar1, LVar2)
 
 	// LVarB
 	Call(GetActorPos, LVarB, LVar0, LVar1, LVar2)
 	Set(LVar0, 70)
 	Set(LVar2, 5)
 	Call(SetActorPos, LVarB, LVar0, LVar1, LVar2)
+    DebugPrintf("LVarB Pos: %d %d %d\n", LVar0, LVar1, LVar2)
 
 	// LVarC
 	Call(GetActorPos, LVarC, LVar0, LVar1, LVar2)
 	Set(LVar0, 120)
 	Set(LVar2, 5)
 	Call(SetActorPos, LVarC, LVar0, LVar1, LVar2)
+    DebugPrintf("LVarC Pos: %d %d %d\n", LVar0, LVar1, LVar2)
 
     Wait(15)
     Return
@@ -1811,6 +1804,7 @@ EvtScript N(EVS_Move_Buff) = {
             Call(SetActorVar, ACTOR_SELF, AVAR_Clone1Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone1_ID, LVar9)
             Exec(N(EVS_RemoveClone))
+            Call(SetActorVar, ACTOR_SELF, AVAR_Clone2Exists, FALSE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Clone2_ID, LVar9)
             ExecGetTID(N(EVS_RemoveClone), LVar0)
             Label(1)

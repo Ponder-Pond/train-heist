@@ -61,7 +61,7 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: Development build
-          files: paper-mario-boss-mod.bps
+          files: paper-mario-train-heist.bps
   release:
     name: Release
     runs-on: ubuntu-latest

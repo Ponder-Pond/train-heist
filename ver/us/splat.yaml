@@ -72,7 +72,7 @@ vram_classes:
   - { name: dgb_01_smash_bridges, vram: 0x80200000, vram_symbol: D_80200000 }
 asset_stack:
   - star_rod_build
-  - boss_mod
+  - jam
   - dx
   - us
 segments:
@@ -555,12 +555,9 @@ segments:
       - [auto, ci4,     ui/partner0, 32, 32]
       - [auto, palette, ui/partner0]
       - [auto, palette, ui/partner0.disabled]
-      # - [auto, ci4,     ui/goombario, 32, 32]
-      # - [auto, palette, ui/goombario]
-      # - [auto, palette, ui/goombario.disabled]
-      - [auto, ci4,     ui/egadd, 32, 32]
-      - [auto, palette, ui/egadd]
-      - [auto, palette, ui/egadd.disabled]
+      - [auto, ci4,     ui/goombario, 32, 32]
+      - [auto, palette, ui/goombario]
+      - [auto, palette, ui/goombario.disabled]
       - [auto, ci4,     ui/kooper, 32, 32]
       - [auto, palette, ui/kooper]
       - [auto, palette, ui/kooper.disabled]
@@ -5950,7 +5947,7 @@ segments:
 ####################
 ### Battle Areas ###
 ####################
-  - dir: battle/area/smb
+  - dir: battle/area/jam
     type: code
     start: auto
     vram_class: battle_area
@@ -5960,17 +5957,6 @@ segments:
     - [auto, c, actor/koopa_troopa]
     - [auto, c, actor/piranha_plant]
     - [auto, c, actor/false_bowser]
-  - dir: battle/area/mod
-    type: code
-    start: auto
-    vram_class: battle_area
-    subsegments:
-    - [auto, c, area]
-    - [auto, c, actor/goomba]
-    - [auto, c, actor/koopa_troopa]
-    - [auto, c, actor/piranha_plant]
-    - [auto, c, actor/false_bowser]
-    - [auto, c, actor/king_boo]
 
 #######################
 ### Battle Partners ###
@@ -12118,15 +12104,15 @@ segments:
     subsegments:
     - [auto, c, mgm_03_0_header]
     - [auto, c, mgm_03_1_main]
-  - name: ttr_01
-    dir: world/area_ttr/ttr_01
-    type: code
-    start: auto
-    vram_class: map
-    subsegments:
-    - [auto, c, ttr_01_0_header]
-    - [auto, c, ttr_01_1_main]
-    - [auto, c, ttr_01_2_tex_panners]
+  # - name: ttr_01
+  #   dir: world/area_ttr/ttr_01
+  #   type: code
+  #   start: auto
+  #   vram_class: map
+  #   subsegments:
+  #   - [auto, c, ttr_01_0_header]
+  #   - [auto, c, ttr_01_1_main]
+  #   - [auto, c, ttr_01_2_tex_panners]
   - name: gv_01
     dir: world/area_gv/gv_01
     type: code

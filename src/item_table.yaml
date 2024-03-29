@@ -111,13 +111,12 @@
     potencyA: 0
     potencyB: 0
 - BadgeEmblemA:
-    category: KEY
     nameMsg: MSG_Misc_BadgeEmblemName
     fullDescMsg: MSG_Misc_BadgeEmblemFullDesc
     shortDescMsg: MSG_Misc_BadgeEmblemShortDesc
-    hudElement: BadgeEmblem
-    itemEntity: BadgeEmblem
     icon: key/badge_emblem
+    itemEntityTemplate: STANDARD
+    hudElementTemplate: ITEM
     sellValue: -1
     sortValue: 0
     targetFlags: [ TARGET_FLAG_PLAYER ]
@@ -126,13 +125,12 @@
     potencyA: 0
     potencyB: 0
 - BadgeEmblemB:
-    category: KEY
     nameMsg: MSG_Misc_BadgeEmblemName
     fullDescMsg: MSG_Misc_BadgeEmblemFullDesc
     shortDescMsg: MSG_Misc_BadgeEmblemShortDesc
-    hudElement: BadgeEmblem
-    itemEntity: BadgeEmblem
     icon: key/badge_emblem
+    itemEntityTemplate: STANDARD
+    hudElementTemplate: ITEM
     sellValue: -1
     sortValue: 0
     targetFlags: [ TARGET_FLAG_PLAYER ]
@@ -141,13 +139,12 @@
     potencyA: 0
     potencyB: 0
 - BadgeEmblemC:
-    category: KEY
     nameMsg: MSG_Misc_BadgeEmblemName
     fullDescMsg: MSG_Misc_BadgeEmblemFullDesc
     shortDescMsg: MSG_Misc_BadgeEmblemShortDesc
-    hudElement: BadgeEmblem
-    itemEntity: BadgeEmblem
     icon: key/badge_emblem
+    itemEntityTemplate: STANDARD
+    hudElementTemplate: ITEM
     sellValue: -1
     sortValue: 0
     targetFlags: [ TARGET_FLAG_PLAYER ]
@@ -156,13 +153,12 @@
     potencyA: 0
     potencyB: 0
 - BadgeEmblemX:
-    category: KEY
     nameMsg: MSG_Misc_BadgeEmblemName
     fullDescMsg: MSG_Misc_BadgeEmblemFullDesc
     shortDescMsg: MSG_Misc_BadgeEmblemShortDesc
-    hudElement: BadgeEmblem
-    itemEntity: BadgeEmblem
     icon: key/badge_emblem
+    itemEntityTemplate: STANDARD
+    hudElementTemplate: ITEM
     sellValue: -1
     sortValue: 0
     targetFlags: [ TARGET_FLAG_PLAYER ]
@@ -171,13 +167,12 @@
     potencyA: 0
     potencyB: 0
 - BadgeEmblemY:
-    category: KEY
     nameMsg: MSG_Misc_BadgeEmblemName
     fullDescMsg: MSG_Misc_BadgeEmblemFullDesc
     shortDescMsg: MSG_Misc_BadgeEmblemShortDesc
-    hudElement: BadgeEmblem
-    itemEntity: BadgeEmblem
     icon: key/badge_emblem
+    itemEntityTemplate: STANDARD
+    hudElementTemplate: ITEM
     sellValue: -1
     sortValue: 0
     targetFlags: [ TARGET_FLAG_PLAYER ]

@@ -290,15 +290,10 @@ INCLUDE_PAL("ui/partner0.pal", ui_partner0_pal);
 #define ui_partner0_disabled_png ui_partner0_png
 INCLUDE_PAL("ui/partner0.disabled.pal", ui_partner0_disabled_pal);
 
-// INCLUDE_IMG("ui/goombario.png", ui_goombario_png);
-// INCLUDE_PAL("ui/goombario.pal", ui_goombario_pal);
-// #define ui_goombario_disabled_png ui_goombario_png
-// INCLUDE_PAL("ui/goombario.disabled.pal", ui_goombario_disabled_pal);
-
-INCLUDE_IMG("ui/egadd.png", ui_egadd_png);
-INCLUDE_PAL("ui/egadd.pal", ui_egadd_pal);
-#define ui_egadd_disabled_png ui_egadd_png
-INCLUDE_PAL("ui/egadd.disabled.pal", ui_egadd_disabled_pal);
+INCLUDE_IMG("ui/goombario.png", ui_goombario_png);
+INCLUDE_PAL("ui/goombario.pal", ui_goombario_pal);
+#define ui_goombario_disabled_png ui_goombario_png
+INCLUDE_PAL("ui/goombario.disabled.pal", ui_goombario_disabled_pal);
 
 INCLUDE_IMG("ui/kooper.png", ui_kooper_png);
 INCLUDE_PAL("ui/kooper.pal", ui_kooper_pal);
@@ -1948,13 +1943,9 @@ HudScript HES_Partner0 = HES_TEMPLATE_CI_ENUM_SIZE(ui_partner0, 32, 32);
 
 HudScript HES_Partner0Disabled = HES_TEMPLATE_CI_ENUM_SIZE(ui_partner0_disabled, 32, 32);
 
-// HudScript HES_Goombario = HES_TEMPLATE_CI_ENUM_SIZE(ui_goombario, 32, 32);
+HudScript HES_Goombario = HES_TEMPLATE_CI_ENUM_SIZE(ui_goombario, 32, 32);
 
-// HudScript HES_GoombarioDisabled = HES_TEMPLATE_CI_ENUM_SIZE(ui_goombario_disabled, 32, 32);
-
-HudScript HES_EGadd = HES_TEMPLATE_CI_ENUM_SIZE(ui_egadd, 32, 32);
-
-HudScript HES_EGaddDisabled = HES_TEMPLATE_CI_ENUM_SIZE(ui_egadd_disabled, 32, 32);
+HudScript HES_GoombarioDisabled = HES_TEMPLATE_CI_ENUM_SIZE(ui_goombario_disabled, 32, 32);
 
 HudScript HES_Kooper = HES_TEMPLATE_CI_ENUM_SIZE(ui_kooper, 32, 32);
 

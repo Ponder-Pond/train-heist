@@ -3,7 +3,7 @@
 # If the tests pass then the PR is automatically merged by GitHub.
 name: Sync upstream
 env:
-  UPSTREAM: pmret/papermario # If you forked dx, change this to star-haven/papermario-dx! (TODO: do this automatically)
+  UPSTREAM: star-haven/papermario-dx # If you forked dx, change this to star-haven/papermario-dx! (TODO: do this automatically)
   UPSTREAM_BRANCH: main
   BASE_BRANCH: main
 on:
@@ -41,4 +41,3 @@ jobs:
           gh pr create --title "Sync with ${{ env.UPSTREAM }}" --body "Automated PR to keep this repository in sync with upstream. Beep boop." --base ${BASE_BRANCH}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  

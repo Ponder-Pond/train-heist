@@ -42,8 +42,8 @@ jobs:
       - name: Upload patch as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: paper-mario-boss-mod.bps
-          path: paper-mario-boss-mod.bps
+          name: paper-mario-train-heist.bps
+          path: paper-mario-train-heist.bps
   prerelease:
     name: Prerelease
     runs-on: ubuntu-latest

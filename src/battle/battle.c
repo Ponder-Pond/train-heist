@@ -99,8 +99,7 @@ SHIFT_BSS Battle* gCurrentBattlePtr;
 // };
 
 BattleArea gBattleAreas[] = {
-    [BTL_AREA_SMB]      BTL_AREA(smb, "Super Mario Bros"),
-    [BTL_AREA_MOD]      BTL_AREA(mod, "Mod"),
+    [BTL_AREA_JAM]      BTL_AREA(jam, "Train Heist"),
 };
 
 void reset_battle_status(void) {

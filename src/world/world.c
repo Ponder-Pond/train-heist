@@ -866,14 +866,9 @@ MapConfig gv_maps[] = {
 };
 
 /// Theater
-#include "area_ttr/ttr.h"
-MapConfig ttr_maps[] = {
-    { MAP(ttr_01) },
-};
-
-// #include "area_smb/smb.h"
-// MapConfig smb_maps[] = {
-//     { MAP(smb_bt01) },
+// #include "area_ttr/ttr.h"
+// MapConfig ttr_maps[] = {
+//     { MAP(ttr_01) },
 // };
 
 AreaConfig gAreas[] = {
@@ -906,6 +901,6 @@ AreaConfig gAreas[] = {
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     // AREA(smb, "テストマップ"),
     AREA(tst, "テストマップ"),  // tesuto mappu [Test map]
-    AREA(ttr, "Theater"),  // [Theater]
+    // AREA(ttr, "Theater"),  // [Theater]
     {},
 };

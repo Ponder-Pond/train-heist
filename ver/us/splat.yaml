@@ -5953,13 +5953,13 @@ segments:
     vram_class: battle_area
     subsegments:
     - [auto, c, area]
-    - [auto, c, actor/goomba]
-    - [auto, c, actor/koopa_troopa]
-    - [auto, c, actor/piranha_plant]
-    - [auto, c, actor/false_bowser]
-    - [auto, c, actor/koopa_bandits_yellow]
-    - [auto, c, actor/hammer_bro]
+    - [auto, c, actor/koopa_bandit_green]
+    - [auto, c, actor/buzzy_beetle]
+    - [auto, c, actor/koopa_bandit_yellow]
     - [auto, c, actor/giant_chain_chomp]
+    - [auto, c, actor/hammer_bro]
+    - [auto, c, actor/koopa_bandit_black]
+    - [auto, c, actor/koopa_bandit_red]
 
 #######################
 ### Battle Partners ###

@@ -1,6 +1,6 @@
 #include "../area.h"
 #include "sprite/npc/HammerBros.h"
-#include "bandits_yellow_common.h"
+#include "boss.h"
 
 #define NAMESPACE A(hammer_bro)
 

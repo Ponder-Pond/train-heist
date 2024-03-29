@@ -1,6 +1,6 @@
 #include "../area.h"
 #include "sprite/npc/ChainChomp.h"
-#include "bandits_yellow_common.h"
+#include "boss.h"
 
 #define NAMESPACE A(giant_chain_chomp)
 

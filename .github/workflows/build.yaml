@@ -38,7 +38,7 @@ jobs:
         run: ninja
       - name: Create patch file
         # flips works but returns a non-zero exit code if the rom shrunk
-        run: ./flips-linux ver/us/baserom.z64 ver/us/build/papermario.z64 paper-mario-boss-mod.bps || true
+        run: ./flips-linux ver/us/baserom.z64 ver/us/build/papermario.z64 paper-mario-train-heist.bps || true
       - name: Upload patch as artifact
         uses: actions/upload-artifact@v2
         with:
@@ -53,8 +53,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: paper-mario-boss-mod.bps
-          path: paper-mario-boss-mod.bps
+          name: paper-mario-train-heist.bps
+          path: paper-mario-train-heist.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -71,10 +71,10 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: paper-mario-boss-mod.bps
-          path: paper-mario-boss-mod.bps
+          name: paper-mario-train-heist.bps
+          path: paper-mario-train-heist.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
-          files: paper-mario-boss-mod.bps
+          files: paper-mario-train-heist.bps

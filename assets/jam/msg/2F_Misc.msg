@@ -10,6 +10,15 @@
 	Increases maximum BP by 3.[End]
 }
 
+#message:2F:(Misc_GiantChomp) {
+	Giant Chomp[End]
+}
+
+#message:2F:(Misc_GiantChompTattle) {
+	[Style right]
+	This is Giant Chomp.[Wait][End]
+}
+
 #message:2F:(Misc_FalseBowser) {
 	Bowser?[End]
 }
@@ -17,33 +26,6 @@
 #message:2F:(Misc_FalseBowserTattle) {
 	[Style right]
 	This is Bowser?[Wait][End]
-}
-
-#message:2F:(Misc_KingBoo) {
-	King Boo[End]
-}
-
-#message:2F:(Misc_KingBooTattle) {
-	[Style right]
-	This is King Boo.[Wait][End]
-}
-
-#message:2F:(Misc_Tatanga) {
-	Tatanga[End]
-}
-
-#message:2F:(Misc_TatangaTattle) {
-	[Style right]
-	This is Tatanga.[Wait][End]
-}
-
-#message:2F:(Misc_Chikako) {
-	Chikako[End]
-}
-
-#message:2F:(Misc_ChikakoTattle) {
-	[Style right]
-	This is Chikako.[Wait][End]
 }
 
 #message:2F:(Misc_BowserInteract) {

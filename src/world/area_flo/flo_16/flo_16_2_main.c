@@ -1,8 +1,10 @@
 #include "flo_16.h"
 #include "effects.h"
 
+#include "world/common/atomic/TexturePan.inc.c"
+
 API_CALLABLE(N(SpawnSunEffect)) {
-    fx_sun_undeclared(FX_SUN_FROM_RIGHT, 0, 0, 0, 0, 0);
+    fx_sun(FX_SUN_FROM_RIGHT, 0.0f, 0.0f, 0.0f, 0.0f, 0);
     return ApiStatus_DONE2;
 }
 
@@ -33,32 +35,31 @@ EvtScript N(EVS_Main) = {
     Thread
         Call(ResetFromLava, Ref(N(SafeFloorColliders)))
     EndThread
-    Call(EnableTexPanning, MODEL_o59, TRUE)
-    Call(EnableTexPanning, MODEL_o142, TRUE)
-    Call(EnableTexPanning, MODEL_o58, TRUE)
-    Call(EnableTexPanning, MODEL_o136, TRUE)
-    Call(EnableTexPanning, MODEL_o146, TRUE)
-    Call(EnableTexPanning, MODEL_o143, TRUE)
-    Call(EnableTexPanning, MODEL_o135, TRUE)
-    Call(EnableTexPanning, MODEL_o138, TRUE)
-    Call(EnableTexPanning, MODEL_o139, TRUE)
-    Call(EnableTexPanning, MODEL_o140, TRUE)
+    // vines scrolling left
+    Call(SetTexPanner, MODEL_o59, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o142, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o58, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o136, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o146, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o139, TEX_PANNER_1)
+    Call(SetTexPanner, MODEL_o143, TEX_PANNER_1)
     Thread
-        Set(LVar0, 0)
-        Set(LVar1, 0)
-        Label(0)
-        Add(LVar0, 140)
-        IfGt(LVar0, 0x10000)
-            Add(LVar0, -0x10000)
-        EndIf
-        Call(SetTexPanOffset, 1, 0, LVar0, 0)
-        Add(LVar1, -200)
-        IfLt(LVar1, 0)
-            Add(LVar1, 0x10000)
-        EndIf
-        Call(SetTexPanOffset, 2, 0, LVar1, 0)
-        Wait(1)
-        Goto(0)
+        TEX_PAN_PARAMS_ID(TEX_PANNER_1)
+        TEX_PAN_PARAMS_STEP(  140,    0,    0,    0)
+        TEX_PAN_PARAMS_FREQ(    1,    0,    0,    0)
+        TEX_PAN_PARAMS_INIT(    0,    0,    0,    0)
+        Exec(N(EVS_UpdateTexturePan))
+    EndThread
+    // vines scrolling right
+    Call(SetTexPanner, MODEL_o135, TEX_PANNER_2)
+    Call(SetTexPanner, MODEL_o138, TEX_PANNER_2)
+    Call(SetTexPanner, MODEL_o140, TEX_PANNER_2)
+    Thread
+        TEX_PAN_PARAMS_ID(TEX_PANNER_2)
+        TEX_PAN_PARAMS_STEP( -200,    0,    0,    0)
+        TEX_PAN_PARAMS_FREQ(    1,    0,    0,    0)
+        TEX_PAN_PARAMS_INIT(    0,    0,    0,    0)
+        Exec(N(EVS_UpdateTexturePan))
     EndThread
     Exec(N(EVS_SetupPillarPuzzle))
     Call(ModifyColliderFlags, MODIFY_COLLIDER_FLAGS_SET_BITS, COLLIDER_deilitw, COLLIDER_FLAGS_UPPER_MASK)

@@ -1,0 +1,5 @@
+trn_bt00 = Map you use
+
+trn_bt00DEMO = Reference with Enemy Layouts
+
+(Each formation is about 500 away from where they should be, besides the Bowser formation which is 300)

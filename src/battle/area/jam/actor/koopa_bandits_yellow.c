@@ -2,7 +2,7 @@
 #include "sprite/npc/KoopaBros.h"
 #include "boss.h"
 
-#define NAMESPACE A(koopa_bandit_yellow)
+#define NAMESPACE A(yellow_bandit_koopa)
 
 // these are the only parameters that vary among koopa bros actors
 enum N(ThisBanditsParams) {
@@ -203,8 +203,8 @@ EvtScript N(EVS_Init) = {
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
-    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)

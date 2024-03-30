@@ -1,0 +1,639 @@
+
+tex: trn_frametif
+{
+	img: trn_frametif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trn_sakutif
+{
+	img: trn_trn_sakutif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trn_togo_atif
+{
+	img: trn_trn_togo_atif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trn_walltif
+{
+	img: trn_trn_walltif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	aux: trn_trn_walltif_AUX.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trn_woodtif
+{
+	img: trn_trn_woodtif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trnsakutif
+{
+	img: trn_trnsakutif.png
+	{
+		format: IA-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_kabe12tif
+{
+	img: trn_kabe12tif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_kabekusatif
+{
+	img: trn_kabekusatif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_komonotif
+{
+	img: trn_komonotif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 0
+}
+
+tex: trn_mac_britshcuttif
+{
+	img: trn_mac_britshcuttif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_britshtreetif
+{
+	img: trn_mac_britshtreetif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_clocktif
+{
+	img: trn_mac_clocktif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_edgetif
+{
+	img: trn_mac_edgetif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	mipmaps: yes
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_fieldtif
+{
+	img: trn_mac_fieldtif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_fumikiritif
+{
+	img: trn_mac_fumikiritif.png
+	{
+		format: I-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_house2tif
+{
+	img: trn_mac_house2tif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	mipmaps: yes
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_kemuritif
+{
+	img: trn_mac_kemuritif.png
+	{
+		format: IA-8
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_koushitif
+{
+	img: trn_mac_koushitif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_pistontif
+{
+	img: trn_mac_pistontif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_railwaytif
+{
+	img: trn_mac_railwaytif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	mipmaps: yes
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_roof1tif
+{
+	img: trn_mac_roof1tif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_sakutif
+{
+	img: trn_mac_sakutif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mac_senrosakutif
+{
+	img: trn_mac_senrosakutif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_midori03tif
+{
+	img: trn_midori03tif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_nejiwoodtif
+{
+	img: trn_nejiwoodtif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_noisetif
+{
+	img: trn_noisetif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: no
+	combine: 8
+}
+
+tex: trn_popo_4rtif
+{
+	img: trn_popo_4rtif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_popo_5tif
+{
+	img: trn_popo_5tif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_reef_ltif
+{
+	img: trn_reef_ltif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_roadtif
+{
+	img: trn_roadtif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rock_edge_atif
+{
+	img: trn_rock_edge_atif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rock_edge_stif
+{
+	img: trn_rock_edge_stif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rock_edgetif
+{
+	img: trn_rock_edgetif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_ropetif
+{
+	img: trn_ropetif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_s_road_2tif
+{
+	img: trn_s_road_2tif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: no
+	combine: 8
+}
+
+tex: trn_s_road_3tif
+{
+	img: trn_s_road_3tif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_sakutif
+{
+	img: trn_sakutif.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_steamtif
+{
+	img: trn_steamtif.png
+	{
+		format: IA-8
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_su_1tif
+{
+	img: trn_su_1tif.png
+	{
+		format: IA-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_suberidaitif
+{
+	img: trn_suberidaitif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_sutif
+{
+	img: trn_sutif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_syarintif
+{
+	img: trn_syarintif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_t_taki1tif
+{
+	img: trn_t_taki1tif.png
+	{
+		format: IA-16
+		hwrap: repeat
+		vwrap: repeat
+	}
+	aux: trn_t_taki1tif_AUX.png
+	{
+		format: shared
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_temae1tif
+{
+	img: trn_temae1tif.png
+	{
+		format: CI-4
+		hwrap: clamp
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_wood_pole_b_btif
+{
+	img: trn_wood_pole_b_btif.png
+	{
+		format: I-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_chandeliertif
+{
+	img: trn_chandeliertif.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mountain
+{
+	img: trn_mountain.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_cactus
+{
+	img: trn_cactus.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_misc
+{
+	img: trn_misc.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_brush
+{
+	img: trn_brush.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_bombs
+{
+	img: trn_bombs.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_emblem
+{
+	img: trn_emblem.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}

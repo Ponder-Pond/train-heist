@@ -125,7 +125,7 @@ ActorPartBlueprint N(ActorParts)[] = {
         .flags = ACTOR_PART_FLAG_NO_TARGET,
         .index = PRT_MAIN,
         .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 24 },
+        .targetOffset = { 0, 48 },
         .opacity = 255,
         .idleAnimations = N(BasicAnims),
         .defenseTable = N(DefenseTable),
@@ -137,7 +137,7 @@ ActorPartBlueprint N(ActorParts)[] = {
         .flags = ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION | ACTOR_PART_FLAG_PRIMARY_TARGET,
         .index = PRT_TARGET,
         .posOffset = { 0, 0, 0 },
-        .targetOffset = { -13, 40 },
+        .targetOffset = { -13, 80 },
         .opacity = 255,
         .idleAnimations = N(BasicAnims),
         .defenseTable = N(DefenseTable),
@@ -304,14 +304,14 @@ EvtScript N(EVS_UpdateTargetPartPos) = {
     IfFlag(LVar0, STATUS_FLAGS_IMMOBILIZED)
         Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
         Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
-        Call(SetTargetOffset, ACTOR_SELF, PRT_TARGET, 0, 24)
+        Call(SetTargetOffset, ACTOR_SELF, PRT_TARGET, 0, 48)
         Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_TARGET, 0, 0)
     Else
         Call(SetIdleGoalToHome, ACTOR_SELF)
         Call(GetIdleGoal, ACTOR_SELF, LVar0, LVar1, LVar2)
         Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
-        Call(SetTargetOffset, ACTOR_SELF, PRT_TARGET, -13, 40)
-        Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_TARGET, 0, -14)
+        Call(SetTargetOffset, ACTOR_SELF, PRT_TARGET, -13, 80)
+        Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_TARGET, 0, -16)
     EndIf
     Return
     End
@@ -433,7 +433,6 @@ EvtScript N(EVS_UpdateChain) = {
 EvtScript N(EVS_HandleEvent) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Set(LVarF, LVar0)
     Switch(LVar0)

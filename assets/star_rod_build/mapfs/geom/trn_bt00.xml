@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map background="trn_bg" textures="trn_tex">
 	<Editor>
-		<Camera pos="-36.829662,116.468567,468.423950" pitch="9.000000" yaw="0.000000"/>
+		<Camera pos="-101.747307,82.818741,312.929230" pitch="25.639988" yaw="353.600006"/>
 		<Camera pos="86.199028,65536.000000,10.918311"/>
 		<Camera pos="65536.000000,-13.335473,37.024689"/>
 		<Camera pos="-53.748718,-84.138481,65536.000000"/>
@@ -344,7 +344,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
+				<Property v="5C,0,D"/>
 				<Property v="5F,0,0"/>
 			</PropertyList>
 		</Model>
@@ -372,7 +372,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
+				<Property v="5C,0,D"/>
 				<Property v="5F,0,0"/>
 			</PropertyList>
 		</Model>
@@ -400,7 +400,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
+				<Property v="5C,0,D"/>
 				<Property v="5F,0,0"/>
 			</PropertyList>
 		</Model>
@@ -456,7 +456,7 @@
 				</DisplayList>
 			</ShapeMesh>
 			<PropertyList>
-				<Property v="5C,0,1"/>
+				<Property v="5C,0,D"/>
 				<Property v="5F,0,0"/>
 			</PropertyList>
 		</Model>

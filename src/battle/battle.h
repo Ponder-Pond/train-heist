@@ -169,8 +169,8 @@ typedef struct FormationRow {
     /* 0x10 */ s32 var1;
     /* 0x14 */ s32 var2;
     /* 0x18 */ s32 var3;
-    /* 0x1C */ b32 isBehind; ///< If true, the actor is placed behind the party, and the battle is a swarm battle.
-} FormationRow; // size = 0x20 * n
+
+} FormationRow; // size = 0x1C
 
 typedef FormationRow Formation[];
 

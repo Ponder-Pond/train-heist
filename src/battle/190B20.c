@@ -5,7 +5,6 @@
 #include "script_api/battle.h"
 #include "model.h"
 #include "sprite.h"
-#include "swarm_battle.h"
 
 EvtScript D_80293820 = {
     Wait(LVar0)
@@ -145,9 +144,6 @@ void create_target_list(Actor* actor, b32 targetHomePos) {
         if ((battleStatus->curTargetListFlags & TARGET_FLAG_PARTNER) || (battleStatus->curTargetListFlags & TARGET_FLAG_PLAYER)) {
             // skip adding enemies if either player or partner targeting is set
             break;
-        }
-        if (targetActor->isBehind != actor->isBehind) {
-            continue;
         }
         // check each part of the current enemy
         targetPart = targetActor->partsTable;
@@ -1282,11 +1278,11 @@ void load_player_actor(void) {
     player->actorType = bPlayerActorBlueprint.type;
 
     if ((gBattleStatus.flags2 & BS_FLAGS2_PEACH_BATTLE) || (gGameStatusPtr->demoBattleFlags & DEMO_BTL_FLAG_PARTNER_ACTING)) {
-        player->homePos.x = player->curPos.x = -130.0f + swarm_battle_party_x_offset();
+        player->homePos.x = player->curPos.x = -130.0f;
         player->homePos.y = player->curPos.y = 0.0f;
         player->homePos.z = player->curPos.z = -10.0f;
     } else {
-        player->homePos.x = player->curPos.x = -95.0f + swarm_battle_party_x_offset();
+        player->homePos.x = player->curPos.x = -95.0f;
         player->homePos.y = player->curPos.y = 0.0f;
         player->homePos.z = player->curPos.z = 0.0f;
     }
@@ -1474,8 +1470,6 @@ void load_player_actor(void) {
         player->staticStatus = STATUS_KEY_STATIC;
         player->staticDuration = 127;
     }
-
-    player->isBehind = FALSE;
 }
 
 void load_partner_actor(void) {
@@ -1505,12 +1499,12 @@ void load_partner_actor(void) {
 
         nuPiReadRom(partnerData->dmaStart, partnerData->dmaDest, partnerData->dmaEnd - partnerData->dmaStart);
         if ((gBattleStatus.flags2 & BS_FLAGS2_PEACH_BATTLE) || (gGameStatusPtr->demoBattleFlags & DEMO_BTL_FLAG_PARTNER_ACTING)) {
-            x = -95.0f + swarm_battle_party_x_offset();
+            x = -95.0f;
             y = partnerData->y;
             z = 0.0f;
             gBattleStatus.flags1 |= BS_FLAGS1_PLAYER_IN_BACK;
         } else {
-            x = -130.0f + swarm_battle_party_x_offset();
+            x = -130.0f;
             y = partnerData->y;
             z = -10.0f;
         }
@@ -1544,7 +1538,7 @@ void load_partner_actor(void) {
         partnerActor->handlePhaseScript = NULL;
         partnerActor->turnPriority = 0;
         partnerActor->enemyIndex = 0;
-        partnerActor->yaw = isSwarmBattle ? 180.0f : 0.0f;
+        partnerActor->yaw = 0.0f;
         partnerActor->rot.x = 0.0f;
         partnerActor->rot.y = 0.0f;
         partnerActor->rot.z = 0.0f;
@@ -1731,7 +1725,6 @@ void load_partner_actor(void) {
         takeTurnScript->owner1.actorID = ACTOR_PARTNER;
     }
 
-    partnerActor->isBehind = isSwarmBattle;
 }
 
 Actor* create_actor(Formation formation) {
@@ -1750,10 +1743,6 @@ Actor* create_actor(Formation formation) {
         x = StandardActorHomePositions[formation->home.index].x;
         y = StandardActorHomePositions[formation->home.index].y;
         z = StandardActorHomePositions[formation->home.index].z;
-
-        if (formation->isBehind) {
-            x = -x;
-        }
     } else {
         x = formation->home.vec->x;
         y = formation->home.vec->y;
@@ -1795,7 +1784,7 @@ Actor* create_actor(Formation formation) {
     actor->handleEventScript = NULL;
     actor->turnPriority = formation->priority;
     actor->enemyIndex = i;
-    actor->yaw = formation->isBehind ? 180.0f : 0.0f;
+    actor->yaw = 0.0f;
     actor->rot.x = 0.0f;
     actor->rot.y = 0.0f;
     actor->rot.z = 0.0f;
@@ -2003,8 +1992,6 @@ Actor* create_actor(Formation formation) {
     actor->disableEffect = fx_disable_x(0, -142.0f, 34.0f, 1.0f, 0);
     actor->icePillarEffect = NULL;
     actor->hudElementDataIndex = create_status_icon_set();
-    actor->isBehind = formation->isBehind;
-    if (actor->isBehind) isSwarmBattle = TRUE;
     return actor;
 }
 

@@ -1,5 +1,6 @@
 #include "../area.h"
 #include "sprite/npc/KoopaBros.h"
+#include "boss.h"
 
 #define NAMESPACE A(green_bandit_koopa)
 
@@ -42,6 +43,7 @@ extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_TakeTurn);
+extern EvtScript N(EVS_ManageFirstPhase);
 
 enum N(ActorPartIDs) {
     PRT_MAIN            = 1,
@@ -204,12 +206,12 @@ EvtScript N(EVS_Init) = {
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
-    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    Exec(N(EVS_ManageFirstPhase))
     Return
     End
 };
@@ -288,6 +290,19 @@ EvtScript N(EVS_HandleEvent) = {
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_ManageFirstPhase) = {
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_1, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_3, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE_3, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
     Return
     End
 };

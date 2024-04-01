@@ -1961,8 +1961,7 @@ typedef struct Actor {
     /* 0x436 */ s16 hudElementDataIndex;
     /* 0x438 */ s32 loopingSoundID[2];
     /* 0x440 */ struct EffectInstance* disableEffect;
-    /* 0x444 */ b32 isBehind; ///< For swarm battles, whether they are to the left of the party.
-} Actor; // size = 0x448
+} Actor; // size = 0x444
 
 typedef struct BackgroundHeader {
     /* 0x00 */ IMG_PTR raster;

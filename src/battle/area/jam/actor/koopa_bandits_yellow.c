@@ -33,6 +33,8 @@ enum N(ThisBanditsParams) {
     THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Yellow_ExitShell,
     THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Yellow_ShellSpin,
     THIS_ANIM_POINT             = ANIM_KoopaBros_Yellow_PointForward,
+    HEAL_AMT                    = 2,
+    DMG_HAMMER_LUNGE            = 3,
 };
 
 extern s32 N(DefaultAnims)[];
@@ -41,6 +43,8 @@ extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_TakeTurn);
+extern EvtScript N(EVS_Move_Cheer);
+extern EvtScript N(EVS_Attack_HammerLunge);
 
 enum N(ActorPartIDs) {
     PRT_MAIN            = 1,
@@ -97,7 +101,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
+    .flags = 0, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .type = THIS_ACTOR_TYPE,
     .level = THIS_LEVEL,
     .maxHP = 5,
@@ -292,6 +296,60 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 EvtScript N(EVS_TakeTurn) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+    IfEq(LVar0, TRUE)
+        Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
+        IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
+            ExecWait(N(EVS_Move_Cheer))
+        Else
+            ExecWait(N(EVS_Attack_HammerLunge))
+        EndIf
+    Else
+        ExecWait(N(EVS_Attack_HammerLunge))
+    EndIf
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Move_Cheer) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
+    Call(BattleCamTargetActor, ACTOR_SELF)
+    Call(MoveBattleCamOver, 20)
+    Call(SetActorYaw, ACTOR_SELF, 180)
+    Wait(10)
+    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_RECOVER_HEART)
+    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_HEART_BOUNCE)
+    Wait(30)
+    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_STAR_BOUNCE_A)
+    Thread
+        Call(FreezeBattleState, TRUE)
+        Call(HealActor, ACTOR_HAMMER_BRO, HEAL_AMT, FALSE)
+        Call(FreezeBattleState, FALSE)
+    EndThread
+    Call(WaitForBuffDone)
+    Call(SetActorYaw, ACTOR_SELF, 0)
+    Wait(5)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Attack_HammerLunge) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetActorYaw, ACTOR_SELF, 180)
+    Wait(15)
+    Call(SetActorYaw, ACTOR_SELF, 0)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };

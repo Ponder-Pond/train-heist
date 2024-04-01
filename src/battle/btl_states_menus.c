@@ -1,7 +1,6 @@
 #include "battle/battle.h"
 #include "hud_element.h"
 #include "battle/action_cmd.h"
-#include "swarm_battle.h"
 #include "sprite/player.h"
 
 #include "sprite/npc/Goompa.h"
@@ -442,11 +441,6 @@ BSS s32 D_802AD6A8[TABMAX];
 BSS s32 D_802AD6C0[5];
 BSS s32 D_802AD6D4;
 
-/// Player and partner will only swap positions if this flag is set.
-/// This is an incredibly hacky way of doing the TTYD 'swap positions only when Z is pressed' behaviour,
-/// so if you can think of a better way, please do it!!
-BSS b32 temporarilyEnablePartySwap;
-
 void create_battle_popup_menu(PopupMenu* popup);
 
 s32 get_player_anim_for_status(s32 animID);
@@ -532,7 +526,7 @@ s32 btl_main_menu_update(void) {
 
     switch (BattleMenuState) {
         case BTL_MENU_STATE_CREATE:
-            BattleMenu_BasePosX = isSwarmBattle ? (SCREEN_WIDTH / 2) : 54;
+            BattleMenu_BasePosX = 54;
             BattleMenu_BasePosY = 173;
             D_802AD070 = 0.3f;
             D_802AD004 = 0;
@@ -574,9 +568,6 @@ s32 btl_main_menu_update(void) {
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_alpha(id, 240);
-            if (isSwarmBattle) {
-                hud_element_set_flags(id, HUD_ELEMENT_FLAG_DISABLED);
-            }
 
             D_802AD048 = id = hud_element_create(&HES_ProjectorReel);
             hud_element_create_transform_B(id);
@@ -587,9 +578,6 @@ s32 btl_main_menu_update(void) {
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_alpha(id, 240);
-            if (isSwarmBattle) {
-                hud_element_set_flags(id, HUD_ELEMENT_FLAG_DISABLED);
-            }
 
             D_802AD04C = id = hud_element_create(&HES_ProjectorBeam);
             hud_element_create_transform_B(id);
@@ -603,11 +591,9 @@ s32 btl_main_menu_update(void) {
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_DISABLED);
 
-            s32 swapXOffset = isSwarmBattle ? 70 : 0;
-
             D_802AD05C = id = hud_element_create(&HES_SwapBackground);
             hud_element_set_render_depth(id, 0);
-            hud_element_set_render_pos(id, 97 + swapXOffset, 208);
+            hud_element_set_render_pos(id, 97, 208);
             hud_element_set_tint(id, 255, 255, 255);
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
@@ -617,19 +603,19 @@ s32 btl_main_menu_update(void) {
             hud_element_set_render_depth(id, 5);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
-            hud_element_set_render_pos(id, 94 + swapXOffset, 209);
+            hud_element_set_render_pos(id, 94, 209);
 
             D_802AD054 = id = hud_element_create(&HES_SwapArrowLeft);
             hud_element_set_render_depth(id, 5);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
-            hud_element_set_render_pos(id, 81 + swapXOffset, 210);
+            hud_element_set_render_pos(id, 81, 210);
 
             D_802AD058 = id = hud_element_create(&HES_SwapArrowRight);
             hud_element_set_render_depth(id, 5);
             hud_element_clear_flags(id, HUD_ELEMENT_FLAG_FILTER_TEX);
             hud_element_set_flags(id, HUD_ELEMENT_FLAG_80);
-            hud_element_set_render_pos(id, 102 + swapXOffset, 210);
+            hud_element_set_render_pos(id, 102, 210);
             D_802AD00A = 100;
             D_802AD001 = 3;
             BattleMenuState = BTL_MENU_STATE_UNK_1;
@@ -818,7 +804,7 @@ void btl_main_menu_draw(void) {
                 hud_element_set_render_pos(id, 0, 0);
                 hud_element_set_alpha(id, (opacity * 150) / 255);
 
-                if (theta == (isSwarmBattle ? 0.0f : 56.0f) && cond == TRUE) {
+                if (theta == 56.0f && cond == TRUE) {
                     hud_element_set_scale(id, 1.6f);
                 } else {
                     hud_element_set_scale(id, 1.0f);
@@ -828,7 +814,7 @@ void btl_main_menu_draw(void) {
                 if (i == BattleMenu_HomePos + BattleMenu_CurPos) {
                     x = 0.0f;
                     y = 0.0f;
-                    add_vec2D_polar(&x, &y, 87.0f, isSwarmBattle ? 0.0f : 56.0f);
+                    add_vec2D_polar(&x, &y, 87.0f, 56.0f);
                     x = BattleMenu_BasePosX + x;
                     y = BattleMenu_BasePosY + y;
                     id = D_802AD040;
@@ -857,10 +843,6 @@ void btl_main_menu_draw(void) {
             hud_element_set_transform_scale(id, 1.0f, 1.8f, 1.0f);
             hud_element_set_alpha(id, (opacity * 200) / 255);
             hud_element_set_render_pos(id, 79, 176);
-            if (isSwarmBattle) {
-                hud_element_set_render_pos(id, 158, 50);
-                hud_element_set_transform_rotation(id, 0.0f, 0.0f, -180.0f);
-            }
             func_80144238(id);
 
             id = D_802AD048;
@@ -899,10 +881,6 @@ void btl_main_menu_draw(void) {
             if (cond) {
                 l = BattleMenu_BasePosX + 20;
                 t = BattleMenu_BasePosY - 34;
-                if (isSwarmBattle) {
-                    l = 108;
-                    t = 100;
-                }
                 btl_draw_prim_quad(0, 0, 0, 0, l + 26, t, 48, 16);
                 draw_msg(BattleMenu_TitleMessages[BattleMenu_CurPos + BattleMenu_HomePos], l, t, opacity, MSG_PAL_35, 0);
             }
@@ -2297,10 +2275,9 @@ void btl_state_update_player_menu(void) {
             }
             btl_cam_use_preset(BTL_CAM_DEFAULT);
             btl_cam_move(10);
-            if (!temporarilyEnablePartySwap) {
+            if (!(battleStatus->flags1 & BS_FLAGS1_PLAYER_IN_BACK)) {
                 gBattleSubState = BTL_SUBSTATE_PLAYER_MENU_CREATE_MAIN_MENU;
             } else {
-                temporarilyEnablePartySwap = FALSE;
                 gBattleSubState = BTL_SUBSTATE_PLAYER_MENU_PERFORM_SWAP;
                 partnerActor->state.curPos.x = partnerActor->homePos.x;
                 partnerActor->state.curPos.z = partnerActor->homePos.z;
@@ -2333,14 +2310,8 @@ void btl_state_update_player_menu(void) {
                 partnerActor->homePos.z = partnerActor->curPos.z;
                 playerActor->homePos.x = playerActor->curPos.x;
                 playerActor->homePos.z = playerActor->curPos.z;
-
-                b32 temp = partnerActor->isBehind;
-                partnerActor->isBehind = playerActor->isBehind;
-                playerActor->isBehind = temp;
-
                 gBattleSubState = BTL_SUBSTATE_PLAYER_MENU_CREATE_MAIN_MENU;
                 battleStatus->flags1 &= ~BS_FLAGS1_PLAYER_IN_BACK;
-                if (isSwarmBattle) partnerActor->yaw = 180.0f;
             }
             break;
     }
@@ -2494,7 +2465,7 @@ void btl_state_update_player_menu(void) {
             BattleMenu_NumOptions = entryIdx;
             D_802AD0A8 = 0;
             D_802AD0B0 = initialPos;
-            D_802AD100 = (isSwarmBattle ? 0 : 2) - initialPos;
+            D_802AD100 = 2 - initialPos;
             if (can_switch_to_partner()) {
                 BattleMenu_ShowSwapIcons = TRUE;
             } else {
@@ -2520,7 +2491,6 @@ void btl_state_update_player_menu(void) {
                     battleStatus->lastPlayerMenuSelection[BTL_MENU_IDX_MAIN] = battle_menu_submenuIDs[BattleMenu_CurPos + BattleMenu_HomePos];
                     btl_main_menu_destroy();
                     btl_set_state(BATTLE_STATE_SWITCH_TO_PARTNER);
-                    temporarilyEnablePartySwap = TRUE;
                 } else if (partnerActor != NULL && !(partnerActor->flags & BS_FLAGS1_YIELD_TURN) && battleStatus->hustleTurns != 1) {
                     sfx_play_sound(SOUND_MENU_ERROR);
                     gBattleSubState = BTL_SUBSTATE_PLAYER_MENU_MAIN_SHOW_CANT_SWAP;
@@ -3714,10 +3684,9 @@ void btl_state_update_partner_menu(void) {
             battleStatus->flags1 |= BS_FLAGS1_MENU_OPEN;
             playerActor->flags &= ~(ACTOR_FLAG_USING_IDLE_ANIM | ACTOR_FLAG_SHOW_STATUS_ICONS);
             partnerActor->flags &= ~(ACTOR_FLAG_USING_IDLE_ANIM | ACTOR_FLAG_SHOW_STATUS_ICONS);
-            if (!temporarilyEnablePartySwap) {
+            if (battleStatus->flags1 & BS_FLAGS1_PLAYER_IN_BACK) {
                 gBattleSubState = BTL_SUBSTATE_PARTNER_MENU_INIT_MENU;
             } else {
-                temporarilyEnablePartySwap = FALSE;
                 gBattleSubState = BTL_SUBSTATE_PARTNER_MENU_12D;
                 partnerActor->state.curPos.x = partnerActor->homePos.x;
                 partnerActor->state.curPos.z = partnerActor->homePos.z;
@@ -3752,13 +3721,7 @@ void btl_state_update_partner_menu(void) {
             partnerActor->homePos.z = partnerActor->curPos.z;
             playerActor->homePos.x = playerActor->curPos.x;
             playerActor->homePos.z = playerActor->curPos.z;
-
-            b32 temp = partnerActor->isBehind;
-            partnerActor->isBehind = playerActor->isBehind;
-            playerActor->isBehind = temp;
-
             gBattleStatus.flags1 |= BS_FLAGS1_PLAYER_IN_BACK;
-            if (isSwarmBattle) playerActor->yaw = 180.0f;
         }
     }
     switch (gBattleSubState) {
@@ -3834,7 +3797,7 @@ void btl_state_update_partner_menu(void) {
             BattleMenu_NumOptions = entryIdx;
             D_802AD0A8 = 1;
             D_802AD0B0 = initialPos;
-            D_802AD100 = (isSwarmBattle ? 0 : 2) - initialPos;
+            D_802AD100 = 2 - initialPos;
             if (can_switch_to_player()) {
                 BattleMenu_ShowSwapIcons = TRUE;
             } else {
@@ -3859,7 +3822,6 @@ void btl_state_update_partner_menu(void) {
                     battleStatus->lastPartnerMenuSelection[BTL_MENU_IDX_MAIN] = battle_menu_submenuIDs[BattleMenu_CurPos + BattleMenu_HomePos];
                     btl_main_menu_destroy();
                     btl_set_state(BATTLE_STATE_SWITCH_TO_PLAYER);
-                    temporarilyEnablePartySwap = TRUE;
                 } else {
                     sfx_play_sound(SOUND_MENU_ERROR);
                     gBattleSubState = BTL_SUBSTATE_PARTNER_MENU_MAIN_SHOW_CANT_SWAP;

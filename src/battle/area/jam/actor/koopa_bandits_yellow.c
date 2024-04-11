@@ -4,7 +4,7 @@
 
 #define NAMESPACE A(yellow_bandit_koopa)
 
-// these are the only parameters that vary among koopa bros actors
+// Yellow Bandit Params
 enum N(ThisBanditsParams) {
     // THIS_ACTOR_ID               = ACTOR_ENEMY0,
     THIS_ACTOR_TYPE             = ACTOR_TYPE_YELLOW_NINJAKOOPA,
@@ -269,9 +269,9 @@ EvtScript N(EVS_HandleEvent) = {
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_EXIT_SHELL)
                 Wait(10)
             EndIf
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, THIS_ANIM_TOPPLE_IDLE)
-            ExecWait(EVS_Enemy_NoDamageHit)
+            // SetConst(LVar0, PRT_MAIN)
+            // SetConst(LVar1, THIS_ANIM_TOPPLE_IDLE)
+            // ExecWait(EVS_Enemy_NoDamageHit)
         EndCaseGroup
         CaseEq(EVENT_DEATH)
             SetConst(LVar0, PRT_MAIN)
@@ -321,8 +321,8 @@ EvtScript N(EVS_Move_Cheer) = {
     Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
     Call(BattleCamTargetActor, ACTOR_SELF)
     Call(MoveBattleCamOver, 20)
-    Call(SetActorYaw, ACTOR_SELF, 180)
-    Wait(10)
+    Wait(15)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaBros_Yellow_ThumbsUp)
     Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_RECOVER_HEART)
     Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_HEART_BOUNCE)
     Wait(30)
@@ -333,8 +333,20 @@ EvtScript N(EVS_Move_Cheer) = {
         Call(FreezeBattleState, FALSE)
     EndThread
     Call(WaitForBuffDone)
-    Call(SetActorYaw, ACTOR_SELF, 0)
     Wait(5)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
+    // Call(SetActorYaw, ACTOR_SELF, 150)
+    // Wait(1)
+    // Call(SetActorYaw, ACTOR_SELF, 120)
+    // Wait(1)
+    // Call(SetActorYaw, ACTOR_SELF, 90)
+    // Wait(1)
+    // Call(SetActorYaw, ACTOR_SELF, 60)
+    // Wait(1)
+    // Call(SetActorYaw, ACTOR_SELF, 30)
+    // Wait(1)
+    // Call(SetActorYaw, ACTOR_SELF, 0)
+    Wait(15)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
@@ -345,8 +357,29 @@ EvtScript N(EVS_Move_Cheer) = {
 EvtScript N(EVS_Attack_HammerLunge) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetActorYaw, ACTOR_SELF, 30)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 60)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 90)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 120)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 150)
+    Wait(1)
     Call(SetActorYaw, ACTOR_SELF, 180)
-    Wait(15)
+    Wait(10)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 150)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 120)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 90)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 60)
+    Wait(1)
+    Call(SetActorYaw, ACTOR_SELF, 30)
+    Wait(1)
     Call(SetActorYaw, ACTOR_SELF, 0)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
@@ -355,6 +388,10 @@ EvtScript N(EVS_Attack_HammerLunge) = {
 };
 
 EvtScript N(EVS_HandlePhase) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return
     End
 };

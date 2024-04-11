@@ -17,9 +17,9 @@ Formation A(Formation_00) = {
     ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_B, 10),
     ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_C, 10),
     ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_D, 10),
-    ACTOR_BY_IDX(A(yellow_bandit_koopa), BTL_POS_GROUND_C, 9),
+    ACTOR_BY_IDX(A(yellow_bandit_koopa), BTL_POS_GROUND_C, 8),
     ACTOR_BY_IDX(A(giant_chain_chomp), BTL_POS_GROUND_A, 10),
-    ACTOR_BY_IDX(A(hammer_bro), BTL_POS_GROUND_D, 8),
+    ACTOR_BY_IDX(A(hammer_bro), BTL_POS_GROUND_D, 9),
 };
 
 BattleList A(Formations) = {

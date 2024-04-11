@@ -3,7 +3,7 @@
 
 #define NAMESPACE A(black_bandit_koopa)
 
-// these are the only parameters that vary among koopa bros actors
+// Black Bandit Params
 enum N(ThisBanditsParams) {
     // THIS_ACTOR_ID               = ACTOR_ENEMY2,
     THIS_ACTOR_TYPE             = ACTOR_TYPE_BLACK_NINJAKOOPA,

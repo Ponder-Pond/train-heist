@@ -1,0 +1,315 @@
+
+tex: trn_wood
+{
+	img: trn_wood.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trainrooffront
+{
+	img: trn_trainrooffront.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_traintrim
+{
+	img: trn_traintrim.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	mipmaps: yes
+	filter: yes
+	combine: 8
+}
+
+tex: trn_traincart
+{
+	img: trn_traincart.png
+	{
+		format: I-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_smokestar
+{
+	img: trn_smokestar.png
+	{
+		format: IA-8
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rail
+{
+	img: trn_rail.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_piston
+{
+	img: trn_piston.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_railway
+{
+	img: trn_railway.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	mipmaps: yes
+	filter: yes
+	combine: 8
+}
+
+
+tex: trn_crate
+{
+	img: trn_crate.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_planks
+{
+	img: trn_planks.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_gravel
+{
+	img: trn_gravel.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_graveltop
+{
+	img: trn_graveltop.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rope1
+{
+	img: trn_rope1.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_steam
+{
+	img: trn_steam.png
+	{
+		format: IA-8
+		hwrap: repeat
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_rope2
+{
+	img: trn_rope2.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_chandelier
+{
+	img: trn_chandelier.png
+	{
+		format: IA-8
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_mountain
+{
+	img: trn_mountain.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_cactus
+{
+	img: trn_cactus.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_brush
+{
+	img: trn_brush.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_bombs
+{
+	img: trn_bombs.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_emblem
+{
+	img: trn_emblem.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: clamp
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_chomp
+{
+	img: trn_chomp.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_koopacart
+{
+	img: trn_koopacart.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_wheel
+{
+	img: trn_wheel.png
+	{
+		format: CI-4
+		hwrap: mirror
+		vwrap: mirror
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_traincar
+{
+	img: trn_traincar.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}
+
+tex: trn_trainroof
+{
+	img: trn_trainroof.png
+	{
+		format: CI-4
+		hwrap: repeat
+		vwrap: repeat
+	}
+	filter: yes
+	combine: 8
+}

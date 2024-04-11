@@ -8,29 +8,32 @@ extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_HandleEvent);
-extern EvtScript N(EVS_UpdateChain);
+// extern EvtScript N(EVS_UpdateChain);
 extern EvtScript N(EVS_Chomp_HopHome);
 extern EvtScript N(EVS_Chomp_HopToPos);
+extern EvtScript N(EVS_Attack_Bite);
+extern EvtScript N(EVS_CounterAttack_QuickBite);
 
-enum N(ActorVars) {
-    AVAR_EnableChainSounds      = 8,
-};
+// enum N(ActorVars) {
+//     AVAR_EnableChainSounds      = 8,
+// };
 
 enum N(ActorPartIDs) {
     PRT_MAIN            = 1,
     PRT_TARGET          = 2,
-    PRT_CHAIN_1         = 3,
-    PRT_CHAIN_2         = 4,
-    PRT_CHAIN_3         = 5,
-    PRT_CHAIN_4         = 6,
-    PRT_CHAIN_5         = 7,
-    PRT_CHAIN_6         = 8,
-    PRT_CHAIN_7         = 9,
-    PRT_CHAIN_8         = 10,
+    // PRT_CHAIN_1         = 3,
+    // PRT_CHAIN_2         = 4,
+    // PRT_CHAIN_3         = 5,
+    // PRT_CHAIN_4         = 6,
+    // PRT_CHAIN_5         = 7,
+    // PRT_CHAIN_6         = 8,
+    // PRT_CHAIN_7         = 9,
+    // PRT_CHAIN_8         = 10,
 };
 
 enum N(ActorParams) {
-    DMG_CHOMP_BITE      = 3,
+    DMG_CHOMP_BITE           = 3,
+    DMG_CHOMP_QUICKBITE      = 6,
 };
 
 s32 N(BasicAnims)[] = {
@@ -87,11 +90,7 @@ s32 N(ChainAnims)[] = {
 };
 
 s32 N(DefenseTable)[] = {
-    ELEMENT_NORMAL,   3,
-    ELEMENT_SHOCK,    3,
-    ELEMENT_FIRE,    99,
-    ELEMENT_ICE,     99,
-    ELEMENT_MAGIC,   99,
+    ELEMENT_NORMAL,   100,
     ELEMENT_END,
 };
 
@@ -101,7 +100,7 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_SLEEP,               0,
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
-    STATUS_KEY_DIZZY,              75,
+    STATUS_KEY_DIZZY,              100,
     STATUS_KEY_FEAR,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
@@ -145,102 +144,102 @@ ActorPartBlueprint N(ActorParts)[] = {
         .elementImmunityFlags = 0,
         .projectileTargetOffset = { 0, -16 },
     },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_1,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_2,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_3,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_4,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_5,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_6,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_7,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
-    {
-        .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
-        .index = PRT_CHAIN_8,
-        .posOffset = { 0, 0, 0 },
-        .targetOffset = { 0, 12 },
-        .opacity = 255,
-        .idleAnimations = N(ChainAnims),
-        .defenseTable = N(DefenseTable),
-        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
-        .elementImmunityFlags = 0,
-        .projectileTargetOffset = { 0, 0 },
-    },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_1,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_2,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_3,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_4,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_5,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_6,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_7,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
+    // {
+    //     .flags = ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_TARGET_ONLY | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+    //     .index = PRT_CHAIN_8,
+    //     .posOffset = { 0, 0, 0 },
+    //     .targetOffset = { 0, 12 },
+    //     .opacity = 255,
+    //     .idleAnimations = N(ChainAnims),
+    //     .defenseTable = N(DefenseTable),
+    //     .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+    //     .elementImmunityFlags = 0,
+    //     .projectileTargetOffset = { 0, 0 },
+    // },
 };
 
 ActorBlueprint NAMESPACE = {
@@ -266,11 +265,11 @@ ActorBlueprint NAMESPACE = {
     .statusTextOffset = { 10, 20 },
 };
 
-#define CHOMP_CHAIN_FIRST_PART_IDX  PRT_CHAIN_1
-#define CHOMP_CHAIN_LAST_PART_IDX   PRT_CHAIN_8
-#define CHOMP_CHAIN_AVAR_SOUNDS     AVAR_EnableChainSounds
-#define CHOMP_CHAIN_UPDATE_Z        TRUE
-#include "common/battle/ChompChainSupport.inc.c"
+// #define CHOMP_CHAIN_FIRST_PART_IDX  PRT_CHAIN_1
+// #define CHOMP_CHAIN_LAST_PART_IDX   PRT_CHAIN_8
+// #define CHOMP_CHAIN_AVAR_SOUNDS     AVAR_EnableChainSounds
+// #define CHOMP_CHAIN_UPDATE_Z        TRUE
+// #include "common/battle/ChompChainSupport.inc.c"
 
 API_CALLABLE(func_8021866C_4EFB0C) {
     Bytecode* args = script->ptrReadPos;
@@ -281,20 +280,20 @@ API_CALLABLE(func_8021866C_4EFB0C) {
 }
 
 EvtScript N(EVS_Init) = {
-    Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
+    // Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
     Call(SetActorScale, ACTOR_SELF, Float(2.0), Float(2.0), Float(1.0))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
-    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
-    Set(LVar0, PRT_CHAIN_1)
-    Loop(1 + (PRT_CHAIN_8 - PRT_CHAIN_1))
-        Call(SetPartSize, ACTOR_SELF, LVar0, 16, 16)
-        Add(LVar0, 1)
-    EndLoop
-    Call(N(ChompChainInit))
-    Exec(N(EVS_UpdateChain))
+    // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    // Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
+    // Set(LVar0, PRT_CHAIN_1)
+    // Loop(1 + (PRT_CHAIN_8 - PRT_CHAIN_1))
+    //     Call(SetPartSize, ACTOR_SELF, LVar0, 16, 16)
+    //     Add(LVar0, 1)
+    // EndLoop
+    // Call(N(ChompChainInit))
+    // Exec(N(EVS_UpdateChain))
     Return
     End
 };
@@ -416,19 +415,19 @@ EvtScript N(EVS_Idle) = {
     End
 };
 
-EvtScript N(EVS_UpdateChain) = {
-    Label(0)
-        Wait(1)
-        Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
-        IfEq(LVar0, TRUE)
-            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(N(ChompChainUpdate), LVar2)
-            Goto(0)
-        EndIf
-    Label(1)
-    Return
-    End
-};
+// EvtScript N(EVS_UpdateChain) = {
+//     Label(0)
+//         Wait(1)
+//         Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+//         IfEq(LVar0, TRUE)
+//             Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+//             Call(N(ChompChainUpdate), LVar2)
+//             Goto(0)
+//         EndIf
+//     Label(1)
+//     Return
+//     End
+// };
 
 EvtScript N(EVS_HandleEvent) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
@@ -444,6 +443,20 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Hurt)
             ExecWait(EVS_Enemy_Hit)
+            Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+            IfEq(LVar0, TRUE)
+                Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
+                    Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                Else
+                    Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                EndIf
+            Else
+                Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            EndIf
         CaseEq(EVENT_BEGIN_FIRST_STRIKE)
         CaseEq(EVENT_BURN_HIT)
             SetConst(LVar0, PRT_MAIN)
@@ -503,7 +516,6 @@ EvtScript N(EVS_HandleEvent) = {
             Call(SetGoalToHome, ACTOR_SELF)
             Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
-            Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
         CaseEq(EVENT_BEGIN_AIR_LIFT)
             Call(GetStatusFlags, ACTOR_SELF, LVar0)
             IfNotFlag(LVar0, STATUS_FLAGS_IMMOBILIZED)
@@ -537,14 +549,24 @@ EvtScript N(EVS_HandleEvent) = {
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_IMMUNE)
             SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_ChainChomp_Idle)
+            SetConst(LVar1, ANIM_ChainChomp_Hurt)
             ExecWait(EVS_Enemy_NoDamageHit)
+            Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+            IfEq(LVar0, TRUE)
+                Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
+                    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Hurt)
+                    Wait(50)
+                    ExecWait(N(EVS_CounterAttack_QuickBite))
+                EndIf
+            Else
+                Call(ClearStatusEffects, ACTOR_SELF)
+            EndIf
         EndCaseGroup
         CaseEq(EVENT_SHOCK_DEATH)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Hurt)
             ExecWait(EVS_Enemy_ShockHit)
-            Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
             Wait(10)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Hurt)
@@ -569,6 +591,11 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_Death)
             Return
         CaseEq(EVENT_RECOVER_STATUS)
+            Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+            IfEq(LVar0, TRUE)
+                Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+            EndIf
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Idle)
             ExecWait(EVS_Enemy_Recover)
@@ -590,7 +617,16 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 EvtScript N(EVS_TakeTurn) = {
-    Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    ExecWait(N(EVS_Attack_Bite))
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_RESTART)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Attack_Bite) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
@@ -672,7 +708,6 @@ EvtScript N(EVS_TakeTurn) = {
             Call(HPBarToHome, ACTOR_SELF)
             Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 0)
             Call(SetActorYaw, ACTOR_SELF, 0)
-            Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
             Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_RESTART)
             Return
         EndCaseGroup
@@ -755,13 +790,184 @@ EvtScript N(EVS_TakeTurn) = {
             ExecWait(N(EVS_Chomp_HopHome))
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
     EndSwitch
-    Call(SetActorVar, ACTOR_SELF, AVAR_EnableChainSounds, FALSE)
     Call(HPBarToHome, ACTOR_SELF)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_RESTART)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
     End
 };
+
+EvtScript N(EVS_CounterAttack_QuickBite) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
+    Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
+    Call(BattleCamTargetActor, ACTOR_SELF)
+    Call(func_8024ECF8, BTL_CAM_MODEY_MINUS_1, BTL_CAM_MODEX_1, FALSE)
+    Call(SetActorJumpGravity, ACTOR_SELF, Float(0.5))
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Set(LVar1, 0)
+    Add(LVar0, 45)
+    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(JumpToGoal, ACTOR_SELF, 7, FALSE, TRUE, FALSE)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+    Thread
+        Call(GetStatusFlags, ACTOR_SELF, LVar0)
+        IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+            Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+        EndIf
+    EndThread
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_QuickBite)
+    Wait(7)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_ACTOR_HURT)
+    Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVar0)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Set(LVarA, LVar0)
+            Call(PlaySound, SOUND_ACTOR_HURT)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Sub(LVar0, 20)
+            Set(LVar1, 0)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.8))
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.8))
+            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Sub(LVar0, 25)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 3, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Sub(LVar0, 15)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 2, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Bite)
+            Wait(10)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+            Call(MoveBattleCamOver, 20)
+            Call(SetActorYaw, ACTOR_SELF, 180)
+            Call(AddActorDecoration, ACTOR_SELF, PRT_MAIN, 0, ACTOR_DECORATION_SWEAT)
+            SetConst(LVar0, PRT_MAIN)
+            SetConst(LVar1, ANIM_ChainChomp_Idle)
+            ExecWait(N(EVS_Chomp_HopHome))
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
+            Call(HPBarToHome, ACTOR_SELF)
+            Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 0)
+            Call(SetActorYaw, ACTOR_SELF, 0)
+            Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_RESTART)
+            Return
+        EndCaseGroup
+    EndSwitch
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(GetStatusFlags, ACTOR_SELF, LVarA)
+    IfFlag(LVarA, STATUS_FLAG_SHRINK)
+        Add(LVar0, 4)
+    Else
+        Add(LVar0, 10)
+    EndIf
+    Set(LVar1, 27)
+    Call(SetActorJumpGravity, ACTOR_SELF, Float(0.2))
+    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+    Wait(2)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVarF, 0, 0, 0, DMG_CHOMP_QUICKBITE, BS_FLAGS1_TRIGGER_EVENTS)
+    Switch(LVarF)
+        CaseDefault
+            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+            Call(MoveBattleCamOver, 20)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Bite)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Add(LVar0, 40)
+            Set(LVar1, 0)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.8))
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Add(LVar0, 30)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 8, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Add(LVar0, 20)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 3, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Sub(LVar0, 10)
+            Call(JumpToGoal, ACTOR_SELF, 2, FALSE, TRUE, FALSE)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_CHAIN_CHOMP_THUD)
+            Thread
+                Call(GetStatusFlags, ACTOR_SELF, LVar0)
+                IfNotFlag(LVar0, STATUS_FLAG_SHRINK)
+                    Call(ShakeCam, CAM_BATTLE, 0, 1, Float(0.5))
+                EndIf
+            EndThread
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
+            Wait(8)
+            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+            IfEq(LVarF, HIT_RESULT_10)
+                Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+                Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
+                Return
+            EndIf
+            Call(YieldTurn)
+            SetConst(LVar0, PRT_MAIN)
+            SetConst(LVar1, ANIM_ChainChomp_Idle)
+            ExecWait(N(EVS_Chomp_HopHome))
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ChainChomp_Idle)
+    EndSwitch
+    Call(HPBarToHome, ACTOR_SELF)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_RESTART)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
 
 // Custom version of EVS_Enemy_HopHome
 // (in) LVar0: part idx

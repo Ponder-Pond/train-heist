@@ -80,7 +80,7 @@ void clear_player_data(void) {
     playerData->maxStarPower = 0;
     playerData->starPower = 0;
     playerData->starBeamLevel = 0;
-    playerData->curPartner = PARTNER_GOOMBARIO;
+    playerData->curPartner = PARTNER_KOOPER;
 
     // for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
     //     playerData->partners[i].enabled = FALSE;
@@ -99,10 +99,10 @@ void clear_player_data(void) {
         #else
             playerData->partners[i].enabled = FALSE;
         #endif
-        playerData->partners[i].level = PARTNER_RANK_NORMAL;
-        playerData->partners[i].curHp = partnerHpList[i].level0Hp;
-        playerData->partners[i].maxHp = partnerHpList[i].level0Hp;
-        playerData->partners[i].trueMaxHp = partnerHpList[i].level0Hp;
+        playerData->partners[i].level = PARTNER_RANK_SUPER;
+        // playerData->partners[i].curHp = partnerHpList[i].level0Hp;
+        // playerData->partners[i].maxHp = partnerHpList[i].level0Hp;
+        // playerData->partners[i].trueMaxHp = partnerHpList[i].level0Hp;
     }
 
     for (i = 0; i < ARRAY_COUNT(playerData->keyItems); i++) {
@@ -933,7 +933,7 @@ void update_status_bar(void) {
 
     //draw hp bars
     DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_26, x + hp_bar_offset_x, y + hp_bar_offset_y, hp_bar_width, hp_bar_height, 255);
-    DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_26, x + hp_bar_offset_x, y + hp_bar_offset_y + 0x15, hp_bar_width, hp_bar_height, 255);
+    // DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_26, x + hp_bar_offset_x, y + hp_bar_offset_y + 0x15, hp_bar_width, hp_bar_height, 255);
 
     //draw fp bar
     DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_23, x + hp_bar_offset_x + 92, y + hp_bar_offset_y, 91, 28, 255);
@@ -989,21 +989,21 @@ void update_status_bar(void) {
         hud_element_draw_next(id);
 
         //draw partner heart icon
-        id = statusBar->hpIconHIDs[1];
-        hud_element_set_render_pos(id, hpXPosBase + 8, hpYPosBase + 19);
-        hud_element_draw_next(id);
+        // id = statusBar->hpIconHIDs[1];
+        // hud_element_set_render_pos(id, hpXPosBase + 8, hpYPosBase + 19);
+        // hud_element_draw_next(id);
 
         //draw player icon
-        id = statusBar->hpIconHIDs[0];
-        hud_element_set_render_pos(id, hpXPosBase, hpYPosBase);
-        hud_element_draw_next(id);
+        // id = statusBar->hpIconHIDs[0];
+        // hud_element_set_render_pos(id, hpXPosBase, hpYPosBase);
+        // hud_element_draw_next(id);
 
         //draw partner icon icon
-        id = statusBar->fpIconHIDs[1];
-        hud_element_set_script(id, gPartnerIconHudScripts[gPlayerData.curPartner].enabled);
-        hud_element_set_scale(id, 0.5f);
-        hud_element_set_render_pos(id, hpXPosBase - 1, hpYPosBase + 21);
-        hud_element_draw_next(id);
+        // id = statusBar->fpIconHIDs[1];
+        // hud_element_set_script(id, gPartnerIconHudScripts[gPlayerData.curPartner].enabled);
+        // hud_element_set_scale(id, 0.5f);
+        // hud_element_set_render_pos(id, hpXPosBase - 1, hpYPosBase + 21);
+        // hud_element_draw_next(id);
 
         //draw player curHp / maxHp
         x = statusBar->drawPosX + 42;
@@ -1011,12 +1011,12 @@ void update_status_bar(void) {
         status_bar_draw_stat(statusBar->hpTimesHID, x, y, statusBar->displayHP, playerData->curMaxHP);
 
         //draw partner curHp / maxHp
-        x = statusBar->drawPosX + 42;
-        y = statusBar->drawPosY + 28;
-        {
-            s32 curPartner = playerData->curPartner;
-            status_bar_draw_stat(statusBar->hpTimesHID, x, y, playerData->partners[curPartner].curHp, playerData->partners[curPartner].maxHp);
-        }
+        // x = statusBar->drawPosX + 42;
+        // y = statusBar->drawPosY + 28;
+        // {
+        //     s32 curPartner = playerData->curPartner;
+        //     status_bar_draw_stat(statusBar->hpTimesHID, x, y, playerData->partners[curPartner].curHp, playerData->partners[curPartner].maxHp);
+        // }
     }
 
     if (statusBar->fpBlinkTimer > 0) {

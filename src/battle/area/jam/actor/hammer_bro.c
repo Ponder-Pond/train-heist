@@ -23,8 +23,8 @@ enum N(ActorVars) {
 };
 
 enum N(ActorParams) {
-    DMG_HAMMER_THROW    = 5,
-    DMG_HAMMER_SURGE    = 2,
+    DMG_HAMMER_THROW    = 3,
+    DMG_HAMMER_SURGE    = 1,
 };
 
 s32 N(DefaultAnims)[] = {
@@ -56,7 +56,7 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_SLEEP,              50,
     STATUS_KEY_POISON,             60,
     STATUS_KEY_FROZEN,              0,
-    STATUS_KEY_DIZZY,              70,
+    STATUS_KEY_DIZZY,              80,
     STATUS_KEY_FEAR,                0,
     STATUS_KEY_STATIC,             80,
     STATUS_KEY_PARALYZE,           70,
@@ -396,7 +396,7 @@ EvtScript N(EVS_Attack_HammerThrow) = {
     Call(SetPartJumpGravity, ACTOR_SELF, PRT_HAMMER_1, Float(1.3))
     Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 15, TRUE)
     Wait(2)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_SHRINK, 3, 50), DMG_HAMMER_THROW, BS_FLAGS1_TRIGGER_EVENTS)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_SHRINK, 2, 100), DMG_HAMMER_THROW, BS_FLAGS1_TRIGGER_EVENTS)
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
@@ -578,7 +578,7 @@ EvtScript N(EVS_Attack_HammerSurge) = {
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, DMG_HAMMER_SURGE, BS_FLAGS1_NICE_HIT)
     Wait(5)
     Wait(2)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_SHRINK, 3, 50), DMG_HAMMER_SURGE, BS_FLAGS1_TRIGGER_EVENTS)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_SHRINK, 2, 100), DMG_HAMMER_SURGE, BS_FLAGS1_TRIGGER_EVENTS)
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
@@ -593,15 +593,13 @@ EvtScript N(EVS_Attack_HammerSurge) = {
 };
 
 EvtScript N(EVS_TakeTurn) = {
-    Call(GetActorHP, ACTOR_SELF, LVar0)
-    Call(GetEnemyMaxHP, ACTOR_SELF, LVar1)
-    MulF(LVar0, Float(100.0))
-    DivF(LVar0, LVar1)
-    IfGt(LVar0, 34)
-        ExecWait(N(EVS_Attack_HammerThrow))
-    Else
-        ExecWait(N(EVS_Attack_HammerSurge))
-    EndIf
+    Call(RandInt, 100, LVar0)
+    Switch(LVar0)
+        CaseLt(60)
+            ExecWait(N(EVS_Attack_HammerThrow))
+        CaseDefault
+            ExecWait(N(EVS_Attack_HammerSurge))
+    EndSwitch
     Return
     End
 };

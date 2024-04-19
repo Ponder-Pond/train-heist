@@ -104,10 +104,10 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_FEAR,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
-    STATUS_KEY_SHRINK,             75,
-    STATUS_KEY_STOP,               75,
+    STATUS_KEY_SHRINK,              0,
+    STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
-    STATUS_TURN_MOD_SLEEP,         -1,
+    STATUS_TURN_MOD_SLEEP,          0,
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,         -1,
@@ -115,7 +115,32 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
-    STATUS_TURN_MOD_STOP,          -1,
+    STATUS_TURN_MOD_STOP,           0,
+    STATUS_END,
+};
+
+s32 N(StatusTableGC)[] = {
+    STATUS_KEY_NORMAL,              0,
+    STATUS_KEY_DEFAULT,             0,
+    STATUS_KEY_SLEEP,               0,
+    STATUS_KEY_POISON,              0,
+    STATUS_KEY_FROZEN,              0,
+    STATUS_KEY_DIZZY,               0,
+    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_STATIC,              0,
+    STATUS_KEY_PARALYZE,            0,
+    STATUS_KEY_SHRINK,              0,
+    STATUS_KEY_STOP,                0,
+    STATUS_TURN_MOD_DEFAULT,        0,
+    STATUS_TURN_MOD_SLEEP,          0,
+    STATUS_TURN_MOD_POISON,         0,
+    STATUS_TURN_MOD_FROZEN,         0,
+    STATUS_TURN_MOD_DIZZY,          0,
+    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_STATIC,         0,
+    STATUS_TURN_MOD_PARALYZE,       0,
+    STATUS_TURN_MOD_SHRINK,         0,
+    STATUS_TURN_MOD_STOP,           0,
     STATUS_END,
 };
 
@@ -285,6 +310,12 @@ EvtScript N(EVS_Init) = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
+    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(HPBarToHome, ACTOR_SELF)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_TARGET, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     // Call(SetPartPos, ACTOR_SELF, PRT_TARGET, LVar0, LVar1, LVar2)
     // Set(LVar0, PRT_CHAIN_1)
@@ -448,14 +479,20 @@ EvtScript N(EVS_HandleEvent) = {
                 Call(GetStatusFlags, ACTOR_GIANT_CHOMP, LVar0)
                 IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
                     Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                    Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTable)))
                     Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                    Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTable)))
                 Else
                     Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                    Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTableGC)))
                     Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                    Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTableGC)))
                 EndIf
             Else
                 Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTableGC)))
                 Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTableGC)))
             EndIf
         CaseEq(EVENT_BEGIN_FIRST_STRIKE)
         CaseEq(EVENT_BURN_HIT)
@@ -594,7 +631,9 @@ EvtScript N(EVS_HandleEvent) = {
             Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
             IfEq(LVar0, TRUE)
                 Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTable)))
                 Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTable)))
             EndIf
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Idle)

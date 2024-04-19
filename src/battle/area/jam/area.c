@@ -9,6 +9,7 @@ extern ActorBlueprint A(giant_chain_chomp);
 extern ActorBlueprint A(hammer_bro);
 extern ActorBlueprint A(black_bandit_koopa);
 extern ActorBlueprint A(red_bandit_koopa);
+extern ActorBlueprint A(pyro_guy);
 
 extern Stage A(jam_00);
 
@@ -20,6 +21,9 @@ Formation A(Formation_00) = {
     ACTOR_BY_IDX(A(yellow_bandit_koopa), BTL_POS_GROUND_C, 8),
     ACTOR_BY_IDX(A(giant_chain_chomp), BTL_POS_GROUND_A, 10),
     ACTOR_BY_IDX(A(hammer_bro), BTL_POS_GROUND_D, 9),
+    ACTOR_BY_IDX(A(black_bandit_koopa), BTL_POS_GROUND_B, 8),
+    ACTOR_BY_IDX(A(red_bandit_koopa), BTL_POS_GROUND_B, 8),
+    ACTOR_BY_IDX(A(pyro_guy), BTL_POS_GROUND_C, 8),
 };
 
 BattleList A(Formations) = {

@@ -2334,8 +2334,52 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0
+- GreenBandit:
+    level: 0
+    nameMsg: MSG_Misc_GreenBandit
+    tattleMsg: MSG_Misc_GreenBanditTattle
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 4, 0 ]
+    shadowOffset: 0
+- YellowBandit:
+    level: 0
+    nameMsg: MSG_Misc_YellowBandit
+    tattleMsg: MSG_Misc_YellowBanditTattle
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 4, 0 ]
+    shadowOffset: 0
+- BlackBandit:
+    level: 0
+    nameMsg: MSG_Misc_BlackBandit
+    tattleMsg: MSG_Misc_BlackBanditTattle
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 4, 0 ]
+    shadowOffset: 0
+- RedBandit:
+    level: 0
+    nameMsg: MSG_Misc_RedBandit
+    tattleMsg: MSG_Misc_RedBanditTattle
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 4, 0 ]
+    shadowOffset: 0
 - GiantChomp:
-    level: 28
+    level: 0
     nameMsg: MSG_Misc_GiantChomp
     tattleMsg: MSG_Misc_GiantChompTattle # TODO
     walkSound: [ SOUND_NONE, SOUND_NONE ]

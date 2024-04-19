@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Map name="trn_bt00" author="unnamed" background="trn_bg" textures="trn_tex">
+<Map background="trn_bg" textures="trn_tex">
 	<Editor>
-		<Camera pos="-37.068386,116.468567,509.582153" pitch="9.000000" yaw="0.000000"/>
+		<Camera pos="0.000000,116.468567,434.666626" pitch="9.000000" yaw="0.000000"/>
 		<Camera pos="-134.989990,65536.000000,26.953661"/>
 		<Camera pos="65536.000000,-13.335473,37.024689"/>
 		<Camera pos="-586.026794,-2.099027,65536.000000"/>
 	</Editor>
 	<ModelTree>
-		<Node name="Root" id="24">
-			<Node name="TrainCarRoofTop" id="0"/>
-			<Node name="TrainCarRoofFront" id="1"/>
-			<Node name="TrainCarEntrance" id="2"/>
-			<Node name="TrainCarWall" id="3"/>
-			<Node name="TrainCarTrim" id="4"/>
-			<Node name="TrainCarBase" id="5"/>
-			<Node name="TrainCarRail" id="6"/>
-			<Node name="TrainTracksTop" id="7"/>
-			<Node name="TrainTracksFront" id="8"/>
-			<Node name="KoopaCartSides" id="9"/>
-			<Node name="KoopaCartTop" id="A"/>
-			<Node name="ChompConnector" id="B"/>
-			<Node name="ChompStake" id="C"/>
-			<Node name="Wheel1" id="D"/>
-			<Node name="Wheel2" id="E"/>
-			<Node name="Wheel3" id="F"/>
-			<Node name="Wheel4" id="10"/>
-			<Node name="Wheel5" id="11"/>
-			<Node name="Wheel6" id="12"/>
-			<Node name="Wheel7" id="13"/>
-			<Node name="Wheel8" id="14"/>
-			<Node name="Wheel9" id="15"/>
-			<Node name="Wheel10" id="16"/>
-			<Node name="Wheel11" id="17"/>
-			<Node name="Wheel12" id="18"/>
-			<Node name="Wheel13" id="19"/>
-			<Node name="StageWooden" id="1A"/>
-			<Node name="MountainsShade" id="1B"/>
-			<Node name="Cactus" id="1C"/>
-			<Node name="Hill" id="1D"/>
-			<Node name="GravelTop" id="1E"/>
-			<Node name="GravelMiddle" id="1F"/>
-			<Node name="GravelFront" id="20"/>
-			<Node name="BrushSmall" id="21"/>
-			<Node name="BrushBig" id="22"/>
-			<Node name="Tunnel" id="23"/>
+		<Node name="Root" id="25">
+			<Node name="Wheel" id="D">
+				<Node name="Wheel1" id="0"/>
+				<Node name="Wheel2" id="1"/>
+				<Node name="Wheel3" id="2"/>
+				<Node name="Wheel4" id="3"/>
+				<Node name="Wheel5" id="4"/>
+				<Node name="Wheel6" id="5"/>
+				<Node name="Wheel7" id="6"/>
+				<Node name="Wheel8" id="7"/>
+				<Node name="Wheel9" id="8"/>
+				<Node name="Wheel10" id="9"/>
+				<Node name="Wheel11" id="A"/>
+				<Node name="Wheel12" id="B"/>
+				<Node name="Wheel13" id="C"/>
+			</Node>
+			<Node name="TrainCarRoofTop" id="E"/>
+			<Node name="TrainCarRoofFront" id="F"/>
+			<Node name="TrainCarEntrance" id="10"/>
+			<Node name="TrainCarWall" id="11"/>
+			<Node name="TrainCarTrim" id="12"/>
+			<Node name="TrainCarBase" id="13"/>
+			<Node name="TrainCarRail" id="14"/>
+			<Node name="TrainTracksTop" id="15"/>
+			<Node name="TrainTracksFront" id="16"/>
+			<Node name="KoopaCartSides" id="17"/>
+			<Node name="KoopaCartTop" id="18"/>
+			<Node name="ChompConnector" id="19"/>
+			<Node name="ChompStake" id="1A"/>
+			<Node name="StageWooden" id="1B"/>
+			<Node name="MountainsShade" id="1C"/>
+			<Node name="Cactus" id="1D"/>
+			<Node name="Hill" id="1E"/>
+			<Node name="GravelTop" id="1F"/>
+			<Node name="GravelMiddle" id="20"/>
+			<Node name="GravelFront" id="21"/>
+			<Node name="BrushSmall" id="22"/>
+			<Node name="BrushBig" id="23"/>
+			<Node name="Tunnel" id="24"/>
 		</Node>
 	</ModelTree>
 	<ColliderTree>
@@ -85,13 +87,13 @@
 	</LightSets>
 	<Models>
 		<Model ver="2" type="ROOT" lightset="1">
-			<MapObject name="Root" id="24" dumped="true" fileOffset="64B0"/>
+			<MapObject name="Root" id="25" dumped="true" fileOffset="64B0"/>
 			<BoundingBox empty="false" min="-1820,-108,-319" max="590,235,190"/>
 			<PropertyList>
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Tunnel" id="23"/>
+			<MapObject name="Tunnel" id="24"/>
 			<ShapeMesh ver="3" texture="trn_gravel">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -213,7 +215,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="BrushBig" id="22"/>
+			<MapObject name="BrushBig" id="23"/>
 			<ShapeMesh ver="3" texture="trn_brush">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -241,7 +243,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="3">
-			<MapObject name="BrushSmall" id="21"/>
+			<MapObject name="BrushSmall" id="22"/>
 			<ShapeMesh ver="3" texture="trn_brush">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -269,7 +271,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="GravelFront" id="20"/>
+			<MapObject name="GravelFront" id="21"/>
 			<ShapeMesh ver="3" texture="trn_gravel">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -296,7 +298,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="GravelMiddle" id="1F"/>
+			<MapObject name="GravelMiddle" id="20"/>
 			<ShapeMesh ver="3" texture="trn_gravel">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -323,7 +325,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="GravelTop" id="1E"/>
+			<MapObject name="GravelTop" id="1F"/>
 			<ShapeMesh ver="3" texture="trn_graveltop">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -351,7 +353,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="2">
-			<MapObject name="Hill" id="1D"/>
+			<MapObject name="Hill" id="1E"/>
 			<ShapeMesh ver="3" texture="trn_mountain">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -379,7 +381,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="0">
-			<MapObject name="Cactus" id="1C"/>
+			<MapObject name="Cactus" id="1D"/>
 			<ShapeMesh ver="3" texture="trn_cactus">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -407,7 +409,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="0">
-			<MapObject name="MountainsShade" id="1B"/>
+			<MapObject name="MountainsShade" id="1C"/>
 			<ShapeMesh ver="3" texture="trn_mountain">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -449,7 +451,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="StageWooden" id="1A"/>
+			<MapObject name="StageWooden" id="1B"/>
 			<ShapeMesh ver="3" texture="trn_wood">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -573,369 +575,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel13" id="19"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="158,-37,34" uv="0,-1024"/>
-							<Vertex xyz="188,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="158,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="158,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="188,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="188,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel12" id="18"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="124,-37,34" uv="0,-1024"/>
-							<Vertex xyz="154,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="124,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="124,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="154,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="154,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel11" id="17"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="90,-37,34" uv="0,-1024"/>
-							<Vertex xyz="120,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="90,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="90,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="120,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="120,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel10" id="16"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="56,-37,34" uv="0,-1024"/>
-							<Vertex xyz="86,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="56,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="56,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="86,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="86,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel9" id="15"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="22,-37,34" uv="0,-1024"/>
-							<Vertex xyz="52,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="22,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="22,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="52,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="52,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel8" id="14"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-12,-37,34" uv="0,-1024"/>
-							<Vertex xyz="18,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-12,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-12,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="18,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="18,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel7" id="13"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-116,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-86,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-116,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-116,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-86,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-86,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel6" id="12"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-150,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-120,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-150,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-120,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="2,1,3"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel5" id="11"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-184,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-154,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-184,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-184,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-154,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-154,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel4" id="10"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-218,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-188,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-218,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-218,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-188,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-188,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel3" id="F"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-252,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-222,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-252,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-252,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-222,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-222,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel2" id="E"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-286,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-256,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-286,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-286,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-256,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-256,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="Wheel1" id="D"/>
-			<ShapeMesh ver="3" texture="trn_wheel">
-				<DisplayList>
-					<F3DEX2 cmd="E7000000,0"/>
-					<F3DEX2 cmd="D9FDFFFF,0"/>
-					<F3DEX2 cmd="D9FFFFFF,200400"/>
-					<TriangleBatch ver="0">
-						<VertexTable>
-							<Vertex xyz="-320,-37,34" uv="0,-1024"/>
-							<Vertex xyz="-290,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-320,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-320,-7,34" uv="0,1024" rgba="136,136,136,255"/>
-							<Vertex xyz="-290,-37,34" uv="2048,-1024"/>
-							<Vertex xyz="-290,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
-						</VertexTable>
-						<TriangleList>
-							<Triangle ijk="0,1,2"/>
-							<Triangle ijk="3,4,5"/>
-						</TriangleList>
-					</TriangleBatch>
-				</DisplayList>
-			</ShapeMesh>
-			<PropertyList>
-				<Property v="5C,0,D"/>
-				<Property v="5F,0,0"/>
-			</PropertyList>
-		</Model>
-		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="ChompStake" id="C"/>
+			<MapObject name="ChompStake" id="1A"/>
 			<ShapeMesh ver="3" texture="trn_planks">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -985,7 +625,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="ChompConnector" id="B"/>
+			<MapObject name="ChompConnector" id="19"/>
 			<ShapeMesh ver="3" texture="trn_chomp">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1013,7 +653,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="KoopaCartTop" id="A"/>
+			<MapObject name="KoopaCartTop" id="18"/>
 			<ShapeMesh ver="3" texture="trn_planks">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1047,7 +687,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="KoopaCartSides" id="9"/>
+			<MapObject name="KoopaCartSides" id="17"/>
 			<ShapeMesh ver="3" texture="trn_koopacart">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1105,7 +745,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="TrainTracksFront" id="8"/>
+			<MapObject name="TrainTracksFront" id="16"/>
 			<ShapeMesh ver="3" texture="trn_railway">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1133,7 +773,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0" panUnit="1">
-			<MapObject name="TrainTracksTop" id="7" dumped="true" fileOffset="5B60"/>
+			<MapObject name="TrainTracksTop" id="15" dumped="true" fileOffset="5B60"/>
 			<ShapeMesh ver="3" texture="trn_railway">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1158,7 +798,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarRail" id="6"/>
+			<MapObject name="TrainCarRail" id="14"/>
 			<ShapeMesh ver="3" texture="trn_rail">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1186,7 +826,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarBase" id="5"/>
+			<MapObject name="TrainCarBase" id="13"/>
 			<ShapeMesh ver="3" texture="trn_traincart">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1248,7 +888,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarTrim" id="4"/>
+			<MapObject name="TrainCarTrim" id="12"/>
 			<ShapeMesh ver="3" texture="trn_traintrim">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1290,7 +930,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarWall" id="3"/>
+			<MapObject name="TrainCarWall" id="11"/>
 			<ShapeMesh ver="3" texture="trn_traincar">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1318,7 +958,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarEntrance" id="2"/>
+			<MapObject name="TrainCarEntrance" id="10"/>
 			<ShapeMesh ver="3" texture="trn_traincart">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1345,7 +985,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarRoofFront" id="1"/>
+			<MapObject name="TrainCarRoofFront" id="F"/>
 			<ShapeMesh ver="3" texture="trn_trainrooffront">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1376,7 +1016,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="TrainCarRoofTop" id="0"/>
+			<MapObject name="TrainCarRoofTop" id="E"/>
 			<ShapeMesh ver="3" texture="trn_trainroof">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1454,6 +1094,377 @@
 			</ShapeMesh>
 			<PropertyList>
 				<Property v="5C,0,1"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="GROUP" lightset="0">
+			<MapObject name="Wheel" id="D"/>
+			<BoundingBox empty="false" min="-320,-37,34" max="188,-7,34"/>
+			<TransformMatrix m="1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000"/>
+			<PropertyList>
+				<Property v="60,0,0"/>
+				<Property v="60,0,1"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel13" id="C"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="158,-37,34" uv="0,-1024"/>
+							<Vertex xyz="188,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="158,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="158,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="188,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="188,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel12" id="B"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="124,-37,34" uv="0,-1024"/>
+							<Vertex xyz="154,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="124,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="124,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="154,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="154,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel11" id="A"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="90,-37,34" uv="0,-1024"/>
+							<Vertex xyz="120,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="90,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="90,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="120,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="120,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel10" id="9"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="56,-37,34" uv="0,-1024"/>
+							<Vertex xyz="86,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="56,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="56,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="86,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="86,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel9" id="8"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="22,-37,34" uv="0,-1024"/>
+							<Vertex xyz="52,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="22,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="22,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="52,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="52,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel8" id="7"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-12,-37,34" uv="0,-1024"/>
+							<Vertex xyz="18,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-12,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-12,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="18,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="18,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel7" id="6"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-116,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-86,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-116,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-116,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-86,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-86,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel6" id="5"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-150,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-120,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-150,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-120,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="2,1,3"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel5" id="4"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-184,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-154,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-184,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-184,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-154,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-154,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel4" id="3"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-218,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-188,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-218,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-218,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-188,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-188,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel3" id="2"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-252,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-222,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-252,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-252,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-222,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-222,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel2" id="1"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-286,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-256,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-286,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-286,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-256,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-256,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
+				<Property v="5F,0,0"/>
+			</PropertyList>
+		</Model>
+		<Model ver="2" type="MODEL" lightset="0">
+			<MapObject name="Wheel1" id="0"/>
+			<ShapeMesh ver="3" texture="trn_wheel">
+				<DisplayList>
+					<F3DEX2 cmd="E7000000,0"/>
+					<F3DEX2 cmd="D9FDFFFF,0"/>
+					<F3DEX2 cmd="D9FFFFFF,200400"/>
+					<TriangleBatch ver="0">
+						<VertexTable>
+							<Vertex xyz="-320,-37,34" uv="0,-1024"/>
+							<Vertex xyz="-290,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-320,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-320,-7,34" uv="0,1024" rgba="136,136,136,255"/>
+							<Vertex xyz="-290,-37,34" uv="2048,-1024"/>
+							<Vertex xyz="-290,-7,34" uv="2048,1024" rgba="136,136,136,255"/>
+						</VertexTable>
+						<TriangleList>
+							<Triangle ijk="0,1,2"/>
+							<Triangle ijk="3,4,5"/>
+						</TriangleList>
+					</TriangleBatch>
+				</DisplayList>
+			</ShapeMesh>
+			<PropertyList>
+				<Property v="5C,0,D"/>
 				<Property v="5F,0,0"/>
 			</PropertyList>
 		</Model>

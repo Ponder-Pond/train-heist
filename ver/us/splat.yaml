@@ -5959,6 +5959,7 @@ segments:
     - [auto, c, actor/hammer_bro]
     - [auto, c, actor/koopa_bandits_black]
     - [auto, c, actor/koopa_bandits_red]
+    - [auto, c, actor/pyro_guy]
 
 #######################
 ### Battle Partners ###

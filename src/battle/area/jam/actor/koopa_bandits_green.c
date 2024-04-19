@@ -1,5 +1,5 @@
 #include "../area.h"
-#include "sprite/npc/KoopaBros.h"
+#include "sprite/npc/KoopaGang.h"
 #include "boss.h"
 
 #define NAMESPACE A(green_bandit_koopa)
@@ -7,35 +7,33 @@
 // Green Bandit Params
 enum N(ThisBanditsParams) {
     // THIS_ACTOR_ID               = ACTOR_ENEMY0,
-    THIS_ACTOR_TYPE             = ACTOR_TYPE_GREEN_NINJAKOOPA,
-    THIS_LEVEL                  = ACTOR_LEVEL_GREEN_NINJAKOOPA,
-    THIS_SLEEP_CHANCE           = 70,
-    THIS_DIZZY_CHANCE           = 45,
-    THIS_PARALYZE_CHANCE        = 75,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Green_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Green_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Green_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Green_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Green_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Green_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Green_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Green_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Green_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Green_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Green_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Green_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Green_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Green_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Green_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Green_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Green_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Green_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Green_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Green_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Green_PointForward,
+    THIS_ACTOR_TYPE             = ACTOR_TYPE_GREEN_BANDIT,
+    THIS_LEVEL                  = ACTOR_LEVEL_GREEN_BANDIT,
+    THIS_SLEEP_CHANCE           = 0,
+    THIS_DIZZY_CHANCE           = 0,
+    THIS_PARALYZE_CHANCE        = 0,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang_Green_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang_Green_Still,
+    THIS_ANIM_SLEEP             = ANIM_KoopaGang_Green_Sleep,
+    THIS_ANIM_DIZZY             = ANIM_KoopaGang_Green_Dizzy,
+    THIS_ANIM_RUN               = ANIM_KoopaGang_Green_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang_Green_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang_Green_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang_Green_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang_Green_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang_Green_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang_Green_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang_Green_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang_Green_StillToppled,
+    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaGang_Green_DizzyToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang_Green_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang_Green_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang_Green_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang_Green_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang_Green_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang_Green_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang_Green_PointForward,
 };
-
-#include "../area.h"
 
 extern s32 N(DefaultAnims)[];
 extern EvtScript N(EVS_Init);
@@ -69,18 +67,18 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_FEAR,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            THIS_PARALYZE_CHANCE,
-    STATUS_KEY_SHRINK,            100,
-    STATUS_KEY_STOP,               75,
+    STATUS_KEY_SHRINK,              0,
+    STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
-    STATUS_TURN_MOD_SLEEP,         -1,
+    STATUS_TURN_MOD_SLEEP,          0,
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
-    STATUS_TURN_MOD_DIZZY,         -1,
+    STATUS_TURN_MOD_DIZZY,          0,
     STATUS_TURN_MOD_FEAR,           0,
     STATUS_TURN_MOD_STATIC,         0,
-    STATUS_TURN_MOD_PARALYZE,      -1,
-    STATUS_TURN_MOD_SHRINK,        -1,
-    STATUS_TURN_MOD_STOP,          -2,
+    STATUS_TURN_MOD_PARALYZE,       0,
+    STATUS_TURN_MOD_SHRINK,         0,
+    STATUS_TURN_MOD_STOP,           0,
     STATUS_END,
 };
 
@@ -206,9 +204,11 @@ EvtScript N(EVS_Init) = {
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
-    // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
     Exec(N(EVS_ManageFirstPhase))

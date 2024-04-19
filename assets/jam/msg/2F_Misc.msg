@@ -10,6 +10,42 @@
 	Increases maximum BP by 3.[End]
 }
 
+#message:2F:(Misc_GreenBandit) {
+	G Bandit[End]
+}
+
+#message:2F:(Misc_GreenBanditTattle) {
+	[Style right]
+	This is Green Bandit.[Wait][End]
+}
+
+#message:2F:(Misc_YellowBandit) {
+	Y Bandit[End]
+}
+
+#message:2F:(Misc_YellowBanditTattle) {
+	[Style right]
+	This is Yellow Bandit.[Wait][End]
+}
+
+#message:2F:(Misc_BlackBandit) {
+	B Bandit[End]
+}
+
+#message:2F:(Misc_BlackBanditTattle) {
+	[Style right]
+	This is Black Bandit.[Wait][End]
+}
+
+#message:2F:(Misc_RedBandit) {
+	R Bandit[End]
+}
+
+#message:2F:(Misc_RedBanditTattle) {
+	[Style right]
+	This is Red Bandit.[Wait][End]
+}
+
 #message:2F:(Misc_GiantChomp) {
 	Giant Chomp[End]
 }

@@ -1,40 +1,38 @@
 #include "../area.h"
-#include "sprite/npc/KoopaBros.h"
+#include "sprite/npc/KoopaGang.h"
 
 #define NAMESPACE A(black_bandit_koopa)
 
 // Black Bandit Params
 enum N(ThisBanditsParams) {
     // THIS_ACTOR_ID               = ACTOR_ENEMY2,
-    THIS_ACTOR_TYPE             = ACTOR_TYPE_BLACK_NINJAKOOPA,
-    THIS_LEVEL                  = ACTOR_LEVEL_BLACK_NINJAKOOPA,
-    THIS_SLEEP_CHANCE           = 40,
-    THIS_DIZZY_CHANCE           = 30,
-    THIS_PARALYZE_CHANCE        = 60,
-    THIS_ANIM_IDLE              = ANIM_KoopaBros_Black_Idle,
-    THIS_ANIM_STILL             = ANIM_KoopaBros_Black_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaBros_Black_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaBros_Black_Dizzy,
-    THIS_ANIM_RUN               = ANIM_KoopaBros_Black_Run,
-    THIS_ANIM_HURT              = ANIM_KoopaBros_Black_Hurt,
-    THIS_ANIM_HURT_STILL        = ANIM_KoopaBros_Black_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaBros_Black_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaBros_Black_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaBros_Black_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaBros_Black_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaBros_Black_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaBros_Black_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaBros_Black_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaBros_Black_IdleTipping,
-    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaBros_Black_TopEnterShell,
-    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaBros_Black_TopExitShell,
-    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaBros_Black_EnterShell,
-    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaBros_Black_ExitShell,
-    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaBros_Black_ShellSpin,
-    THIS_ANIM_POINT             = ANIM_KoopaBros_Black_PointForward,
+    THIS_ACTOR_TYPE             = ACTOR_TYPE_BLACK_BANDIT,
+    THIS_LEVEL                  = ACTOR_LEVEL_BLACK_BANDIT,
+    THIS_SLEEP_CHANCE           = 0,
+    THIS_DIZZY_CHANCE           = 0,
+    THIS_PARALYZE_CHANCE        = 0,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang_Black_Idle,
+    THIS_ANIM_STILL             = ANIM_KoopaGang_Black_Still,
+    THIS_ANIM_SLEEP             = ANIM_KoopaGang_Black_Sleep,
+    THIS_ANIM_DIZZY             = ANIM_KoopaGang_Black_Dizzy,
+    THIS_ANIM_RUN               = ANIM_KoopaGang_Black_Run,
+    THIS_ANIM_HURT              = ANIM_KoopaGang_Black_Hurt,
+    THIS_ANIM_HURT_STILL        = ANIM_KoopaGang_Black_HurtStill,
+    THIS_ANIM_BURN              = ANIM_KoopaGang_Black_BurnHurt,
+    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang_Black_BurnStill,
+    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang_Black_IdleCrouch,
+    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang_Black_StillCrouch,
+    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang_Black_IdleToppled,
+    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang_Black_StillToppled,
+    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaGang_Black_DizzyToppled,
+    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang_Black_IdleTipping,
+    THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang_Black_TopEnterShell,
+    THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang_Black_TopExitShell,
+    THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang_Black_EnterShell,
+    THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang_Black_ExitShell,
+    THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang_Black_ShellSpin,
+    THIS_ANIM_POINT             = ANIM_KoopaGang_Black_PointForward,
 };
-
-#include "../area.h"
 
 extern s32 N(DefaultAnims)[];
 extern EvtScript N(EVS_Init);
@@ -208,6 +206,7 @@ EvtScript N(EVS_Init) = {
     Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
     Return

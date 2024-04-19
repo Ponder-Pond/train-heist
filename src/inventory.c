@@ -569,7 +569,7 @@ void initialize_status_bar(void) {
     hud_element_set_flags(iconIndex, HUD_ELEMENT_FLAG_80);
     hud_element_clear_flags(iconIndex, HUD_ELEMENT_FLAG_FILTER_TEX);
 #else
-    statusBar->hpIconHIDs[0] = iconIndex = hud_element_create(&HeartIconScript);
+    statusBar->hpIconHIDs[0] = iconIndex = hud_element_create(&HES_StatusHP);
     hud_element_set_flags(iconIndex, HUD_ELEMENT_FLAG_80);
     hud_element_clear_flags(iconIndex, HUD_ELEMENT_FLAG_FILTER_TEX);
 #endif
@@ -597,7 +597,7 @@ void initialize_status_bar(void) {
     hud_element_set_flags(iconIndex, HUD_ELEMENT_FLAG_80);
     hud_element_clear_flags(iconIndex, HUD_ELEMENT_FLAG_FILTER_TEX);
 #else
-    statusBar->fpIconHIDs[0] = iconIndex = hud_element_create(&FlowerIconScript);
+    statusBar->fpIconHIDs[0] = iconIndex = hud_element_create(&HES_StatusFP);
     hud_element_set_flags(iconIndex, HUD_ELEMENT_FLAG_80);
     hud_element_clear_flags(iconIndex, HUD_ELEMENT_FLAG_FILTER_TEX);
 #endif
@@ -739,6 +739,7 @@ void status_bar_draw_stat(s32 id, s32 startX, s32 startY, s32 currentValue, s32 
     }
 }
 
+
 void update_status_bar(void) {
     StatusBar* statusBar = &gStatusBar;
     PlayerData* playerData = &gPlayerData;
@@ -755,10 +756,6 @@ void update_status_bar(void) {
     s32 s1;
     s32 spBars;
     s32 maxStarPower;
-    s32 hp_bar_offset_x = 3;
-    s32 hp_bar_offset_y = -1;
-    s32 hp_bar_width = 100;
-    s32 hp_bar_height = 28;
 
     if (gGameStatusPtr->introPart >= INTRO_PART_0
         || gGameStatusPtr->demoState != DEMO_STATE_NONE
@@ -927,19 +924,8 @@ void update_status_bar(void) {
     gDPSetScissor(gMainGfxPos++, G_SC_NON_INTERLACE, 12, 20, SCREEN_WIDTH - 12, SCREEN_HEIGHT - 20);
     x = statusBar->drawPosX;
     y = statusBar->drawPosY;
-    //original c-up menu code
-    //draw_box(0, WINDOW_STYLE_5, x,       y, 0, 174, 35, 255, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, NULL, NULL, NULL, SCREEN_WIDTH, SCREEN_HEIGHT, NULL);
-    //draw_box(0, WINDOW_STYLE_6, x + 174, y, 0, 122, 25, 255, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, NULL, NULL, NULL, SCREEN_WIDTH, SCREEN_HEIGHT, NULL);
-
-    //draw hp bars
-    DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_26, x + hp_bar_offset_x, y + hp_bar_offset_y, hp_bar_width, hp_bar_height, 255);
-    // DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_26, x + hp_bar_offset_x, y + hp_bar_offset_y + 0x15, hp_bar_width, hp_bar_height, 255);
-
-    //draw fp bar
-    DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_23, x + hp_bar_offset_x + 92, y + hp_bar_offset_y, 91, 28, 255);
-
-    //draw coins/exp box
-    DRAW_BOX(0, (WindowStyle)WINDOW_STYLE_25, x + hp_bar_offset_x + 178, y + hp_bar_offset_y, 116, hp_bar_height, 255);
+    draw_box(0, WINDOW_STYLE_5, x,       y, 0, 174, 35, 255, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, NULL, NULL, NULL, SCREEN_WIDTH, SCREEN_HEIGHT, NULL);
+    draw_box(0, WINDOW_STYLE_6, x + 174, y, 0, 122, 25, 255, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, NULL, NULL, NULL, SCREEN_WIDTH, SCREEN_HEIGHT, NULL);
 
     if (statusBar->hpBlinkTimer > 0) {
         statusBar->hpBlinkTimer--;
@@ -960,63 +946,22 @@ void update_status_bar(void) {
         statusBar->hpBlinkCounter++;
     }
 
-    // if (showStat) {
-    //     id = statusBar->hpIconHIDs[0];
-    //     x = statusBar->drawPosX + 22;
-    //     y = statusBar->drawPosY + 13;
-    //     hud_element_set_render_pos(id, x, y);
-    //     hud_element_draw_next(id);
-
-    //     id = statusBar->hpIconHIDs[1];
-    //     x = statusBar->drawPosX + 37;
-    //     y = statusBar->drawPosY + 13;
-    //     hud_element_set_render_pos(id, x, y);
-    //     hud_element_draw_next(id);
-
-    //     x = statusBar->drawPosX + 48;
-    //     y = statusBar->drawPosY + 8;
-    //     status_bar_draw_stat(statusBar->hpTimesHID, x, y, statusBar->displayHP, playerData->curMaxHP);
-    // }
-
-    if (showStat) { //draw new HP icon
-        s32 hpXPosBase = x + 18;
-        s32 hpYPosBase = y + 13;
-
-        //ReplaceHeartIconPalette(HeartCI4PaletteBlue); //make blue always currently
-        //draw player heart icon
-        id = statusBar->hpIconHIDs[1];
-        hud_element_set_render_pos(id, hpXPosBase + 8, hpYPosBase - 2);
+    if (showStat) {
+        id = statusBar->hpIconHIDs[0];
+        x = statusBar->drawPosX + 22;
+        y = statusBar->drawPosY + 13;
+        hud_element_set_render_pos(id, x, y);
         hud_element_draw_next(id);
 
-        //draw partner heart icon
-        // id = statusBar->hpIconHIDs[1];
-        // hud_element_set_render_pos(id, hpXPosBase + 8, hpYPosBase + 19);
-        // hud_element_draw_next(id);
+        id = statusBar->hpIconHIDs[1];
+        x = statusBar->drawPosX + 37;
+        y = statusBar->drawPosY + 13;
+        hud_element_set_render_pos(id, x, y);
+        hud_element_draw_next(id);
 
-        //draw player icon
-        // id = statusBar->hpIconHIDs[0];
-        // hud_element_set_render_pos(id, hpXPosBase, hpYPosBase);
-        // hud_element_draw_next(id);
-
-        //draw partner icon icon
-        // id = statusBar->fpIconHIDs[1];
-        // hud_element_set_script(id, gPartnerIconHudScripts[gPlayerData.curPartner].enabled);
-        // hud_element_set_scale(id, 0.5f);
-        // hud_element_set_render_pos(id, hpXPosBase - 1, hpYPosBase + 21);
-        // hud_element_draw_next(id);
-
-        //draw player curHp / maxHp
-        x = statusBar->drawPosX + 42;
-        y = statusBar->drawPosY + 7;
+        x = statusBar->drawPosX + 48;
+        y = statusBar->drawPosY + 8;
         status_bar_draw_stat(statusBar->hpTimesHID, x, y, statusBar->displayHP, playerData->curMaxHP);
-
-        //draw partner curHp / maxHp
-        // x = statusBar->drawPosX + 42;
-        // y = statusBar->drawPosY + 28;
-        // {
-        //     s32 curPartner = playerData->curPartner;
-        //     status_bar_draw_stat(statusBar->hpTimesHID, x, y, playerData->partners[curPartner].curHp, playerData->partners[curPartner].maxHp);
-        // }
     }
 
     if (statusBar->fpBlinkTimer > 0) {
@@ -1038,24 +983,6 @@ void update_status_bar(void) {
         statusBar->fpBlinkCounter++;
     }
 
-    // if (showStat) {
-    //     id = statusBar->fpIconHIDs[0];
-    //     x = statusBar->drawPosX + 110;
-    //     y = statusBar->drawPosY + 13;
-    //     hud_element_set_render_pos(id, x, y);
-    //     hud_element_draw_next(id);
-
-    //     id = statusBar->fpIconHIDs[1];
-    //     x = statusBar->drawPosX + 125;
-    //     y = statusBar->drawPosY + 13;
-    //     hud_element_set_render_pos(id, x, y);
-    //     hud_element_draw_next(id);
-
-    //     x = statusBar->drawPosX + 136;
-    //     y = statusBar->drawPosY + 8;
-    //     status_bar_draw_stat(statusBar->fpTimesHID, x, y, statusBar->displayFP, playerData->curMaxFP);
-    // }
-
     if (showStat) {
         id = statusBar->fpIconHIDs[0];
         x = statusBar->drawPosX + 110;
@@ -1063,7 +990,13 @@ void update_status_bar(void) {
         hud_element_set_render_pos(id, x, y);
         hud_element_draw_next(id);
 
+        id = statusBar->fpIconHIDs[1];
         x = statusBar->drawPosX + 125;
+        y = statusBar->drawPosY + 13;
+        hud_element_set_render_pos(id, x, y);
+        hud_element_draw_next(id);
+
+        x = statusBar->drawPosX + 136;
         y = statusBar->drawPosY + 8;
         status_bar_draw_stat(statusBar->fpTimesHID, x, y, statusBar->displayFP, playerData->curMaxFP);
     }

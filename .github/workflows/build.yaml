@@ -57,7 +57,7 @@ jobs:
           path: paper-mario-train-heist.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.MY_PAT }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: Development build
@@ -75,6 +75,6 @@ jobs:
           path: paper-mario-train-heist.bps
       - uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.MY_PAT }}"
           automatic_release_tag: "latest"
           files: paper-mario-train-heist.bps

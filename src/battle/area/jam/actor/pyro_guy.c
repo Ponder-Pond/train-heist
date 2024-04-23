@@ -17,7 +17,7 @@ enum N(ActorParams) {
 };
 
 s32 N(DefaultAnims)[] = {
-    STATUS_KEY_NORMAL,    ANIM_PyroGuy_Anim07,
+    STATUS_KEY_NORMAL,    ANIM_PyroGuy_Anim08,
     STATUS_KEY_STONE,     ANIM_PyroGuy_Anim00,
     STATUS_KEY_SLEEP,     ANIM_PyroGuy_Anim07,
     STATUS_KEY_POISON,    ANIM_PyroGuy_Anim01,

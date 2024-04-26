@@ -234,6 +234,7 @@
         <Sprite name="ParadeTwink"/>
         <Sprite name="Leaf"/>
         <Sprite name="KoopaGang"/>
+        <Sprite name="HammerBrosSMB3"/>
 		<Sprite name="Crate"/>
 		<Sprite name="ShyGuyRider"/>
     </Sprites>

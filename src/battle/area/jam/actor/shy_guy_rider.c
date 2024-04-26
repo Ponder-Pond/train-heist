@@ -8,6 +8,7 @@ extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_HandleEvent);
+extern EvtScript N(EVS_Attack_ArrowShot);
 
 enum N(ActorPartIDs) {
     PRT_MAIN        = 1,
@@ -94,7 +95,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = ACTOR_FLAG_NO_HEALTH_BAR,
+    .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_NO_HEALTH_BAR,
     .type = ACTOR_TYPE_SHY_GUY_RIDER,
     .level = ACTOR_LEVEL_SHY_GUY_RIDER,
     .maxHP = 8,
@@ -102,13 +103,13 @@ ActorBlueprint NAMESPACE = {
     .partsData = N(ActorParts),
     .initScript = &N(EVS_Init),
     .statusTable = N(StatusTable),
-    .escapeChance = 40,
-    .airLiftChance = 15,
-    .hurricaneChance = 10,
-    .spookChance = 25,
-    .upAndAwayChance = 95,
+    .escapeChance = 0,
+    .airLiftChance = 0,
+    .hurricaneChance = 0,
+    .spookChance = 0,
+    .upAndAwayChance = 0,
     .spinSmashReq = 0,
-    .powerBounceChance = 100,
+    .powerBounceChance = 0,
     .coinReward = 1,
     .size = { 64, 56 },
     .healthBarOffset = { 0, 0 },
@@ -130,10 +131,6 @@ EvtScript N(EVS_Idle) = {
 };
 
 EvtScript N(EVS_HandleEvent) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
     End
 };
@@ -141,6 +138,7 @@ EvtScript N(EVS_HandleEvent) = {
 EvtScript N(EVS_TakeTurn) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    ExecWait(N(EVS_Attack_ArrowShot))
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
@@ -151,16 +149,29 @@ EvtScript N(EVS_Attack_ArrowShot) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
-    // Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
-    // Call(BattleCamTargetActor, ACTOR_SELF)
-    // Call(func_8024ECF8, BTL_CAM_MODEY_MINUS_1, BTL_CAM_MODEX_1, FALSE)
-    Call(EnemyTestTarget, ACTOR_SELF, LVarF, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
-    Switch(LVarF)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_ShyGuyRider_ShootArrow)
+    Wait(17)
+    Call(SetAnimation, ACTOR_SELF, PRT_ARROW, ANIM_ShyGuyRider_Arrow)
+    Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVar0)
         CaseOrEq(HIT_RESULT_MISS)
         CaseOrEq(HIT_RESULT_LUCKY)
-            // Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-            Wait(30)
-            IfEq(LVarF, HIT_RESULT_LUCKY)
+            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+            Wait(5)
+            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Sub(LVar0, 15)
+            Add(LVar1, 48)
+            Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(18.0))
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(FlyPartTo, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2, 0, 0, EASING_LINEAR)
+            Wait(2)
+            IfEq(LVar0, HIT_RESULT_LUCKY)
                 Call(SetGoalToTarget, ACTOR_SELF)
                 Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
             EndIf
@@ -170,19 +181,32 @@ EvtScript N(EVS_Attack_ArrowShot) = {
             Return
         EndCaseGroup
     EndSwitch
-
+    Wait(5)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Sub(LVar0, 15)
+    Add(LVar1, 48)
+    Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(18.0))
+    Call(FlyPartTo, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2, 0, 0, EASING_LINEAR)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_POISON, 2, 100), DMG_ARROW_SHOT, BS_FLAGS1_TRIGGER_EVENTS)
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            // Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-
-            Wait(10)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_ARROW, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
             Call(YieldTurn)
         EndCaseGroup
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
 };

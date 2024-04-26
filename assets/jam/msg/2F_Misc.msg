@@ -1,15 +1,3 @@
-#message:2F:(Misc_BadgeEmblemName) {
-	Badge Emblem[End]
-}
-
-#message:2F:(Misc_BadgeEmblemFullDesc) {
-	Increases maximum BP by 3.[End]
-}
-
-#message:2F:(Misc_BadgeEmblemShortDesc) {
-	Increases maximum BP by 3.[End]
-}
-
 #message:2F:(Misc_GreenBandit) {
 	G Bandit[End]
 }
@@ -55,13 +43,22 @@
 	This is Giant Chomp.[Wait][End]
 }
 
-#message:2F:(Misc_FalseBowser) {
-	Bowser?[End]
+#message:2F:(Misc_Crate) {
+	Crate[End]
 }
 
-#message:2F:(Misc_FalseBowserTattle) {
+#message:2F:(Misc_CrateTattle) {
 	[Style right]
-	This is Bowser?[Wait][End]
+	This is Crate.[Wait][End]
+}
+
+#message:2F:(Misc_ShyGuyRider) {
+	Shy Guy Rider[End]
+}
+
+#message:2F:(Misc_ShyGuyRiderTattle) {
+	[Style right]
+	This is Shy Guy Rider.[Wait][End]
 }
 
 #message:2F:(Misc_BowserInteract) {

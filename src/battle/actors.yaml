@@ -2389,25 +2389,36 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0
-- FalseBowser:
-    level: 10
-    nameMsg: MSG_Misc_FalseBowser
-    tattleMsg: MSG_Misc_FalseBowserTattle # TODO
+- Crate:
+    level: 0
+    nameMsg: MSG_Misc_Crate
+    tattleMsg: MSG_Misc_CrateTattle #TODO
     walkSound: [ SOUND_NONE, SOUND_NONE ]
-    flySound: [ SOUND_NONE, SOUND_NONE ]
-    jumpSound: SOUND_LARGE_ACTOR_JUMP
-    hurtSound: SOUND_NONE
-    stepDelay: [ 30, 30 ]
-    tattleCamOffset: [ 0, 0, 0 ]
-    shadowOffset: 241
-- PinkShyGuy:
-    level: 5
-    nameMsg: MSG_EnemyName_ShyGuy
-    tattleMsg: MSG_EnemyTattle_ShyGuy
-    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
     flySound: [ SOUND_NONE, SOUND_NONE ]
     jumpSound: SOUND_ACTOR_JUMP
     hurtSound: SOUND_ACTOR_HURT
     stepDelay: [ 30, 30 ]
-    tattleCamOffset: [ 0, 5, 0 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- DyanmiteCrate:
+    level: 0
+    nameMsg: MSG_Misc_Crate
+    tattleMsg: MSG_Misc_CrateTattle #TODO
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_ACTOR_HURT
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- ShyGuyRider:
+    level: 0
+    nameMsg: MSG_Misc_ShyGuyRider
+    tattleMsg: MSG_Misc_ShyGuyRiderTattle #TODO
+    walkSound: [ SOUND_ALBINO_DINO_STEP_A, SOUND_ALBINO_DINO_STEP_B ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_ACTOR_HURT
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0

@@ -235,5 +235,6 @@
         <Sprite name="Leaf"/>
         <Sprite name="KoopaGang"/>
 		<Sprite name="Crate"/>
+		<Sprite name="ShyGuyRider"/>
     </Sprites>
 </Names>

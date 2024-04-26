@@ -5958,6 +5958,9 @@ segments:
     - [auto, c, actor/giant_chain_chomp]
     - [auto, c, actor/hammer_bro]
     - [auto, c, actor/koopa_bandits_black]
+    - [auto, c, actor/crate]
+    - [auto, c, actor/dyanmite_crate]
+    - [auto, c, actor/shy_guy_rider]
     - [auto, c, actor/koopa_bandits_red]
     - [auto, c, actor/pyro_guy]
 

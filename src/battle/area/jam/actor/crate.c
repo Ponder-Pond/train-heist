@@ -107,6 +107,11 @@ EvtScript N(EVS_Init) = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
+    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(HPBarToHome, ACTOR_SELF)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     Return
     End
 };

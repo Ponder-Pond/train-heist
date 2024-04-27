@@ -200,7 +200,7 @@ EvtScript N(EVS_Init) = {
     Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
     Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)

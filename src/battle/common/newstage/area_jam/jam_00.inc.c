@@ -60,6 +60,8 @@ EvtScript N(EVS_PreBattle) = {
     Set(LVar3, 0)
     Exec(N(EVS_TexturePanMain))
     Call(EnableModel, MODEL_jam_bt00_Tunnel, FALSE)
+    Call(EnableModel, MODEL_jam_bt00_SnipingCrate, FALSE)
+    Call(EnableModel, MODEL_jam_bt00_BarrelBlack, FALSE)
     Call(EnableModel, MODEL_jam_bt00_BombBox, FALSE)
     Call(EnableModel, MODEL_jam_bt00_BombPile, FALSE)
     Call(EnableModel, MODEL_jam_bt00_BarrelRed, FALSE)

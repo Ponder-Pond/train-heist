@@ -77,7 +77,7 @@ s32 N(StatusTable)[] = {
 
 ActorPartBlueprint N(ActorParts)[] = {
     {
-        .flags = ACTOR_PART_FLAG_PRIMARY_TARGET,
+        .flags = ACTOR_PART_FLAG_PRIMARY_TARGET | ACTOR_PART_FLAG_NO_TARGET,
         .index = PRT_MAIN,
         .posOffset = { 0, 0, 0 },
         .targetOffset = { -3, 35 },
@@ -178,10 +178,10 @@ EvtScript N(EVS_Init) = {
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(SetActorVar, ACTOR_SELF, AVAR_Unused, 0)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
-    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     Call(HPBarToHome, ACTOR_SELF)
     Return
     End

@@ -121,6 +121,11 @@ EvtScript N(EVS_Init) = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
+    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    Call(HPBarToHome, ACTOR_SELF)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     Return
     End
 };
@@ -167,7 +172,7 @@ EvtScript N(EVS_Attack_ArrowShot) = {
             // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(18.0))
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(16.0))
             Call(SetGoalToTarget, ACTOR_SELF)
             Call(FlyPartTo, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2, 0, 0, EASING_LINEAR)
             Wait(2)
@@ -191,7 +196,7 @@ EvtScript N(EVS_Attack_ArrowShot) = {
     // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(18.0))
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_ARROW, Float(16.0))
     Call(FlyPartTo, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2, 0, 0, EASING_LINEAR)
     Wait(2)
     Call(SetGoalToTarget, ACTOR_SELF)

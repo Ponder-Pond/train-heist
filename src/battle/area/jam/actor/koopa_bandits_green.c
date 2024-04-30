@@ -352,7 +352,7 @@ EvtScript N(EVS_SecondPhaseTransition) = {
     Label(0)
         Set(LVar0, 0) // Reset LVar0 to 0
         Loop(0)
-            Add(LVar0, 15) // Increment LVar0 by 15
+            Add(LVar0, 10) // Increment LVar0 by 10
             IfGt(LVar0, 1000)
                 Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
                 Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)

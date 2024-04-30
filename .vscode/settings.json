@@ -70,4 +70,5 @@
         "-l 120"
     ],
     "search.useIgnoreFiles": false,
+    "discord.enabled": true,
 }

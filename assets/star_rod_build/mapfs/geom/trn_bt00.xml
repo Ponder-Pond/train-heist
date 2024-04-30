@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Map background="trn_bg" textures="trn_tex">
+<Map stage="true" background="trn_bg" textures="trn_tex">
 	<Editor>
 		<Camera pos="-21.772511,41.988022,185.466660" pitch="1.000005" yaw="359.520294"/>
 		<Camera pos="101.772491,65536.000000,23.650030"/>
@@ -2803,55 +2803,55 @@
 			<MapObject name="Root" id="10"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="105,0,0" yaw="0.000000">
-			<MapObject name="Home Position 10" id="F" hidden="true"/>
+			<MapObject name="Home Position 10" id="F"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="135,130,25" yaw="0.000000">
-			<MapObject name="Home Position F" id="E" hidden="true"/>
+			<MapObject name="Home Position F" id="E"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="95,125,10" yaw="0.000000">
-			<MapObject name="Home Position E" id="D" hidden="true"/>
+			<MapObject name="Home Position E" id="D"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="55,120,-5" yaw="0.000000">
-			<MapObject name="Home Position D" id="C" hidden="true"/>
+			<MapObject name="Home Position D" id="C"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="15,125,-20" yaw="0.000000">
-			<MapObject name="Home Position C" id="B" hidden="true"/>
+			<MapObject name="Home Position C" id="B"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="135,90,25" yaw="0.000000">
-			<MapObject name="Home Position B" id="A" hidden="true"/>
+			<MapObject name="Home Position B" id="A"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="95,85,10" yaw="0.000000">
-			<MapObject name="Home Position A" id="9" hidden="true"/>
+			<MapObject name="Home Position A" id="9"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="55,80,-5" yaw="0.000000">
-			<MapObject name="Home Position 9" id="8" hidden="true"/>
+			<MapObject name="Home Position 9" id="8"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="15,85,-20" yaw="0.000000">
-			<MapObject name="Home Position 8" id="7" hidden="true"/>
+			<MapObject name="Home Position 8" id="7"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="130,55,25" yaw="0.000000">
-			<MapObject name="Home Position 7" id="6" hidden="true"/>
+			<MapObject name="Home Position 7" id="6"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="90,50,10" yaw="0.000000">
-			<MapObject name="Home Position 6" id="5" hidden="true"/>
+			<MapObject name="Home Position 6" id="5"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="50,45,-5" yaw="0.000000">
-			<MapObject name="Home Position 5" id="4" hidden="true"/>
+			<MapObject name="Home Position 5" id="4"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="10,50,-20" yaw="0.000000">
-			<MapObject name="Home Position 4" id="3" hidden="true"/>
+			<MapObject name="Home Position 4" id="3"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="125,0,25" yaw="0.000000">
-			<MapObject name="Home Position 3" id="2" hidden="true"/>
+			<MapObject name="Home Position 3" id="2"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="85,0,10" yaw="0.000000">
-			<MapObject name="Home Position 2" id="1" hidden="true"/>
+			<MapObject name="Home Position 2" id="1"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="45,0,-5" yaw="0.000000">
-			<MapObject name="Home Position 1" id="0" hidden="true"/>
+			<MapObject name="Home Position 1" id="0"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="5,0,-20" yaw="0.000000">
-			<MapObject name="Home Position 0" id="FFFFFFFF" hidden="true"/>
+			<MapObject name="Home Position 0" id="FFFFFFFF"/>
 		</Marker>
 	</Markers>
 	<ScriptData>

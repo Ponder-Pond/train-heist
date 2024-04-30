@@ -4,6 +4,8 @@
 
 extern ActorBlueprint A(green_bandit_koopa);
 extern ActorBlueprint A(buzzy_beetle);
+extern ActorBlueprint A(brigader_bones);
+extern ActorBlueprint A(howitzer_hal);
 extern ActorBlueprint A(yellow_bandit_koopa);
 extern ActorBlueprint A(giant_chain_chomp);
 extern ActorBlueprint A(hammer_bro);
@@ -28,8 +30,8 @@ Vec3i A(Rider2Pos) = { -25, -25, -50 };
 Formation A(Formation_00) = {
     ACTOR_BY_IDX(A(green_bandit_koopa), BTL_POS_GROUND_A, 9),
     ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_B, 10),
-    ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_C, 10),
-    ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_D, 10),
+    ACTOR_BY_IDX(A(howitzer_hal), BTL_POS_GROUND_C, 10),
+    ACTOR_BY_IDX(A(brigader_bones), BTL_POS_GROUND_D, 10),
     ACTOR_BY_POS(A(yellow_bandit_koopa), A(YellowPos), 8),
     ACTOR_BY_POS(A(giant_chain_chomp), A(GiantChompPos), 10),
     ACTOR_BY_POS(A(hammer_bro), A(HammerBroPos), 9),

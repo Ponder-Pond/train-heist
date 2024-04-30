@@ -182,7 +182,7 @@ EvtScript N(EVS_Init) = {
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
     // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(HPBarToHome, ACTOR_SELF)
+    //Call(HPBarToHome, ACTOR_SELF)
     Return
     End
 };

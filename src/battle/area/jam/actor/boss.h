@@ -3,9 +3,9 @@
 
 enum N(BattleCommon) {
     ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
-    ACTOR_BUZZY_BEETLE_1                = ACTOR_ENEMY1,
-    ACTOR_BUZZY_BEETLE_2                = ACTOR_ENEMY2,
-    ACTOR_BUZZY_BEETLE_3                = ACTOR_ENEMY3,
+    ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,
+    ACTOR_HOWITZER_HAL                  = ACTOR_ENEMY2,
+    ACTOR_BRIGADER_BONES                = ACTOR_ENEMY3,
     ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY4,
     ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY5,
     ACTOR_HAMMER_BRO                    = ACTOR_ENEMY6,
@@ -29,13 +29,13 @@ enum N(BattleCommon) {
     AVAL_BlackPhase                     = 3,
     AVAL_RedPhase                       = 4,
     AVAL_BowserPhase                    = 5,
-    // Green Bandit Actor Vars
-    AVAR_GreenBandit_CannonPower        = 1,
-    // Yellow Bandit Actor Vars
-    // Black Bandit Actor Vars
-    AVAR_BlackBandit_RidersDefeated     = 1,
-    // Red Bandit Actor Vars
-    AVAR_RedBandit_PyroDefeated         = 1,
+    // Green Phase Actor Vars
+    AVAR_GreenPhase_BrigaderCommand     = 1,
+    // Yellow Phase Actor Vars
+    // Black Phase Actor Vars
+    AVAR_BlackPhase_RidersDefeated      = 1,
+    // Red Phase Actor Vars
+    AVAR_RedPhase_PyroDefeated          = 1,
 };
 
 #endif // _BOSS_COMMON_H_

@@ -5954,6 +5954,8 @@ segments:
     - [auto, c, area]
     - [auto, c, actor/koopa_bandits_green]
     - [auto, c, actor/buzzy_beetle]
+    - [auto, c, actor/brigader_bones]
+    - [auto, c, actor/howitzer_hal]
     - [auto, c, actor/koopa_bandits_yellow]
     - [auto, c, actor/giant_chain_chomp]
     - [auto, c, actor/hammer_bro]

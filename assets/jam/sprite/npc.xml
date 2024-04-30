@@ -234,6 +234,8 @@
         <Sprite name="ParadeTwink"/>
         <Sprite name="Leaf"/>
         <Sprite name="KoopaGang"/>
+        <Sprite name="HowitzerHal"/>
+		<Sprite name="BrigaderBones"/>
         <Sprite name="HammerBrosSMB3"/>
 		<Sprite name="Crate"/>
 		<Sprite name="ShyGuyRider"/>

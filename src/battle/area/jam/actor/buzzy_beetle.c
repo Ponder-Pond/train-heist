@@ -86,7 +86,7 @@ ActorBlueprint NAMESPACE = {
     .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .type = ACTOR_TYPE_BUZZY_BEETLE,
     .level = ACTOR_LEVEL_BUZZY_BEETLE,
-    .maxHP = 3,
+    .maxHP = 5,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
     .initScript = &N(EVS_Init),
@@ -164,10 +164,10 @@ EvtScript N(EVS_Init) = {
         Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_UPSIDE_DOWN, FALSE)
         Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_FLIPABLE, TRUE)
     EndIf
-    Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
-    Call(HPBarToHome, ACTOR_SELF)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    // Call(SetActorPos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(ForceHomePos, ACTOR_SELF, NPC_DISPOSE_LOCATION)
+    // Call(HPBarToHome, ACTOR_SELF)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
     Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)

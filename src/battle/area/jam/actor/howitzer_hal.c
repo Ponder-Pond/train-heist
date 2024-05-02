@@ -83,7 +83,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
+    .flags = ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
     .type = ACTOR_TYPE_BILL_BLASTER,
     .level = 0,
     .maxHP = 4,

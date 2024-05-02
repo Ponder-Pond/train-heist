@@ -1,6 +1,7 @@
 #include "../area.h"
 #include "sprite/npc/BrigaderBones.h"
 #include "boss.h"
+#include "dx/debug_menu.h"
 
 #define NAMESPACE A(brigader_bones)
 
@@ -16,8 +17,11 @@ enum N(ActorPartIDs) {
 };
 
 enum N(ActorVars) {
-    AVAR_CollapseTurns  = 0,
-    AVAR_Collapsed      = 2,
+    AVAR_CollapseTurns     = 0,
+    AVAL_CollapseTurnZero  = 0,
+    AVAL_CollapseTurnOne   = 1,
+    AVAL_CollapseTurnTwo   = 2,
+    AVAR_Collapsed         = 2,
 };
 
 #define BASE_COLLAPSE_DURATION  2
@@ -38,7 +42,7 @@ s32 N(CollapsedAnims)[] = {
 };
 
 s32 N(DefenseTable)[] = {
-    ELEMENT_NORMAL,   99,
+    ELEMENT_NORMAL,   0,
     ELEMENT_END,
 };
 
@@ -56,9 +60,9 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_DIZZY,               0,
     STATUS_KEY_FEAR,                0,
     STATUS_KEY_STATIC,              0,
-    STATUS_KEY_PARALYZE,           50,
-    STATUS_KEY_SHRINK,             60,
-    STATUS_KEY_STOP,               85,
+    STATUS_KEY_PARALYZE,            0,
+    STATUS_KEY_SHRINK,            100,
+    STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
     STATUS_TURN_MOD_SLEEP,          0,
     STATUS_TURN_MOD_POISON,         0,
@@ -113,7 +117,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
+    .flags = ACTOR_FLAG_NO_HEALTH_BAR,
     .type = ACTOR_TYPE_DRY_BONES,
     .level = 0,
     .maxHP = 1,
@@ -229,8 +233,7 @@ EvtScript N(EVS_Collapse) = {
     Call(ClearStatusEffects, ACTOR_SELF)
     Call(SetTargetOffset, ACTOR_SELF, PRT_MAIN, -1, 10)
     Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_MAIN, 0, 0)
-    Call(RandInt, 0, LVar0)
-    Add(LVar0, BASE_COLLAPSE_DURATION)
+    Set(LVar0, BASE_COLLAPSE_DURATION)
     Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, LVar0)
     Call(GetOriginalActorType, ACTOR_SELF, LVarA)
     Call(CreateHomeTargetList, TARGET_FLAG_2 | TARGET_FLAG_PRIMARY_ONLY)
@@ -295,7 +298,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_IMMUNE)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, 0)
+            IfEq(LVar0, FALSE)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_Idle)
                 ExecWait(EVS_Enemy_NoDamageHit)
@@ -303,11 +306,7 @@ EvtScript N(EVS_HandleEvent) = {
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_StillDead)
                 ExecWait(EVS_Enemy_NoDamageHit)
-                Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-                IfEq(LVar0, 0)
-                    Wait(10)
-                    ExecWait(N(EVS_Collapse))
-                EndIf
+                Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnTwo)
             EndIf
         EndCaseGroup
         CaseEq(EVENT_DEATH)
@@ -315,13 +314,13 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar1, ANIM_BrigaderBones_Hurt)
             ExecWait(EVS_Enemy_Hit)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, 0)
+            IfEq(LVar0, FALSE)
                 Wait(10)
                 ExecWait(N(EVS_Collapse))
             EndIf
         CaseEq(EVENT_RECOVER_STATUS)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
-            IfEq(LVar0, 0)
+            IfEq(LVar0, FALSE)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_Idle)
                 ExecWait(EVS_Enemy_Recover)
@@ -340,24 +339,63 @@ EvtScript N(EVS_TakeTurn) = {
     Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
     IfEq(LVar0, TRUE)
         Call(GetActorVar, ACTOR_SELF, AVAR_CollapseTurns, LVar0)
-        Sub(LVar0, 1)
-        IfEq(LVar0, 0)
-            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
-            Wait(10)
-            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_ARISE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_Revive)
-            Wait(20)
-            Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, FALSE)
-            Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, 0)
-            Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultAnims)))
-            Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(DefenseTable)))
-            Call(SetStatusTable, ACTOR_SELF, Ref(N(StatusTable)))
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_DAMAGE_IMMUNE, FALSE)
-            Call(SetTargetOffset, ACTOR_SELF, PRT_MAIN, -8, 30)
-            Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_MAIN, -1, -10)
-            ExecWait(N(EVS_Move_Command))
-        EndIf
+        Switch(LVar0)
+            CaseEq(AVAL_CollapseTurnTwo)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnOne)
+                DebugPrintf("2 Turns Remaining...")
+            CaseEq(AVAL_CollapseTurnOne)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(4.0))
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_StillDead)
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_StillDead)
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnZero)
+                Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(1.0))
+                DebugPrintf("1 Turn Remaining...")
+            CaseEq(AVAL_CollapseTurnZero)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(8.0))
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_StillDead)
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_StillDead)
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Wait(10)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_StillDead)
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
+                Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(1.0))
+                Wait(10)
+                Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_ARISE)
+                Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_Revive)
+                Wait(20)
+                Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, FALSE)
+                Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultAnims)))
+                Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(DefenseTable)))
+                Call(SetStatusTable, ACTOR_SELF, Ref(N(StatusTable)))
+                Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_DAMAGE_IMMUNE, FALSE)
+                Call(SetTargetOffset, ACTOR_SELF, PRT_MAIN, -8, 30)
+                Call(SetProjectileTargetOffset, ACTOR_SELF, PRT_MAIN, -1, -10)
+                ExecWait(N(EVS_Move_Command))
+        EndSwitch
     Else
         ExecWait(N(EVS_Move_Command))
     EndIf

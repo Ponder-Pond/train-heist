@@ -14,7 +14,7 @@ enum N(ThisBanditsParams) {
     THIS_SLEEP_CHANCE           = 0,
     THIS_DIZZY_CHANCE           = 0,
     THIS_PARALYZE_CHANCE        = 0,
-    THIS_ANIM_IDLE              = ANIM_KoopaGang_Green_Idle,
+    THIS_ANIM_IDLE              = ANIM_KoopaGang_Green_CannonSit,
     THIS_ANIM_STILL             = ANIM_KoopaGang_Green_Still,
     THIS_ANIM_SLEEP             = ANIM_KoopaGang_Green_Sleep,
     THIS_ANIM_DIZZY             = ANIM_KoopaGang_Green_Dizzy,
@@ -38,6 +38,8 @@ enum N(ThisBanditsParams) {
 };
 
 extern s32 N(DefaultAnims)[];
+extern s32 N(CannonAnims)[];
+extern s32 N(CannonSlowAnims)[];
 extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
@@ -49,6 +51,7 @@ extern EvtScript N(EVS_SecondPhaseTransition);
 
 enum N(ActorPartIDs) {
     PRT_MAIN            = 1,
+    PRT_CANNON          = 2,
 };
 
 s32 N(DefaultDefense)[] = {
@@ -90,10 +93,22 @@ ActorPartBlueprint N(ActorParts)[] = {
     {
         .flags = ACTOR_PART_FLAG_PRIMARY_TARGET,
         .index = PRT_MAIN,
-        .posOffset = { 0, 0, 0 },
+        .posOffset = { -10, 40, 0 },
         .targetOffset = { -5, 36 },
         .opacity = 255,
         .idleAnimations = N(DefaultAnims),
+        .defenseTable = N(DefaultDefense),
+        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+        .elementImmunityFlags = 0,
+        .projectileTargetOffset = { 0, 0 },
+    },
+    {
+        .flags = ACTOR_PART_FLAG_NO_TARGET,
+        .index = PRT_CANNON,
+        .posOffset = { -15, 0, 1 },
+        .targetOffset = { 0, 0 },
+        .opacity = 255,
+        .idleAnimations = N(CannonAnims),
         .defenseTable = N(DefaultDefense),
         .eventFlags = ACTOR_EVENT_FLAGS_NONE,
         .elementImmunityFlags = 0,
@@ -138,41 +153,51 @@ s32 N(DefaultAnims)[] = {
     STATUS_END,
 };
 
-s32 N(TowerAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TOWER_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+s32 N(CannonAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_KoopaGang_Green_CannonIdle,
     STATUS_END,
 };
 
-s32 N(TippingAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TIPPING_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+s32 N(CannonSlowAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_KoopaGang_Green_CannonIdleSlow,
     STATUS_END,
 };
 
-s32 N(ToppledAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TOPPLE_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_END,
-};
+// s32 N(TowerAnims)[] = {
+//     STATUS_KEY_NORMAL,    THIS_ANIM_TOWER_IDLE,
+//     STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+//     STATUS_END,
+// };
+
+// s32 N(TippingAnims)[] = {
+//     STATUS_KEY_NORMAL,    THIS_ANIM_TIPPING_IDLE,
+//     STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
+//     STATUS_END,
+// };
+
+// s32 N(ToppledAnims)[] = {
+//     STATUS_KEY_NORMAL,    THIS_ANIM_TOPPLE_IDLE,
+//     STATUS_KEY_STONE,     THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_SLEEP,     THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_POISON,    THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_STOP,      THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
+//     STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
+//     STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
+//     STATUS_END,
+// };
 
 s32 N(BasicHurtAnims)[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
@@ -221,6 +246,7 @@ EvtScript N(EVS_Init) = {
 };
 
 EvtScript N(EVS_ManageFirstPhase) = {
+    Call(EnableModel, MODEL_jam_bt00_BombBox, TRUE)
     // Yellow Phase Actors
     Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
     Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
@@ -354,19 +380,34 @@ EvtScript N(EVS_SecondPhaseTransition) = {
         Loop(0)
             Add(LVar0, 10) // Increment LVar0 by 10
             IfGt(LVar0, 1000)
+                Call(EnableModel, MODEL_jam_bt00_BombBox, FALSE)
+                Call(SetActorPos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
+                Call(ForceHomePos, ACTOR_GREEN_BANDIT, NPC_DISPOSE_LOCATION)
                 Call(SetActorFlagBits, ACTOR_GREEN_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
                 Call(SetPartFlagBits, ACTOR_GREEN_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+                Call(SetActorPos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
+                Call(ForceHomePos, ACTOR_BUZZY_BEETLE, NPC_DISPOSE_LOCATION)
                 Call(SetActorFlagBits, ACTOR_BUZZY_BEETLE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
                 Call(SetPartFlagBits, ACTOR_BUZZY_BEETLE, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+                Call(SetActorPos, ACTOR_HOWITZER_HAL, NPC_DISPOSE_LOCATION)
+                Call(ForceHomePos, ACTOR_HOWITZER_HAL, NPC_DISPOSE_LOCATION)
                 Call(SetActorFlagBits, ACTOR_HOWITZER_HAL, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
                 Call(SetPartFlagBits, ACTOR_HOWITZER_HAL, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+                Call(SetActorPos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
+                Call(ForceHomePos, ACTOR_BRIGADER_BONES, NPC_DISPOSE_LOCATION)
                 Call(SetActorFlagBits, ACTOR_BRIGADER_BONES, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
                 Call(SetPartFlagBits, ACTOR_BRIGADER_BONES, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+                Call(SetActorPos, ACTOR_YELLOW_BANDIT, 105, 0, 10)
+                Call(ForceHomePos, ACTOR_YELLOW_BANDIT, 105, 0, 10)
                 Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
                 Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+                Call(SetActorPos, ACTOR_GIANT_CHOMP, 25, 0, 10)
+                Call(ForceHomePos, ACTOR_GIANT_CHOMP, 25, 0, 10)
                 Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
                 Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
                 Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                Call(SetActorPos, ACTOR_HAMMER_BRO, 145, 0, 10)
+                Call(ForceHomePos, ACTOR_HAMMER_BRO, 145, 0, 10)
                 Call(SetActorFlagBits, ACTOR_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
                 Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
             EndIf

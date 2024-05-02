@@ -18,20 +18,39 @@ extern ActorBlueprint A(pyro_guy);
 
 extern Stage A(jam_00);
 
-Vec3i A(YellowPos) = { 105, 0, 10 };
-Vec3i A(GiantChompPos) = { 25, 0, 10 };
-Vec3i A(HammerBroPos) = { 145, 0, 10 };
-Vec3i A(BlackPos) = { 140, 10, 20 };
-Vec3i A(CratePos) = { 15, 0, 20 };
-Vec3i A(DyanmitePos) = { 55, 0, 20 };
-Vec3i A(Rider1Pos) = { 45, -25, -50 };
-Vec3i A(Rider2Pos) = { -25, -25, -50 };
+Vec3i A(GreenPos) = { 70, 25, 20 };
+Vec3i A(BuzzyBeetlePos) = { 100, 25, 20 };
+Vec3i A(HowitzerHalPos) = { -25, 0, 20 };
+Vec3i A(BrigaderBonesPos) = { 25, 0, 20 };
+Vec3i A(YellowPos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(GiantChompPos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(HammerBroPos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(BlackPos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(CratePos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(DyanmitePos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(Rider1Pos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(Rider2Pos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(RedPos) = { NPC_DISPOSE_LOCATION };
+Vec3i A(PyroGuyPos) = { NPC_DISPOSE_LOCATION };
+// Vec3i A(YellowPos) = { 105, 0, 10 };
+// Vec3i A(GiantChompPos) = { 25, 0, 10 };
+// Vec3i A(HammerBroPos) = { 145, 0, 10 };
+// Vec3i A(BlackPos) = { 140, 10, 20 };
+// Vec3i A(CratePos) = { 15, 0, 20 };
+// Vec3i A(DyanmitePos) = { 55, 0, 20 };
+// Vec3i A(Rider1Pos) = { 45, -25, -50 };
+// Vec3i A(Rider2Pos) = { -25, -25, -50 };
+
+    // [BTL_POS_GROUND_A] { 5, 0, -20 },
+    // [BTL_POS_GROUND_B] { 45, 0, -5 },
+    // [BTL_POS_GROUND_C] { 85, 0, 10 },
+    // [BTL_POS_GROUND_D] { 125, 0, 25 },
 
 Formation A(Formation_00) = {
-    ACTOR_BY_IDX(A(green_bandit_koopa), BTL_POS_GROUND_A, 9),
-    ACTOR_BY_IDX(A(buzzy_beetle), BTL_POS_GROUND_B, 10),
-    ACTOR_BY_IDX(A(howitzer_hal), BTL_POS_GROUND_C, 10),
-    ACTOR_BY_IDX(A(brigader_bones), BTL_POS_GROUND_D, 10),
+    ACTOR_BY_POS(A(green_bandit_koopa), A(GreenPos), 9),
+    ACTOR_BY_POS(A(buzzy_beetle), A(BuzzyBeetlePos), 10),
+    ACTOR_BY_POS(A(howitzer_hal), A(HowitzerHalPos), 10),
+    ACTOR_BY_POS(A(brigader_bones), A(BrigaderBonesPos), 10),
     ACTOR_BY_POS(A(yellow_bandit_koopa), A(YellowPos), 8),
     ACTOR_BY_POS(A(giant_chain_chomp), A(GiantChompPos), 10),
     ACTOR_BY_POS(A(hammer_bro), A(HammerBroPos), 9),
@@ -40,8 +59,8 @@ Formation A(Formation_00) = {
     ACTOR_BY_POS(A(dyanmite_crate), A(DyanmitePos), 10),
     ACTOR_BY_POS(A(shy_guy_rider), A(Rider1Pos), 9),
     ACTOR_BY_POS(A(shy_guy_rider), A(Rider2Pos), 10),
-    ACTOR_BY_IDX(A(red_bandit_koopa), BTL_POS_GROUND_C, 10),
-    ACTOR_BY_IDX(A(pyro_guy), BTL_POS_GROUND_D, 9),
+    ACTOR_BY_POS(A(red_bandit_koopa), A(RedPos), 10),
+    ACTOR_BY_POS(A(pyro_guy), A(PyroGuyPos), 9),
 };
 
 BattleList A(Formations) = {

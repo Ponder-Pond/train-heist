@@ -2378,6 +2378,17 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 4, 0 ]
     shadowOffset: 0
+- BrigaderBones:
+    level: 0
+    nameMsg: MSG_Misc_BrigaderBones
+    tattleMsg: MSG_Misc_BrigaderBonesTattle
+    walkSound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    flySound: [ SOUND_ACTOR_STEP_A, SOUND_ACTOR_STEP_B ]
+    jumpSound: SOUND_ACTOR_JUMP
+    hurtSound: SOUND_ACTOR_HURT
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 3, 0 ]
+    shadowOffset: 0
 - GiantChomp:
     level: 0
     nameMsg: MSG_Misc_GiantChomp
@@ -2419,6 +2430,28 @@
     flySound: [ SOUND_NONE, SOUND_NONE ]
     jumpSound: SOUND_ACTOR_JUMP
     hurtSound: SOUND_ACTOR_HURT
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- KoopaTheKid:
+    level: 0
+    nameMsg: MSG_Misc_KoopaTheKid
+    tattleMsg: MSG_Misc_KoopaTheKidTattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- KoopaGang:
+    level: 0
+    nameMsg: MSG_Misc_KoopaGang
+    tattleMsg: MSG_Misc_KoopaGangTattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0

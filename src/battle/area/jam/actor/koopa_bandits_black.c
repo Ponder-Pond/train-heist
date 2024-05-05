@@ -13,19 +13,9 @@ enum N(ThisBanditsParams) {
     THIS_PARALYZE_CHANCE        = 0,
     THIS_ANIM_IDLE              = ANIM_KoopaGang_Black_Idle,
     THIS_ANIM_STILL             = ANIM_KoopaGang_Black_Still,
-    THIS_ANIM_SLEEP             = ANIM_KoopaGang_Black_Sleep,
-    THIS_ANIM_DIZZY             = ANIM_KoopaGang_Black_Dizzy,
     THIS_ANIM_RUN               = ANIM_KoopaGang_Black_Run,
     THIS_ANIM_HURT              = ANIM_KoopaGang_Black_Hurt,
     THIS_ANIM_HURT_STILL        = ANIM_KoopaGang_Black_HurtStill,
-    THIS_ANIM_BURN              = ANIM_KoopaGang_Black_BurnHurt,
-    THIS_ANIM_BURN_STILL        = ANIM_KoopaGang_Black_BurnStill,
-    THIS_ANIM_TOWER_IDLE        = ANIM_KoopaGang_Black_IdleCrouch,
-    THIS_ANIM_TOWER_STILL       = ANIM_KoopaGang_Black_StillCrouch,
-    THIS_ANIM_TOPPLE_IDLE       = ANIM_KoopaGang_Black_IdleToppled,
-    THIS_ANIM_TOPPLE_STILL      = ANIM_KoopaGang_Black_StillToppled,
-    THIS_ANIM_TOPPLE_DIZZY      = ANIM_KoopaGang_Black_DizzyToppled,
-    THIS_ANIM_TIPPING_IDLE      = ANIM_KoopaGang_Black_IdleTipping,
     THIS_ANIM_TOP_ENTER_SHELL   = ANIM_KoopaGang_Black_TopEnterShell,
     THIS_ANIM_TOP_EXIT_SHELL    = ANIM_KoopaGang_Black_TopExitShell,
     THIS_ANIM_ENTER_SHELL       = ANIM_KoopaGang_Black_EnterShell,
@@ -121,60 +111,6 @@ ActorBlueprint NAMESPACE = {
 s32 N(DefaultAnims)[] = {
     STATUS_KEY_NORMAL,    THIS_ANIM_IDLE,
     STATUS_KEY_STONE,     THIS_ANIM_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_SLEEP,
-    STATUS_KEY_POISON,    THIS_ANIM_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_DIZZY,
-    STATUS_END,
-};
-
-s32 N(TowerAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TOWER_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_END,
-};
-
-s32 N(TippingAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TIPPING_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOWER_STILL,
-    STATUS_END,
-};
-
-s32 N(ToppledAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TOPPLE_IDLE,
-    STATUS_KEY_STONE,     THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_SLEEP,     THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_POISON,    THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_STOP,      THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_STATIC,    THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_PARALYZE,  THIS_ANIM_TOPPLE_STILL,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_KEY_DIZZY,     THIS_ANIM_TOPPLE_DIZZY,
-    STATUS_END,
-};
-
-s32 N(BasicHurtAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_HURT_STILL,
-    STATUS_END,
-};
-
-s32 N(BasicToppledAnims)[] = {
-    STATUS_KEY_NORMAL,    THIS_ANIM_TOPPLE_IDLE,
     STATUS_END,
 };
 
@@ -229,20 +165,6 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar1, THIS_ANIM_HURT)
             ExecWait(EVS_Enemy_Hit)
         EndCaseGroup
-        CaseEq(EVENT_BURN_HIT)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, THIS_ANIM_BURN)
-            SetConst(LVar2, THIS_ANIM_BURN_STILL)
-            ExecWait(EVS_Enemy_BurnHit)
-        CaseEq(EVENT_BURN_DEATH)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, THIS_ANIM_BURN)
-            SetConst(LVar2, THIS_ANIM_BURN_STILL)
-            ExecWait(EVS_Enemy_BurnHit)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, THIS_ANIM_BURN_STILL)
-            ExecWait(EVS_Enemy_Death)
-            Return
         CaseEq(EVENT_SPIN_SMASH_HIT)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, THIS_ANIM_HURT)
@@ -265,9 +187,6 @@ EvtScript N(EVS_HandleEvent) = {
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_TOP_EXIT_SHELL)
                 Wait(10)
             EndIf
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, THIS_ANIM_TOPPLE_IDLE)
-            ExecWait(EVS_Enemy_NoDamageHit)
         EndCaseGroup
         CaseEq(EVENT_DEATH)
             SetConst(LVar0, PRT_MAIN)

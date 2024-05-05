@@ -34,6 +34,15 @@
 	This is Red Bandit.[Wait][End]
 }
 
+#message:2F:(Misc_BrigaderBones) {
+	Brigader Bones[End]
+}
+
+#message:2F:(Misc_BrigaderBonesTattle) {
+	[Style right]
+	This is Brigader Bones.[Wait][End]
+}
+
 #message:2F:(Misc_GiantChomp) {
 	Giant Chomp[End]
 }
@@ -59,6 +68,24 @@
 #message:2F:(Misc_ShyGuyRiderTattle) {
 	[Style right]
 	This is Shy Guy Rider.[Wait][End]
+}
+
+#message:2F:(Misc_KoopaTheKid) {
+	Koopa the Kid[End]
+}
+
+#message:2F:(Misc_KoopaTheKidTattle) {
+	[Style right]
+	This is Koopa the Kid.[Wait][End]
+}
+
+#message:2F:(Misc_KoopaGang) {
+	Koopa Gang[End]
+}
+
+#message:2F:(Misc_KoopaGangTattle) {
+	[Style right]
+	This is the Koopa Gang.[Wait][End]
 }
 
 #message:2F:(Misc_BowserInteract) {

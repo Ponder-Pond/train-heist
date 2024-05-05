@@ -1,28 +1,40 @@
 #include "../area.h"
 #include "sprite/npc/BrigaderBones.h"
+#include "sprite/npc/HowitzerHal.h"
 #include "boss.h"
 #include "dx/debug_menu.h"
 
 #define NAMESPACE A(brigader_bones)
 
+extern s32 N(DefaultAnims)[];
+extern s32 N(HalAnims)[];
+extern s32 N(BulletAnims)[];
 extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_Move_Command);
+extern EvtScript N(EVS_Attack_FireBullet);
 
 enum N(ActorPartIDs) {
     PRT_MAIN        = 1,
+    PRT_HAL         = 2,
+    PRT_BULLET      = 3,
 };
 
 enum N(ActorVars) {
-    AVAR_CollapseTurns     = 0,
+    AVAR_CollapseTurns     = 3,
     AVAL_CollapseTurnZero  = 0,
     AVAL_CollapseTurnOne   = 1,
     AVAL_CollapseTurnTwo   = 2,
-    AVAR_Collapsed         = 2,
+    AVAR_Collapsed         = 4,
 };
+
+enum N(ActorParams) {
+    DMG_IMPACT      = 1,
+};
+
 
 #define BASE_COLLAPSE_DURATION  2
 
@@ -38,6 +50,21 @@ s32 N(DefaultAnims)[] = {
 
 s32 N(CollapsedAnims)[] = {
     STATUS_KEY_NORMAL,    ANIM_BrigaderBones_StillDead,
+    STATUS_END,
+};
+
+s32 N(HalAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_HowitzerHal_Idle,
+    STATUS_END,
+};
+
+s32 N(DisableAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_HowitzerHal_Disable,
+    STATUS_END,
+};
+
+s32 N(BulletAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_HowitzerHal_BulletBill,
     STATUS_END,
 };
 
@@ -114,12 +141,36 @@ ActorPartBlueprint N(ActorParts)[] = {
         .elementImmunityFlags = 0,
         .projectileTargetOffset = { -1, -10 },
     },
+    {
+        .flags = ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_DAMAGE_IMMUNE,
+        .index = PRT_HAL,
+        .posOffset = { -28, 0, -5 },
+        .targetOffset = { 0, 0 },
+        .opacity = 255,
+        .idleAnimations = N(HalAnims),
+        .defenseTable = N(DefenseTable),
+        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+        .elementImmunityFlags = 0,
+        .projectileTargetOffset = { 0, -9 },
+    },
+    {
+        .flags = ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+        .index = PRT_BULLET,
+        .posOffset = { 0, 0, 0 },
+        .targetOffset = { 0, 0 },
+        .opacity = 255,
+        .idleAnimations = N(BulletAnims),
+        .defenseTable = N(DefenseTable),
+        .eventFlags = ACTOR_EVENT_FLAGS_NONE,
+        .elementImmunityFlags = 0,
+        .projectileTargetOffset = { 0, 0 },
+    },
 };
 
 ActorBlueprint NAMESPACE = {
     .flags = ACTOR_FLAG_NO_HEALTH_BAR,
-    .type = ACTOR_TYPE_DRY_BONES,
-    .level = 0,
+    .type = ACTOR_TYPE_BRIGADER_BONES,
+    .level = ACTOR_LEVEL_BRIGADER_BONES,
     .maxHP = 1,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
@@ -223,10 +274,13 @@ EvtScript N(EVS_Idle) = {
 };
 
 EvtScript N(EVS_Collapse) = {
+    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_COLLAPSE)
+    Call(SetAnimation, ACTOR_SELF, PRT_HAL, ANIM_HowitzerHal_Disable)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_Death)
     Wait(20)
     Call(SetActorVar, ACTOR_SELF, AVAR_Collapsed, TRUE)
+    Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(N(DisableAnims)))
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(CollapsedAnims)))
     Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(CollapsedDefense)))
     Call(SetStatusTable, ACTOR_SELF, Ref(N(CollapsedStatusTable)))
@@ -281,10 +335,16 @@ EvtScript N(EVS_HandleEvent) = {
         CaseEq(EVENT_HIT_COMBO)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_BrigaderBones_Hurt)
+            Exec(EVS_Enemy_Hit)
+            SetConst(LVar0, PRT_HAL)
+            SetConst(LVar1, ANIM_HowitzerHal_Hurt)
             ExecWait(EVS_Enemy_Hit)
         CaseEq(EVENT_HIT)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_BrigaderBones_Hurt)
+            Exec(EVS_Enemy_Hit)
+            SetConst(LVar0, PRT_HAL)
+            SetConst(LVar1, ANIM_HowitzerHal_Hurt)
             ExecWait(EVS_Enemy_Hit)
         CaseEq(EVENT_SPIN_SMASH_HIT)
             SetConst(LVar0, PRT_MAIN)
@@ -301,17 +361,26 @@ EvtScript N(EVS_HandleEvent) = {
             IfEq(LVar0, FALSE)
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_Idle)
+                Exec(EVS_Enemy_NoDamageHit)
+                SetConst(LVar0, PRT_HAL)
+                SetConst(LVar1, ANIM_HowitzerHal_Hurt)
                 ExecWait(EVS_Enemy_NoDamageHit)
             Else
                 SetConst(LVar0, PRT_MAIN)
                 SetConst(LVar1, ANIM_BrigaderBones_StillDead)
-                ExecWait(EVS_Enemy_NoDamageHit)
+                Exec(EVS_Enemy_NoDamageHit)
                 Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnTwo)
+                SetConst(LVar0, PRT_HAL)
+                SetConst(LVar1, ANIM_HowitzerHal_Hurt)
+                ExecWait(EVS_Enemy_NoDamageHit)
             EndIf
         EndCaseGroup
         CaseEq(EVENT_DEATH)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_BrigaderBones_Hurt)
+            Exec(EVS_Enemy_Hit)
+            SetConst(LVar0, PRT_HAL)
+            SetConst(LVar1, ANIM_HowitzerHal_Hurt)
             ExecWait(EVS_Enemy_Hit)
             Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
             IfEq(LVar0, FALSE)
@@ -336,17 +405,20 @@ EvtScript N(EVS_HandleEvent) = {
 EvtScript N(EVS_TakeTurn) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    // DebugPrintf("Turn Taken")
     Call(GetActorVar, ACTOR_SELF, AVAR_Collapsed, LVar0)
     IfEq(LVar0, TRUE)
         Call(GetActorVar, ACTOR_SELF, AVAR_CollapseTurns, LVar0)
         Switch(LVar0)
             CaseEq(AVAL_CollapseTurnTwo)
+                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
                 Wait(10)
                 Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnOne)
-                DebugPrintf("2 Turns Remaining...")
+                // DebugPrintf("2 Turns Remaining...")
             CaseEq(AVAL_CollapseTurnOne)
+                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, FALSE)
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
                 Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(4.0))
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
@@ -362,7 +434,7 @@ EvtScript N(EVS_TakeTurn) = {
                 Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_DeathRattle)
                 Call(SetActorVar, ACTOR_SELF, AVAR_CollapseTurns, AVAL_CollapseTurnZero)
                 Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(1.0))
-                DebugPrintf("1 Turn Remaining...")
+                // DebugPrintf("1 Turn Remaining...")
             CaseEq(AVAL_CollapseTurnZero)
                 Call(PlaySoundAtActor, ACTOR_SELF, SOUND_DRY_BONES_RATTLE)
                 Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(8.0))
@@ -399,6 +471,13 @@ EvtScript N(EVS_TakeTurn) = {
     Else
         ExecWait(N(EVS_Move_Command))
     EndIf
+    Call(GetActorVar, ACTOR_BRIGADER_BONES, AVAR_GreenPhase_BrigaderCommand, LVar0)
+    IfEq(LVar0, TRUE)
+        Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(N(HalAnims)))
+        ExecWait(N(EVS_Attack_FireBullet))
+    Else
+        Call(SetIdleAnimations, ACTOR_SELF, PRT_HAL, Ref(N(DisableAnims)))
+    EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
@@ -413,6 +492,91 @@ EvtScript N(EVS_Move_Command) = {
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BrigaderBones_CommandEnd)
     Wait(15)
     Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_BrigaderCommand, TRUE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Attack_FireBullet) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Call(SetAnimation, ACTOR_SELF, PRT_HAL, ANIM_HowitzerHal_Shot)
+    Wait(13)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 10, Float(1.0))
+    EndThread
+    Call(StartRumble, BTL_RUMBLE_PLAYER_HEAVY)
+    Call(PlaySoundAtPart, ACTOR_SELF, PRT_HAL, SOUND_BULLET_BILL_FIRE)
+    Call(GetPartPos, ACTOR_SELF, PRT_HAL, LVar0, LVar1, LVar2)
+    Sub(LVar0, 33)
+    Add(LVar1, 30)
+    Add(LVar2, 3)
+    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 0, 2, 0)
+    PlayEffect(EFFECT_00, LVar0, LVar1, LVar2, 2, 5, 2, 2, 0)
+    Call(SetAnimation, ACTOR_SELF, PRT_BULLET, ANIM_HowitzerHal_BulletBill)
+    Call(GetPartPos, ACTOR_SELF, PRT_HAL, LVar0, LVar1, LVar2)
+    Add(LVar0, -30)
+    Add(LVar1, 25)
+    Add(LVar2, 2)
+    Call(SetPartPos, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2)
+    Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVar0)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            // Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+            // Wait(5)
+            // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            // Sub(LVar0, 15)
+            // Add(LVar1, 48)
+            // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BULLET, Float(10.0))
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+            Wait(2)
+            IfEq(LVar0, HIT_RESULT_LUCKY)
+                Call(SetGoalToTarget, ACTOR_SELF)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Call(YieldTurn)
+            Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+            Return
+        EndCaseGroup
+    EndSwitch
+    // Wait(5)
+    // Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    // Sub(LVar0, 15)
+    // Add(LVar1, 48)
+    // Call(SetPartPos, ACTOR_SELF, PRT_ARROW, LVar0, LVar1, LVar2)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    // Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    // Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+    Add(LVar1, 25)
+    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Call(SetPartMoveSpeed, ACTOR_SELF, PRT_BULLET, Float(10.0))
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Call(FlyPartTo, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2, 0, 0, EASING_CUBIC_IN)
+    Wait(2)
+    Call(SetGoalToTarget, ACTOR_SELF)
+    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, 0, DMG_IMPACT, BS_FLAGS1_TRIGGER_EVENTS)
+    Switch(LVar0)
+        CaseOrEq(HIT_RESULT_HIT)
+        CaseOrEq(HIT_RESULT_NO_DAMAGE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_BULLET, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetPartPos, ACTOR_SELF, PRT_BULLET, LVar0, LVar1, LVar2)
+            Call(YieldTurn)
+        EndCaseGroup
+    EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return

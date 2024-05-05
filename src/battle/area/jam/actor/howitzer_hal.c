@@ -16,11 +16,6 @@ enum N(ActorPartIDs) {
     PRT_BULLET          = 2,
 };
 
-enum N(ActorVars) {
-    AVAR_BulletID       = 0,
-    AVAR_HasBullet      = 8,
-};
-
 enum N(ActorParams) {
     DMG_IMPACT      = 1,
 };

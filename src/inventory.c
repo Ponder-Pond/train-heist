@@ -80,7 +80,7 @@ void clear_player_data(void) {
     playerData->maxStarPower = 0;
     playerData->starPower = 0;
     playerData->starBeamLevel = 0;
-    playerData->curPartner = PARTNER_KOOPER;
+    playerData->curPartner = PARTNER_GOOMBARIO;
 
     // for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
     //     playerData->partners[i].enabled = FALSE;
@@ -91,7 +91,7 @@ void clear_player_data(void) {
     // }
 
         for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
-        if (i == PARTNER_GOOMPA || i == PARTNER_GOOMBARIA || i == PARTNER_TWINK) {
+        if (i == PARTNER_GOOMPA || i == PARTNER_WATT || i == PARTNER_SUSHIE || i == PARTNER_LAKILESTER || i == PARTNER_BOW || i == PARTNER_GOOMBARIA || i == PARTNER_TWINK) {
             continue;
         }
         #if GIVE_ALL_PARTNERS == 1
@@ -99,7 +99,7 @@ void clear_player_data(void) {
         #else
             playerData->partners[i].enabled = FALSE;
         #endif
-        playerData->partners[i].level = PARTNER_RANK_SUPER;
+        playerData->partners[i].level = PARTNER_RANK_NORMAL;
         // playerData->partners[i].curHp = partnerHpList[i].level0Hp;
         // playerData->partners[i].maxHp = partnerHpList[i].level0Hp;
         // playerData->partners[i].trueMaxHp = partnerHpList[i].level0Hp;

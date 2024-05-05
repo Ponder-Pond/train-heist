@@ -480,19 +480,19 @@ EvtScript N(EVS_HandleEvent) = {
                 IfNotFlag(LVar0, STATUS_FLAG_DIZZY)
                     Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
                     Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTable)))
-                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-                    Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTable)))
+                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                    Call(SetStatusTable, ACTOR_HAMMER_BRO_ALT, Ref(N(StatusTable)))
                 Else
                     Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
                     Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTableGC)))
-                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
-                    Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTableGC)))
+                    Call(SetPartFlagBits, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                    Call(SetStatusTable, ACTOR_HAMMER_BRO_ALT, Ref(N(StatusTableGC)))
                 EndIf
             Else
                 Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
                 Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTableGC)))
-                Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
-                Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTableGC)))
+                Call(SetPartFlagBits, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+                Call(SetStatusTable, ACTOR_HAMMER_BRO_ALT, Ref(N(StatusTableGC)))
             EndIf
         CaseEq(EVENT_BEGIN_FIRST_STRIKE)
         CaseEq(EVENT_BURN_HIT)
@@ -632,8 +632,8 @@ EvtScript N(EVS_HandleEvent) = {
             IfEq(LVar0, TRUE)
                 Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
                 Call(SetStatusTable, ACTOR_YELLOW_BANDIT, Ref(N(StatusTable)))
-                Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-                Call(SetStatusTable, ACTOR_HAMMER_BRO, Ref(N(StatusTable)))
+                Call(SetPartFlagBits, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+                Call(SetStatusTable, ACTOR_HAMMER_BRO_ALT, Ref(N(StatusTable)))
             EndIf
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_ChainChomp_Idle)

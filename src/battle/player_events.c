@@ -91,6 +91,27 @@ API_CALLABLE(TryPlayerLucky) {
     return ApiStatus_DONE2;
 }
 
+// (out) LVar0: skip playing lucky animation
+API_CALLABLE(TryPlayerMiss) {
+    Actor* player = gBattleStatus.playerActor;
+
+    show_action_rating(ACTION_RATING_MISS, player, player->curPos.x, player->curPos.y + 20.0f, player->curPos.z);
+    // sfx_play_sound(SOUND_LUCKY);
+    sfx_play_sound(SOUND_SLIDE_WHISTLE_IN);
+
+    script->varTable[0] = FALSE;
+    if (player->debuff == STATUS_KEY_FEAR
+        || player->debuff == STATUS_KEY_DIZZY
+        || player->debuff == STATUS_KEY_PARALYZE
+        || player->debuff == STATUS_KEY_SLEEP
+        || player->debuff == STATUS_KEY_FROZEN
+        || player->debuff == STATUS_KEY_STOP
+    ) {
+        script->varTable[0] = TRUE;
+    }
+    return ApiStatus_DONE2;
+}
+
 API_CALLABLE(ChoosePlayerCelebrationAnim) {
     PlayerCelebrationAnimOptions* pcao = &bPlayerCelebrations;
     PlayerData* playerData = &gPlayerData;
@@ -987,6 +1008,15 @@ EvtScript EVS_Player_HandleEvent = {
         EndCaseGroup
         CaseEq(EVENT_LUCKY)
             Call(TryPlayerLucky)
+            IfFalse(LVar0)
+                Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_MarioB1_AdjustCap)
+                Wait(30)
+                Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Idle)
+            Else
+                Wait(30)
+            EndIf
+        CaseEq(EVENT_MISS)
+            Call(TryPlayerMiss)
             IfFalse(LVar0)
                 Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_MarioB1_AdjustCap)
                 Wait(30)

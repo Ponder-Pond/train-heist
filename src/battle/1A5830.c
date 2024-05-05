@@ -166,6 +166,11 @@ HitResult calc_enemy_test_target(Actor* actor) {
         return HIT_RESULT_HIT;
     }
 
+    if (battleStatus->curAttackElement & DAMAGE_TYPE_TRIGGER_MISS) {
+        dispatch_event_general(target, EVENT_MISS);
+        return HIT_RESULT_HIT;
+    }
+
     hitResult = HIT_RESULT_HIT;
     target2 = target;
     if (targetPart->eventFlags & ACTOR_EVENT_FLAG_ILLUSORY || battleStatus->outtaSightActive || target2->transparentStatus == STATUS_KEY_TRANSPARENT) {

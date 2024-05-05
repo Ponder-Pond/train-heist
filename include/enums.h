@@ -2180,6 +2180,7 @@ enum Events {
     EVENT_LIFE_SHROOM_PROC            = 0x00000040,
     EVENT_REVIVE                      = 0x00000041,
     EVENT_66                          = 0x00000042,
+    EVENT_MISS                          = 0x00000043,
 };
 
 enum HitSounds {
@@ -2884,6 +2885,7 @@ enum DamageTypes {
     DAMAGE_TYPE_MULTIPLE_POPUPS            = 0x20000000, // part of an attack that hits multiple opponents
     DAMAGE_TYPE_STATUS_ALWAYS_HITS         = 0x40000000,
     DAMAGE_TYPE_TRIGGER_LUCKY              = 0x80000000,
+    DAMAGE_TYPE_TRIGGER_MISS               = 0x100000000, // Shift the highest bit value by one to the left
 };
 
 enum PartnerIDs {

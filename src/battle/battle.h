@@ -60,7 +60,7 @@
 // };
 
 enum BattleAreaIDs {
-    BTL_AREA_JAM,
+    BTL_AREA_TRN,
 };
 
 

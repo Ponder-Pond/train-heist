@@ -162,92 +162,92 @@
 - kmr_20_hit
 - kmr_30_shape
 - kmr_30_hit
-- kpa_01_shape
-- kpa_01_hit
-- kpa_03_shape
-- kpa_03_hit
-- kpa_04_shape
-- kpa_04_hit
-- kpa_08_shape
-- kpa_08_hit
-- kpa_09_shape
-- kpa_09_hit
-- kpa_10_shape
-- kpa_10_hit
-- kpa_11_shape
-- kpa_11_hit
-- kpa_12_shape
-- kpa_12_hit
-- kpa_13_shape
-- kpa_13_hit
-- kpa_14_shape
-- kpa_14_hit
-- kpa_15_shape
-- kpa_15_hit
-- kpa_16_shape
-- kpa_16_hit
-- kpa_17_shape
-- kpa_17_hit
-- kpa_32_shape
-- kpa_32_hit
-- kpa_33_shape
-- kpa_33_hit
-- kpa_40_shape
-- kpa_40_hit
-- kpa_41_shape
-- kpa_41_hit
-- kpa_50_shape
-- kpa_50_hit
-- kpa_52_shape
-- kpa_52_hit
-- kpa_60_shape
-- kpa_60_hit
-- kpa_61_shape
-- kpa_61_hit
-- kpa_62_shape
-- kpa_62_hit
-- kpa_63_shape
-- kpa_63_hit
-- kpa_70_shape
-- kpa_70_hit
-- kpa_80_shape
-- kpa_80_hit
-- kpa_90_shape
-- kpa_90_hit
-- kpa_91_shape
-- kpa_91_hit
-- kpa_94_shape
-- kpa_94_hit
-- kpa_95_shape
-- kpa_95_hit
-- kpa_96_shape
-- kpa_96_hit
-- kpa_102_shape
-- kpa_102_hit
-- kpa_111_shape
-- kpa_111_hit
-- kpa_112_shape
-- kpa_112_hit
-- kpa_113_shape
-- kpa_113_hit
-- kpa_115_shape
-- kpa_115_hit
-- kpa_116_shape
-- kpa_116_hit
-- kpa_117_shape
-- kpa_117_hit
-- kpa_118_shape
-- kpa_118_hit
-- kpa_119_shape
-- kpa_119_hit
-- kpa_121_shape
-- kpa_121_hit
-- kpa_130_shape
-- kpa_130_hit
-- kpa_133_shape
-- kpa_133_hit
-- kpa_134_shape
-- kpa_134_hit
+# - kpa_01_shape
+# - kpa_01_hit
+# - kpa_03_shape
+# - kpa_03_hit
+# - kpa_04_shape
+# - kpa_04_hit
+# - kpa_08_shape
+# - kpa_08_hit
+# - kpa_09_shape
+# - kpa_09_hit
+# - kpa_10_shape
+# - kpa_10_hit
+# - kpa_11_shape
+# - kpa_11_hit
+# - kpa_12_shape
+# - kpa_12_hit
+# - kpa_13_shape
+# - kpa_13_hit
+# - kpa_14_shape
+# - kpa_14_hit
+# - kpa_15_shape
+# - kpa_15_hit
+# - kpa_16_shape
+# - kpa_16_hit
+# - kpa_17_shape
+# - kpa_17_hit
+# - kpa_32_shape
+# - kpa_32_hit
+# - kpa_33_shape
+# - kpa_33_hit
+# - kpa_40_shape
+# - kpa_40_hit
+# - kpa_41_shape
+# - kpa_41_hit
+# - kpa_50_shape
+# - kpa_50_hit
+# - kpa_52_shape
+# - kpa_52_hit
+# - kpa_60_shape
+# - kpa_60_hit
+# - kpa_61_shape
+# - kpa_61_hit
+# - kpa_62_shape
+# - kpa_62_hit
+# - kpa_63_shape
+# - kpa_63_hit
+# - kpa_70_shape
+# - kpa_70_hit
+# - kpa_80_shape
+# - kpa_80_hit
+# - kpa_90_shape
+# - kpa_90_hit
+# - kpa_91_shape
+# - kpa_91_hit
+# - kpa_94_shape
+# - kpa_94_hit
+# - kpa_95_shape
+# - kpa_95_hit
+# - kpa_96_shape
+# - kpa_96_hit
+# - kpa_102_shape
+# - kpa_102_hit
+# - kpa_111_shape
+# - kpa_111_hit
+# - kpa_112_shape
+# - kpa_112_hit
+# - kpa_113_shape
+# - kpa_113_hit
+# - kpa_115_shape
+# - kpa_115_hit
+# - kpa_116_shape
+# - kpa_116_hit
+# - kpa_117_shape
+# - kpa_117_hit
+# - kpa_118_shape
+# - kpa_118_hit
+# - kpa_119_shape
+# - kpa_119_hit
+# - kpa_121_shape
+# - kpa_121_hit
+# - kpa_130_shape
+# - kpa_130_hit
+# - kpa_133_shape
+# - kpa_133_hit
+# - kpa_134_shape
+# - kpa_134_hit
 - machi_shape
 - machi_hit
 - mac_00_shape
@@ -688,112 +688,112 @@
 - flo_24_hit
 - flo_25_shape
 - flo_25_hit
-- sam_01_shape
-- sam_01_hit
-- sam_02_shape
-- sam_02_hit
-- sam_03_shape
-- sam_03_hit
-- sam_04_shape
-- sam_04_hit
-- sam_05_shape
-- sam_05_hit
-- sam_06_shape
-- sam_06_hit
-- sam_07_shape
-- sam_07_hit
-- sam_08_shape
-- sam_08_hit
-- sam_09_shape
-- sam_09_hit
-- sam_10_shape
-- sam_10_hit
-- sam_11_shape
-- sam_11_hit
-- sam_12_shape
-- sam_12_hit
-- pra_01_shape
-- pra_01_hit
-- pra_02_shape
-- pra_02_hit
-- pra_03_shape
-- pra_03_hit
-- pra_04_shape
-- pra_04_hit
-- pra_05_shape
-- pra_05_hit
-- pra_09_shape
-- pra_09_hit
-- pra_10_shape
-- pra_10_hit
-- pra_11_shape
-- pra_11_hit
-- pra_13_shape
-- pra_13_hit
-- pra_14_shape
-- pra_14_hit
-- pra_15_shape
-- pra_15_hit
-- pra_16_shape
-- pra_16_hit
-- pra_18_shape
-- pra_18_hit
-- pra_19_shape
-- pra_19_hit
-- pra_20_shape
-- pra_20_hit
-- pra_21_shape
-- pra_21_hit
-- pra_22_shape
-- pra_22_hit
-- pra_29_shape
-- pra_29_hit
-- pra_31_shape
-- pra_31_hit
-- pra_32_shape
-- pra_32_hit
-- pra_33_shape
-- pra_33_hit
-- pra_34_shape
-- pra_34_hit
-- pra_35_shape
-- pra_35_hit
-- pra_40_shape
-- pra_40_hit
-- omo_01_shape
-- omo_01_hit
-- omo_02_shape
-- omo_02_hit
-- omo_03_shape
-- omo_03_hit
-- omo_04_shape
-- omo_04_hit
-- omo_05_shape
-- omo_05_hit
-- omo_06_shape
-- omo_06_hit
-- omo_07_shape
-- omo_07_hit
-- omo_08_shape
-- omo_08_hit
-- omo_09_shape
-- omo_09_hit
-- omo_10_shape
-- omo_10_hit
-- omo_11_shape
-- omo_11_hit
-- omo_12_shape
-- omo_12_hit
-- omo_13_shape
-- omo_13_hit
-- omo_14_shape
-- omo_14_hit
-- omo_15_shape
-- omo_15_hit
-- omo_16_shape
-- omo_16_hit
-- omo_17_shape
-- omo_17_hit
+# - sam_01_shape
+# - sam_01_hit
+# - sam_02_shape
+# - sam_02_hit
+# - sam_03_shape
+# - sam_03_hit
+# - sam_04_shape
+# - sam_04_hit
+# - sam_05_shape
+# - sam_05_hit
+# - sam_06_shape
+# - sam_06_hit
+# - sam_07_shape
+# - sam_07_hit
+# - sam_08_shape
+# - sam_08_hit
+# - sam_09_shape
+# - sam_09_hit
+# - sam_10_shape
+# - sam_10_hit
+# - sam_11_shape
+# - sam_11_hit
+# - sam_12_shape
+# - sam_12_hit
+# - pra_01_shape
+# - pra_01_hit
+# - pra_02_shape
+# - pra_02_hit
+# - pra_03_shape
+# - pra_03_hit
+# - pra_04_shape
+# - pra_04_hit
+# - pra_05_shape
+# - pra_05_hit
+# - pra_09_shape
+# - pra_09_hit
+# - pra_10_shape
+# - pra_10_hit
+# - pra_11_shape
+# - pra_11_hit
+# - pra_13_shape
+# - pra_13_hit
+# - pra_14_shape
+# - pra_14_hit
+# - pra_15_shape
+# - pra_15_hit
+# - pra_16_shape
+# - pra_16_hit
+# - pra_18_shape
+# - pra_18_hit
+# - pra_19_shape
+# - pra_19_hit
+# - pra_20_shape
+# - pra_20_hit
+# - pra_21_shape
+# - pra_21_hit
+# - pra_22_shape
+# - pra_22_hit
+# - pra_29_shape
+# - pra_29_hit
+# - pra_31_shape
+# - pra_31_hit
+# - pra_32_shape
+# - pra_32_hit
+# - pra_33_shape
+# - pra_33_hit
+# - pra_34_shape
+# - pra_34_hit
+# - pra_35_shape
+# - pra_35_hit
+# - pra_40_shape
+# - pra_40_hit
+# - omo_01_shape
+# - omo_01_hit
+# - omo_02_shape
+# - omo_02_hit
+# - omo_03_shape
+# - omo_03_hit
+# - omo_04_shape
+# - omo_04_hit
+# - omo_05_shape
+# - omo_05_hit
+# - omo_06_shape
+# - omo_06_hit
+# - omo_07_shape
+# - omo_07_hit
+# - omo_08_shape
+# - omo_08_hit
+# - omo_09_shape
+# - omo_09_hit
+# - omo_10_shape
+# - omo_10_hit
+# - omo_11_shape
+# - omo_11_hit
+# - omo_12_shape
+# - omo_12_hit
+# - omo_13_shape
+# - omo_13_hit
+# - omo_14_shape
+# - omo_14_hit
+# - omo_15_shape
+# - omo_15_hit
+# - omo_16_shape
+# - omo_16_hit
+# - omo_17_shape
+# - omo_17_hit
 # - end_00_shape
 # - end_00_hit
 # - end_01_shape
@@ -808,186 +808,186 @@
 - mgm_03_hit
 - gv_01_shape
 - gv_01_hit
-- kmr_bt03_shape
-- kmr_bt03_hit
-- kmr_bt04_shape
-- kmr_bt04_hit
-- kmr_bt05_shape
-- kmr_bt05_hit
-- kmr_bt06_shape
-- kmr_bt06_hit
-- nok_bt01_shape
-- nok_bt01_hit
-- nok_bt02_shape
-- nok_bt02_hit
-- nok_bt03_shape
-- nok_bt03_hit
-- nok_bt04_shape
-- nok_bt04_hit
-- trd_bt00_shape
-- trd_bt00_hit
-- trd_bt01_shape
-- trd_bt01_hit
-- trd_bt02_shape
-- trd_bt02_hit
-- trd_bt03_shape
-- trd_bt03_hit
-- trd_bt04_shape
-- trd_bt04_hit
-- trd_bt05_shape
-- trd_bt05_hit
-- iwa_bt01_shape
-- iwa_bt01_hit
-- iwa_bt02_shape
-- iwa_bt02_hit
-- sbk_bt02_shape
-- sbk_bt02_hit
-- isk_bt01_shape
-- isk_bt01_hit
-- isk_bt02_shape
-- isk_bt02_hit
-- isk_bt03_shape
-- isk_bt03_hit
-- isk_bt04_shape
-- isk_bt04_hit
-- isk_bt05_shape
-- isk_bt05_hit
-- isk_bt06_shape
-- isk_bt06_hit
-- isk_bt07_shape
-- isk_bt07_hit
-- isk_bt08_shape
-- isk_bt08_hit
-- arn_bt01_shape
-- arn_bt01_hit
-- arn_bt02_shape
-- arn_bt02_hit
-- arn_bt03_shape
-- arn_bt03_hit
-- arn_bt04_shape
-- arn_bt04_hit
-- arn_bt05_shape
-- arn_bt05_hit
-- arn_bt06_shape
-- arn_bt06_hit
-- dgb_bt01_shape
-- dgb_bt01_hit
-- dgb_bt02_shape
-- dgb_bt02_hit
-- dgb_bt03_shape
-- dgb_bt03_hit
-- dgb_bt04_shape
-- dgb_bt04_hit
-- dgb_bt05_shape
-- dgb_bt05_hit
-- mim_bt01_shape
-- mim_bt01_hit
-- omo_bt01_shape
-- omo_bt01_hit
-- omo_bt02_shape
-- omo_bt02_hit
-- omo_bt03_shape
-- omo_bt03_hit
-- omo_bt04_shape
-- omo_bt04_hit
-- omo_bt05_shape
-- omo_bt05_hit
-- omo_bt06_shape
-- omo_bt06_hit
-- omo_bt07_shape
-- omo_bt07_hit
-- kgr_bt01_shape
-- kgr_bt01_hit
-- flo_bt01_shape
-- flo_bt01_hit
-- flo_bt02_shape
-- flo_bt02_hit
-- flo_bt03_shape
-- flo_bt03_hit
-- flo_bt04_shape
-- flo_bt04_hit
-- flo_bt05_shape
-- flo_bt05_hit
-- flo_bt06_shape
-- flo_bt06_hit
-- jan_bt00_shape
-- jan_bt00_hit
-- jan_bt01_shape
-- jan_bt01_hit
-- jan_bt02_shape
-- jan_bt02_hit
-- jan_bt03_shape
-- jan_bt03_hit
-- jan_bt04_shape
-- jan_bt04_hit
-- kzn_bt01_shape
-- kzn_bt01_hit
-- kzn_bt02_shape
-- kzn_bt02_hit
-- kzn_bt04_shape
-- kzn_bt04_hit
-- kzn_bt05_shape
-- kzn_bt05_hit
-- sam_bt01_shape
-- sam_bt01_hit
-- sam_bt02_shape
-- sam_bt02_hit
-- sam_bt03_shape
-- sam_bt03_hit
-- sam_bt04_shape
-- sam_bt04_hit
-- tik_bt01_shape
-- tik_bt01_hit
-- tik_bt02_shape
-- tik_bt02_hit
-- tik_bt03_shape
-- tik_bt03_hit
-- tik_bt04_shape
-- tik_bt04_hit
-- tik_bt05_shape
-- tik_bt05_hit
-- pra_bt01_shape
-- pra_bt01_hit
-- pra_bt02_shape
-- pra_bt02_hit
-- pra_bt03_shape
-- pra_bt03_hit
-- pra_bt04_shape
-- pra_bt04_hit
-- mac_bt01_shape
-- mac_bt01_hit
-- mac_bt02_shape
-- mac_bt02_hit
-- kpa_bt01_shape
-- kpa_bt01_hit
-- kpa_bt02_shape
-- kpa_bt02_hit
-- kpa_bt03_shape
-- kpa_bt03_hit
-- kpa_bt04_shape
-- kpa_bt04_hit
-- kpa_bt05_shape
-- kpa_bt05_hit
-- kpa_bt07_shape
-- kpa_bt07_hit
-- kpa_bt08_shape
-- kpa_bt08_hit
-- kpa_bt09_shape
-- kpa_bt09_hit
-- kpa_bt11_shape
-- kpa_bt11_hit
-- kpa_bt13_shape
-- kpa_bt13_hit
-- kpa_bt14_shape
-- kpa_bt14_hit
-- hos_bt01_shape
-- hos_bt01_hit
-- hos_bt02_shape
-- hos_bt02_hit
-- kkj_bt01_shape
-- kkj_bt01_hit
-- kkj_bt02_shape
-- kkj_bt02_hit
+# - kmr_bt03_shape
+# - kmr_bt03_hit
+# - kmr_bt04_shape
+# - kmr_bt04_hit
+# - kmr_bt05_shape
+# - kmr_bt05_hit
+# - kmr_bt06_shape
+# - kmr_bt06_hit
+# - nok_bt01_shape
+# - nok_bt01_hit
+# - nok_bt02_shape
+# - nok_bt02_hit
+# - nok_bt03_shape
+# - nok_bt03_hit
+# - nok_bt04_shape
+# - nok_bt04_hit
+# - trd_bt00_shape
+# - trd_bt00_hit
+# - trd_bt01_shape
+# - trd_bt01_hit
+# - trd_bt02_shape
+# - trd_bt02_hit
+# - trd_bt03_shape
+# - trd_bt03_hit
+# - trd_bt04_shape
+# - trd_bt04_hit
+# - trd_bt05_shape
+# - trd_bt05_hit
+# - iwa_bt01_shape
+# - iwa_bt01_hit
+# - iwa_bt02_shape
+# - iwa_bt02_hit
+# - sbk_bt02_shape
+# - sbk_bt02_hit
+# - isk_bt01_shape
+# - isk_bt01_hit
+# - isk_bt02_shape
+# - isk_bt02_hit
+# - isk_bt03_shape
+# - isk_bt03_hit
+# - isk_bt04_shape
+# - isk_bt04_hit
+# - isk_bt05_shape
+# - isk_bt05_hit
+# - isk_bt06_shape
+# - isk_bt06_hit
+# - isk_bt07_shape
+# - isk_bt07_hit
+# - isk_bt08_shape
+# - isk_bt08_hit
+# - arn_bt01_shape
+# - arn_bt01_hit
+# - arn_bt02_shape
+# - arn_bt02_hit
+# - arn_bt03_shape
+# - arn_bt03_hit
+# - arn_bt04_shape
+# - arn_bt04_hit
+# - arn_bt05_shape
+# - arn_bt05_hit
+# - arn_bt06_shape
+# - arn_bt06_hit
+# - dgb_bt01_shape
+# - dgb_bt01_hit
+# - dgb_bt02_shape
+# - dgb_bt02_hit
+# - dgb_bt03_shape
+# - dgb_bt03_hit
+# - dgb_bt04_shape
+# - dgb_bt04_hit
+# - dgb_bt05_shape
+# - dgb_bt05_hit
+# - mim_bt01_shape
+# - mim_bt01_hit
+# - omo_bt01_shape
+# - omo_bt01_hit
+# - omo_bt02_shape
+# - omo_bt02_hit
+# - omo_bt03_shape
+# - omo_bt03_hit
+# - omo_bt04_shape
+# - omo_bt04_hit
+# - omo_bt05_shape
+# - omo_bt05_hit
+# - omo_bt06_shape
+# - omo_bt06_hit
+# - omo_bt07_shape
+# - omo_bt07_hit
+# - kgr_bt01_shape
+# - kgr_bt01_hit
+# - flo_bt01_shape
+# - flo_bt01_hit
+# - flo_bt02_shape
+# - flo_bt02_hit
+# - flo_bt03_shape
+# - flo_bt03_hit
+# - flo_bt04_shape
+# - flo_bt04_hit
+# - flo_bt05_shape
+# - flo_bt05_hit
+# - flo_bt06_shape
+# - flo_bt06_hit
+# - jan_bt00_shape
+# - jan_bt00_hit
+# - jan_bt01_shape
+# - jan_bt01_hit
+# - jan_bt02_shape
+# - jan_bt02_hit
+# - jan_bt03_shape
+# - jan_bt03_hit
+# - jan_bt04_shape
+# - jan_bt04_hit
+# - kzn_bt01_shape
+# - kzn_bt01_hit
+# - kzn_bt02_shape
+# - kzn_bt02_hit
+# - kzn_bt04_shape
+# - kzn_bt04_hit
+# - kzn_bt05_shape
+# - kzn_bt05_hit
+# - sam_bt01_shape
+# - sam_bt01_hit
+# - sam_bt02_shape
+# - sam_bt02_hit
+# - sam_bt03_shape
+# - sam_bt03_hit
+# - sam_bt04_shape
+# - sam_bt04_hit
+# - tik_bt01_shape
+# - tik_bt01_hit
+# - tik_bt02_shape
+# - tik_bt02_hit
+# - tik_bt03_shape
+# - tik_bt03_hit
+# - tik_bt04_shape
+# - tik_bt04_hit
+# - tik_bt05_shape
+# - tik_bt05_hit
+# - pra_bt01_shape
+# - pra_bt01_hit
+# - pra_bt02_shape
+# - pra_bt02_hit
+# - pra_bt03_shape
+# - pra_bt03_hit
+# - pra_bt04_shape
+# - pra_bt04_hit
+# - mac_bt01_shape
+# - mac_bt01_hit
+# - mac_bt02_shape
+# - mac_bt02_hit
+# - kpa_bt01_shape
+# - kpa_bt01_hit
+# - kpa_bt02_shape
+# - kpa_bt02_hit
+# - kpa_bt03_shape
+# - kpa_bt03_hit
+# - kpa_bt04_shape
+# - kpa_bt04_hit
+# - kpa_bt05_shape
+# - kpa_bt05_hit
+# - kpa_bt07_shape
+# - kpa_bt07_hit
+# - kpa_bt08_shape
+# - kpa_bt08_hit
+# - kpa_bt09_shape
+# - kpa_bt09_hit
+# - kpa_bt11_shape
+# - kpa_bt11_hit
+# - kpa_bt13_shape
+# - kpa_bt13_hit
+# - kpa_bt14_shape
+# - kpa_bt14_hit
+# - hos_bt01_shape
+# - hos_bt01_hit
+# - hos_bt02_shape
+# - hos_bt02_hit
+# - kkj_bt01_shape
+# - kkj_bt01_hit
+# - kkj_bt02_shape
+# - kkj_bt02_hit
 - mac_tex
 - tik_tex
 - kgr_tex
@@ -1033,7 +1033,7 @@
 - sra_bg
 - yki_bg
 - sam_bg
-- kpa_bg
+# - kpa_bg
 - title_bg
 - name: title_data
   textures:

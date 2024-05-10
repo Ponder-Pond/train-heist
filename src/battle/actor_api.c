@@ -2065,7 +2065,7 @@ API_CALLABLE(SummonEnemy) {
             if (does_script_exist(actor2->takeTurnScriptID)) {
                 break;
             }
-            
+
             enemyIDs = battleStatus->enemyIDs;
             if (battleStatus->nextEnemyIndex == 0) {
                 numEnemies = 0;
@@ -2168,7 +2168,7 @@ API_CALLABLE(GetPartAnimInstanceID) {
     s32 outVar = *args++;
     Actor* actor;
     ActorPart* part;
-    
+
     if (actorID == ACTOR_SELF) {
         actorID = script->owner1.actorID;
     }
@@ -3691,10 +3691,10 @@ API_CALLABLE(HealActor) {
         script->functionTempPtr[1] = actor;
         script->functionTemp[2] = hpBoost;
 
-        btl_cam_use_preset(BTL_CAM_PRESET_08);
-        btl_cam_set_zoffset(12);
-        btl_cam_target_actor(actor->actorID);
-        btl_cam_move(10);
+        // btl_cam_use_preset(BTL_CAM_PRESET_08);
+        // btl_cam_set_zoffset(12);
+        // btl_cam_target_actor(actor->actorID);
+        // btl_cam_move(5);
         func_8024E60C();
 
         ApplyingBuff = TRUE;
@@ -3733,7 +3733,7 @@ API_CALLABLE(HealActor) {
                 dispatch_event_actor(actor, EVENT_RECEIVE_BUFF);
                 fx_recover(0, x2, y2, z2, hpBoost);
                 show_start_recovery_shimmer(x1, y1, z1, hpBoost);
-                script->functionTemp[3] = 30;
+                script->functionTemp[3] = 5;
                 script->functionTemp[0] = 2;
             } else {
                 script->functionTemp[3]--;
@@ -3743,13 +3743,13 @@ API_CALLABLE(HealActor) {
         case 2:
             if (script->functionTemp[3] == 0) {
                 btl_cam_use_preset(BTL_CAM_DEFAULT);
-                btl_cam_move(15);
+                //btl_cam_move(5);
                 actor->curHP += hpBoost;
                 if (actor->maxHP < actor->curHP) {
                     actor->curHP = actor->maxHP;
                 }
                 show_recovery_shimmer(x1, y1, z1, hpBoost);
-                script->functionTemp[3] = 15;
+                script->functionTemp[3] = 5;
                 script->functionTemp[0] = 3;
             } else {
                 script->functionTemp[3]--;
@@ -3762,7 +3762,7 @@ API_CALLABLE(HealActor) {
                 if (!IsGroupHeal) {
                     message = BTL_MSG_HEAL_ONE;
                 }
-                btl_show_variable_battle_message(message, 60, hpBoost);
+                btl_show_variable_battle_message(message, 15, hpBoost);
                 script->functionTemp[0] = 4;
             } else {
                 script->functionTemp[3]--;
@@ -3771,7 +3771,7 @@ API_CALLABLE(HealActor) {
             break;
         case 4:
             if (btl_is_popup_displayed() == 0) {
-                script->functionTemp[3] = 10;
+                script->functionTemp[3] = 5;
                 script->functionTemp[0] = 5;
             }
             break;

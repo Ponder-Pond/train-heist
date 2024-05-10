@@ -249,5 +249,5 @@ enum StageNames {
     BTL_DIG_STAGE_03           = 0x03,
     BTL_DIG_STAGE_04           = 0x04,
     // New Stage Names
-    BTL_JAM_STAGE_00           = 0x00,
+    BTL_TRN_STAGE_00           = 0x00,
 };

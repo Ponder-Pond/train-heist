@@ -147,7 +147,7 @@ s32 N(check_for_treadmill_overlaps)(void) {
     f32 yaw;
 
     //TODO hardcoded map IDs
-    if (gGameStatusPtr->areaID != AREA_OMO) {
+    if (gGameStatusPtr->areaID != AREA_OSR) {
         return NO_COLLIDER;
     }
 

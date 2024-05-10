@@ -2980,19 +2980,15 @@ enum Areas {
     AREA_OBK,
     AREA_ARN,
     AREA_DGB,
-    AREA_OMO,
     AREA_JAN,
     AREA_KZN,
     AREA_FLO,
-    AREA_SAM,
-    AREA_PRA,
-    AREA_KPA,
     AREA_OSR,
     AREA_END,
     AREA_MGM,
     AREA_GV,
     AREA_TST,
-    AREA_TTR,
+    AREA_TRN,
 };
 
 enum NpcPalSwapState {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map stage="true" background="trn_bg" textures="trn_tex">
 	<Editor>
-		<Camera pos="-21.772511,41.988022,185.466660" pitch="1.000005" yaw="359.520294"/>
+		<Camera pos="106.361122,28.726330,121.665359" pitch="4.800006" yaw="0.640331"/>
 		<Camera pos="101.772491,65536.000000,23.650030"/>
 		<Camera pos="65536.000000,0.000000,0.000000"/>
-		<Camera pos="-64.008255,140.759842,65536.000000"/>
+		<Camera pos="117.469170,20.411375,65536.000000"/>
 	</Editor>
 	<ModelTree>
 		<Node name="Root" id="38">
@@ -134,7 +134,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BarrelRed" id="36"/>
+			<MapObject name="BarrelRed" id="36" hidden="true"/>
 			<ShapeMesh ver="3" texture="railway">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -444,7 +444,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BombPile" id="35"/>
+			<MapObject name="BombPile" id="35" hidden="true"/>
 			<ShapeMesh ver="3" texture="bombs">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -634,7 +634,7 @@
 			</PropertyList>
 		</Model>
 		<Model ver="2" type="MODEL" lightset="0">
-			<MapObject name="BombBox" id="34"/>
+			<MapObject name="BombBox" id="34" hidden="true"/>
 			<ShapeMesh ver="3" texture="crate">
 				<DisplayList>
 					<F3DEX2 cmd="E7000000,0"/>
@@ -1248,12 +1248,12 @@
 					</TriangleBatch>
 					<TriangleBatch ver="0">
 						<VertexTable>
-							<Vertex xyz="124,-4,16" uv="0,-3072" rgba="138,90,8,255"/>
-							<Vertex xyz="154,-4,16" uv="2048,-3072" rgba="138,90,8,255"/>
-							<Vertex xyz="124,11,16" uv="0,-1024" rgba="138,90,8,255"/>
-							<Vertex xyz="124,11,16" uv="0,-1024" rgba="138,90,8,255"/>
-							<Vertex xyz="154,-4,16" uv="2048,-3072" rgba="138,90,8,255"/>
-							<Vertex xyz="154,11,16" uv="2048,-1024" rgba="138,90,8,255"/>
+							<Vertex xyz="116,-4,16" uv="0,-3072" rgba="138,90,8,255"/>
+							<Vertex xyz="146,-4,16" uv="2048,-3072" rgba="138,90,8,255"/>
+							<Vertex xyz="116,11,16" uv="0,-1024" rgba="138,90,8,255"/>
+							<Vertex xyz="116,11,16" uv="0,-1024" rgba="138,90,8,255"/>
+							<Vertex xyz="146,-4,16" uv="2048,-3072" rgba="138,90,8,255"/>
+							<Vertex xyz="146,11,16" uv="2048,-1024" rgba="138,90,8,255"/>
 						</VertexTable>
 						<TriangleList>
 							<Triangle ijk="0,1,2"/>
@@ -2803,55 +2803,55 @@
 			<MapObject name="Root" id="10"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="105,0,0" yaw="0.000000">
-			<MapObject name="Home Position 10" id="F"/>
+			<MapObject name="Home Position 10" id="F" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="135,130,25" yaw="0.000000">
-			<MapObject name="Home Position F" id="E"/>
+			<MapObject name="Home Position F" id="E" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="95,125,10" yaw="0.000000">
-			<MapObject name="Home Position E" id="D"/>
+			<MapObject name="Home Position E" id="D" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="55,120,-5" yaw="0.000000">
-			<MapObject name="Home Position D" id="C"/>
+			<MapObject name="Home Position D" id="C" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="15,125,-20" yaw="0.000000">
-			<MapObject name="Home Position C" id="B"/>
+			<MapObject name="Home Position C" id="B" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="135,90,25" yaw="0.000000">
-			<MapObject name="Home Position B" id="A"/>
+			<MapObject name="Home Position B" id="A" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="95,85,10" yaw="0.000000">
-			<MapObject name="Home Position A" id="9"/>
+			<MapObject name="Home Position A" id="9" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="55,80,-5" yaw="0.000000">
-			<MapObject name="Home Position 9" id="8"/>
+			<MapObject name="Home Position 9" id="8" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="15,85,-20" yaw="0.000000">
-			<MapObject name="Home Position 8" id="7"/>
+			<MapObject name="Home Position 8" id="7" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="130,55,25" yaw="0.000000">
-			<MapObject name="Home Position 7" id="6"/>
+			<MapObject name="Home Position 7" id="6" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="90,50,10" yaw="0.000000">
-			<MapObject name="Home Position 6" id="5"/>
+			<MapObject name="Home Position 6" id="5" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="50,45,-5" yaw="0.000000">
-			<MapObject name="Home Position 5" id="4"/>
+			<MapObject name="Home Position 5" id="4" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="10,50,-20" yaw="0.000000">
-			<MapObject name="Home Position 4" id="3"/>
+			<MapObject name="Home Position 4" id="3" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="125,0,25" yaw="0.000000">
-			<MapObject name="Home Position 3" id="2"/>
+			<MapObject name="Home Position 3" id="2" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="85,0,10" yaw="0.000000">
-			<MapObject name="Home Position 2" id="1"/>
+			<MapObject name="Home Position 2" id="1" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="45,0,-5" yaw="0.000000">
-			<MapObject name="Home Position 1" id="0"/>
+			<MapObject name="Home Position 1" id="0" hidden="true"/>
 		</Marker>
 		<Marker ver="4" type="Position" pos="5,0,-20" yaw="0.000000">
-			<MapObject name="Home Position 0" id="FFFFFFFF"/>
+			<MapObject name="Home Position 0" id="FFFFFFFF" hidden="true"/>
 		</Marker>
 	</Markers>
 	<ScriptData>

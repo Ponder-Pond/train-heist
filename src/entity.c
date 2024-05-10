@@ -775,7 +775,7 @@ void load_area_specific_entity_data(void) {
     if (!isAreaSpecificEntityDataLoaded) {
         if (gGameStatusPtr->areaID == AREA_JAN || gGameStatusPtr->areaID == AREA_IWA) {
             DMA_COPY_SEGMENT(entity_jan_iwa);
-        } else if (gGameStatusPtr->areaID == AREA_SBK || gGameStatusPtr->areaID == AREA_OMO) {
+        } else if (gGameStatusPtr->areaID == AREA_SBK || gGameStatusPtr->areaID == AREA_OSR) {
             DMA_COPY_SEGMENT(entity_sbk_omo);
         } else {
             DMA_COPY_SEGMENT(entity_default);

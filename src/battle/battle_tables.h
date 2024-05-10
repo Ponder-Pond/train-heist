@@ -124,7 +124,7 @@ extern StageList b_area_kkj_Stages;
 extern BattleList b_area_dig_Formations;
 extern StageList b_area_dig_Stages;
 
-extern BattleList b_area_jam_Formations;
-extern StageList b_area_jam_Stages;
+extern BattleList b_area_trn_Formations;
+extern StageList b_area_trn_Stages;
 
 #endif

@@ -98,7 +98,7 @@ SHIFT_BSS Battle* gCurrentBattlePtr;
 // };
 
 BattleArea gBattleAreas[] = {
-    [BTL_AREA_JAM]      BTL_AREA(jam, "Train Heist"),
+    [BTL_AREA_TRN]      BTL_AREA(trn, "Train Heist"),
 };
 
 void reset_battle_status(void) {

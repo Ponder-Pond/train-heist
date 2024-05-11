@@ -12113,15 +12113,16 @@ segments:
     subsegments:
     - [auto, c, mgm_03_0_header]
     - [auto, c, mgm_03_1_main]
-  # - name: trn_01
-  #   dir: world/area_trn/trn_01
-  #   type: code
-  #   start: auto
-  #   vram_class: map
-  #   subsegments:
-  #   - [auto, c, trn_01_0_header]
-  #   - [auto, c, trn_01_1_main]
-  #   - [auto, c, trn_01_2_tex_panners]
+  - name: trn_01
+    dir: world/area_trn/trn_01
+    type: code
+    start: auto
+    vram_class: map
+    subsegments:
+    - [auto, c, trn_01_0_header]
+    - [auto, c, trn_01_1_main]
+    - [auto, c, trn_01_2_tex_panners]
+    - [auto, c, trn_01_3_npc]
   - name: gv_01
     dir: world/area_gv/gv_01
     type: code

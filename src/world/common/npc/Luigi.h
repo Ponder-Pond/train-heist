@@ -3,7 +3,7 @@
 
 #define LUIGI_ANIMS \
 { \
-    .idle   = ANIM_Luigi_Still, \
+    .idle   = ANIM_Luigi_IdleSit, \
     .walk   = ANIM_Luigi_Still, \
     .run    = ANIM_Luigi_Still, \
     .chase  = ANIM_Luigi_Still, \

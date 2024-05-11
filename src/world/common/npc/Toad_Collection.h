@@ -2,4 +2,5 @@
 #include "Toadette.h"
 #include "ToadKid.h"
 #include "ToadGuard.h"
+#include "TayceT.h"
 #include "ToadMinister.h"

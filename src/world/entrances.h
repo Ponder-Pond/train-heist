@@ -1337,10 +1337,7 @@ enum {
     tst_13_ENTRY_0   = 0,
     tst_20_ENTRY_0   = 0,
     // Train Heist
-    // ttr_01_ENTRY_Testing     = 0,
-    // ttr_01_ENTRY_Lounge      = 1,
-    // ttr_01_ENTRY_Gift_Shop   = 2,
-    // ttr_01_ENTRY_Auditorium  = 3,
+    trn_01_ENTRY_Center     = 0,
 };
 
 #endif

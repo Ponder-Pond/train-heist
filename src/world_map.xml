@@ -33,6 +33,6 @@
     <Location id="LOCATION_BOWSERS_CASTLE" parent="LOCATION_STAR_HAVEN" requires="STORY_EPILOGUE" startX="96" startY="49" path="-6,5;-2,7;2,7;6,6;8,3;8,0;8,-3;8,-5;6,-5;7,-4;8,-1;8,3;2,8"/>
     <Location id="LOCATION_PEACHS_CASTLE" parent="LOCATION_BOWSERS_CASTLE" requires="STORY_EPILOGUE" startX="88" startY="22" path="-3,7;0,6;4,7"/>
     <Location id="LOCATION_MARIOS_HOUSE" parent="LOCATION_TOAD_TOWN" requires="STORY_NEVER" startX="98" startY="147" path=""/>
-    <!-- Boss Mod -->
-    <Location id="LOCATION_THEATER" parent="LOCATION_TOAD_TOWN" requires="STORY_NEVER" startX="116" startY="185" path=""/>
+    <!-- Train Heist -->
+    <Location id="LOCATION_TRAIN" parent="LOCATION_TOAD_TOWN" requires="STORY_NEVER" startX="116" startY="185" path=""/>
 </WorldMap>

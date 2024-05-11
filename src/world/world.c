@@ -865,11 +865,11 @@ MapConfig gv_maps[] = {
     { MAP(gv_01) },
 };
 
-/// Theater
-// #include "area_ttr/ttr.h"
-// MapConfig ttr_maps[] = {
-//     { MAP(ttr_01) },
-// };
+/// Traib
+#include "area_trn/trn.h"
+MapConfig trn_maps[] = {
+    { MAP(trn_01) },
+};
 
 AreaConfig gAreas[] = {
     AREA(kmr, "クリむら"),  // kuri mura [kuribou village, Goomba Village]
@@ -900,6 +900,6 @@ AreaConfig gAreas[] = {
     AREA(mgm, "ミニゲーム"),  // minige-mu [Minigames]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     AREA(tst, "テストマップ"),  // tesuto mappu [Test map]
-    // AREA(trn, "Train"),  // [Train]
+    AREA(trn, "Train"),  // [Train]
     {},
 };

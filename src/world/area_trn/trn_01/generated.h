@@ -40,7 +40,7 @@
 #define GEN_TAYCE_T_X -207
 #define GEN_TAYCE_T_Y 0
 #define GEN_TAYCE_T_Z -141
-#define GEN_TAYCE_T_DIR 270
+#define GEN_TAYCE_T_DIR 90
 #define GEN_TAYCE_T_VEC -207,0,-141
 #define GEN_TAYCE_T_TERRITORY \
 {}

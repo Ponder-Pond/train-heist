@@ -234,11 +234,15 @@
         <Sprite name="ParadeTwink"/>
         <Sprite name="Leaf"/>
         <Sprite name="KoopaGang"/>
-        <Sprite name="HowitzerHal"/>
-		<Sprite name="BrigaderBones"/>
         <Sprite name="HammerBrosSMB3"/>
 		<Sprite name="Crate"/>
 		<Sprite name="ShyGuyRider"/>
-		<Sprite name="KoopaTheKid"/>
+		<Sprite name="HowitzerHal"/>
+		<Sprite name="BrigaderBones"/>
+        <Sprite name="KoopaTheKid"/>
+        <Sprite name="CalamityKammy"/>
+		<Sprite name="Toadsworth"/>
+        <Sprite name="LuigiSleeping"/>
+        <Sprite name="BigBubba"/>
     </Sprites>
 </Names>

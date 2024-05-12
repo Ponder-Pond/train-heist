@@ -1,5 +1,6 @@
 #include "trn_01.h"
 #include "generated.h"
+#include "world/common/npc/Bubba.inc.c"
 #include "world/common/npc/Toad_Stationary.inc.c"
 #include "world/common/npc/Luigi.inc.c"
 #include "world/common/enemy/Kammy.inc.c"
@@ -25,12 +26,13 @@ NpcData N(NpcData_Characters)[] = {
         .settings = &N(NpcSettings_Toad_Stationary),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
-        .animations = TOAD_RED_ANIMS, // Change to Toadsworth Animations
+        .animations = TOADSWORTH_ANIMS, // Change to Toadsworth Animations
     },
     {
         .id = NPC_TayceT,
         .pos = { GEN_TAYCE_T_VEC },
         .yaw = GEN_TAYCE_T_DIR,
+        .init = &N(EVS_NpcInit_TayceT),
         .settings = &N(NpcSettings_Toad_Stationary),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
@@ -49,15 +51,16 @@ NpcData N(NpcData_Characters)[] = {
         .id = NPC_Bubba,
         .pos = { GEN_BUBBA_VEC },
         .yaw = GEN_BUBBA_DIR,
-        .settings = &N(NpcSettings_Toad_Stationary),
+        .settings = &N(NpcSettings_Bubba),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
-        .animations = TOAD_RED_ANIMS,
+        .animations = BUBBA_ANIMS,
     },
     {
         .id = NPC_Toad,
         .pos = { GEN_TOAD_VEC },
         .yaw = GEN_TOAD_DIR,
+        .init = &N(EVS_NpcInit_Toad),
         .settings = &N(NpcSettings_Toad_Stationary),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
@@ -70,7 +73,7 @@ NpcData N(NpcData_Characters)[] = {
         .settings = &N(NpcSettings_Luigi),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
-        .animations = LUIGI_ANIMS,
+        .animations = LUIGI_SLEEPING_ANIMS,
     },
     {
         .id = NPC_CalamityKammy,
@@ -79,7 +82,7 @@ NpcData N(NpcData_Characters)[] = {
         .settings = &N(NpcSettings_Kammy),
         .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_NO_SHADOW_RAYCAST,
         .drops = NO_DROPS,
-        .animations = KAMMY_ANIMS,
+        .animations = CALAMITY_KAMMY_ANIMS,
     },
     {
         .id = NPC_Peach,

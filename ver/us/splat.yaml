@@ -12123,6 +12123,8 @@ segments:
     - [auto, c, trn_01_1_main]
     - [auto, c, trn_01_2_tex_panners]
     - [auto, c, trn_01_3_npc]
+    - [auto, c, trn_01_4_toad]
+    - [auto, c, trn_01_5_tayce_t]
   - name: gv_01
     dir: world/area_gv/gv_01
     type: code

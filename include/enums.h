@@ -3146,6 +3146,7 @@ enum PopupType {
     POPUP_MENU_READ_POSTCARD        = 0xB,
     POPUP_MENU_USEKEY               = 0xC,
     POPUP_MENU_POST_OFFICE          = 0xD,
+    POPUP_MENU_BUY_ITEM       = 0xE,
     POPUP_MENU_DOUBLE_DIP           = 100,
     POPUP_MENU_TRIPLE_DIP           = 200,
 };

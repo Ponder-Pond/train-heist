@@ -59,6 +59,7 @@ s16 PopupWorldStartX[] = {
     [POPUP_MENU_READ_POSTCARD]     132,
     [POPUP_MENU_USEKEY]            141,
     [POPUP_MENU_POST_OFFICE]       140,
+    [POPUP_MENU_BUY_ITEM]          119,
 };
 
 s16 PopupContentScissorWidths[] = {
@@ -76,6 +77,7 @@ s16 PopupContentScissorWidths[] = {
     [POPUP_MENU_READ_POSTCARD]     147,
     [POPUP_MENU_USEKEY]            137,
     [POPUP_MENU_POST_OFFICE]       137,
+    [POPUP_MENU_BUY_ITEM]          290,
 };
 #endif
 
@@ -136,6 +138,7 @@ enum PopupTypes {
     POPUP_TYPE_READ_DIARY_PAGE,
     POPUP_TYPE_READ_POSTCARD,
     POPUP_TYPE_USE_KEY,
+    POPUP_TYPE_BUY_ITEM,
 };
 
 void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 width, s32 height, s32 opacity, s32 darkening);
@@ -156,6 +159,7 @@ void hide_popup_menu(void) {
             case POPUP_MENU_TRADE_FOR_BADGE:
             case POPUP_MENU_UPGRADE_PARTNER:
             case POPUP_MENU_SELL_ITEM:
+            case POPUP_MENU_BUY_ITEM:
             case POPUP_MENU_CHECK_ITEM:
             case POPUP_MENU_CLAIM_ITEM:
             case POPUP_MENU_READ_LETTER:
@@ -179,6 +183,7 @@ void hide_popup_menu(void) {
             case POPUP_MENU_TRADE_FOR_BADGE:
             case POPUP_MENU_UPGRADE_PARTNER:
             case POPUP_MENU_SELL_ITEM:
+            case POPUP_MENU_BUY_ITEM:
             case POPUP_MENU_CHECK_ITEM:
             case POPUP_MENU_CLAIM_ITEM:
             case POPUP_MENU_READ_LETTER:
@@ -203,6 +208,10 @@ void hide_popup_menu(void) {
         set_window_update(WINDOW_ID_18, (s32) basic_hidden_window_update);
     }
     if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
+        set_window_update(WINDOW_ID_16, (s32) basic_hidden_window_update);
+        set_window_update(WINDOW_ID_CURRENCY_COUNTER, (s32) basic_hidden_window_update);
+    }
+    if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
         set_window_update(WINDOW_ID_16, (s32) basic_hidden_window_update);
         set_window_update(WINDOW_ID_CURRENCY_COUNTER, (s32) basic_hidden_window_update);
     }
@@ -235,6 +244,11 @@ void destroy_popup_menu(void) {
         hud_element_free(PopupMenu_TitleIconHEID);
     }
 
+    if (gPopupMenu->popupType == POPUP_TYPE_BUY_ITEM) {
+        hud_element_free(PopupMenu_TitleIconHEID);
+        // hud_element_free(PopupMenu_TimesHEID);
+    }
+
     if ((gPopupMenu->popupType <= POPUP_TYPE_USE_ITEM ||
          gPopupMenu->popupType == POPUP_TYPE_SWITCH_PARTNER ||
          gPopupMenu->popupType == POPUP_TYPE_THROW_AWAY_ITEM ||
@@ -258,6 +272,7 @@ void func_800F16CC(void) {
             case POPUP_MENU_THROW_AWAY_ITEM:
             case POPUP_MENU_TRADE_FOR_BADGE:
             case POPUP_MENU_SELL_ITEM:
+            case POPUP_MENU_BUY_ITEM:
             case POPUP_MENU_CHECK_ITEM:
             case POPUP_MENU_CLAIM_ITEM:
             case POPUP_MENU_READ_LETTER:
@@ -287,6 +302,7 @@ void func_800F16CC(void) {
             case POPUP_MENU_THROW_AWAY_ITEM:
             case POPUP_MENU_TRADE_FOR_BADGE:
             case POPUP_MENU_SELL_ITEM:
+            case POPUP_MENU_BUY_ITEM:
             case POPUP_MENU_CHECK_ITEM:
             case POPUP_MENU_CLAIM_ITEM:
             case POPUP_MENU_READ_LETTER:
@@ -318,6 +334,10 @@ void func_800F16CC(void) {
     if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
         set_window_update(WINDOW_ID_16, (s32) basic_window_update);
     }
+    if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+        set_window_update(WINDOW_ID_16, (s32) basic_window_update);
+        // set_window_update(WINDOW_ID_CURRENCY_COUNTER, (s32) basic_window_update);
+    }
     hud_element_set_tint(PopupMenu_EmptybarHEID, 255, 255, 255);
     hud_element_set_tint(PopupMenu_EntryIconHEID, 255, 255, 255);
     hud_element_set_tint(PopupMenu_CursorHEID, 255, 255, 255);
@@ -337,6 +357,10 @@ void func_800F16CC(void) {
     }
     if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
         hud_element_set_tint(PopupMenu_TitleIconHEID, 255, 255, 255);
+    }
+    if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+        hud_element_set_tint(PopupMenu_TitleIconHEID, 255, 255, 255);
+        // hud_element_set_tint(PopupMenu_TimesHEID, 255, 255, 255);
     }
     hud_element_set_script(PopupMenu_CursorHEID, &HES_AnimatedHandPointer);
     D_8010D690 = MSG_PAL_STANDARD;
@@ -404,6 +428,9 @@ s32 popup_menu_update(void) {
                         D_8010D67C += 134;
                         break;
                     case POPUP_MENU_SELL_ITEM:
+                        D_8010D67C += 122;
+                        break;
+                    case POPUP_MENU_BUY_ITEM:
                         D_8010D67C += 122;
                         break;
                     case POPUP_MENU_SWITCH_PARTNER:
@@ -481,6 +508,12 @@ s32 popup_menu_update(void) {
                 hud_element_set_flags(elementID, HUD_ELEMENT_FLAG_80);
                 hud_element_set_tint(elementID, 255, 255, 255);
             }
+            if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+                PopupMenu_TitleIconHEID = hud_element_create(&HES_StatusCoin);
+                elementID = PopupMenu_TitleIconHEID;
+                hud_element_set_flags(elementID, HUD_ELEMENT_FLAG_80);
+                hud_element_set_tint(elementID, 255, 255, 255);
+            }
 
             D_8010D65A = -200;
             D_8010D644 = D_8010D691;
@@ -553,6 +586,13 @@ s32 popup_menu_update(void) {
                     gPopupMenu->unk_340 = -24;
                     gPopupMenu->unk_330 = MSG_Menus_Items;
                     gPopupMenu->unk_33C = MSG_Menus_0065;
+                    break;
+                case POPUP_MENU_BUY_ITEM:
+                    var_s6 = 167;
+                    var_s5 = 145;
+                    gPopupMenu->unk_340 = -24;
+                    gPopupMenu->unk_330 = MSG_Menus_Items;
+                    gPopupMenu->unk_33C = MSG_Misc_MenuBuy;
                     break;
                 case POPUP_MENU_READ_LETTER:
                     var_s6 = 170;
@@ -648,6 +688,12 @@ s32 popup_menu_update(void) {
                     set_window_update(WINDOW_ID_15, WINDOW_UPDATE_SHOW);
                     set_window_update(WINDOW_ID_17, WINDOW_UPDATE_HIDE);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    set_window_properties(WINDOW_ID_14, posX, posY, 152, (PopupMenu_DisplayedEntryCount * LINE_HEIGHT) + 26, WINDOW_PRIORITY_20, popup_menu_draw_menu_contents, NULL, -1);
+                    set_window_properties(WINDOW_ID_15, 12, -6, 106, 16, WINDOW_PRIORITY_21, popup_menu_draw_title_contents, NULL, WINDOW_ID_14);
+                    set_window_update(WINDOW_ID_15, WINDOW_UPDATE_SHOW);
+                    set_window_update(WINDOW_ID_17, WINDOW_UPDATE_HIDE);
+                    break;
                 case POPUP_MENU_READ_LETTER:
                     set_window_properties(WINDOW_ID_14, posX, posY, 120, (PopupMenu_DisplayedEntryCount * LINE_HEIGHT) + 26, WINDOW_PRIORITY_20, popup_menu_draw_menu_contents, NULL, -1);
                     set_window_properties(WINDOW_ID_15, 24, -6, 72, 16, WINDOW_PRIORITY_21, popup_menu_draw_title_contents, NULL, WINDOW_ID_14);
@@ -713,6 +759,17 @@ s32 popup_menu_update(void) {
                     set_window_update(WINDOW_ID_15, WINDOW_UPDATE_SHOW);
                     set_window_update(WINDOW_ID_17, WINDOW_UPDATE_HIDE);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    // set_window_properties(WINDOW_ID_14, posX, posY, 162, (PopupMenu_DisplayedEntryCount * LINE_HEIGHT) + 26, WINDOW_PRIORITY_20, popup_menu_draw_menu_contents, NULL, -1);
+                    // set_window_properties(WINDOW_ID_15, 17, -6, 96, 16, WINDOW_PRIORITY_21, popup_menu_draw_title_contents, NULL, WINDOW_ID_14);
+                    // set_window_update(WINDOW_ID_15, WINDOW_UPDATE_SHOW);
+                    // set_window_update(WINDOW_ID_17, WINDOW_UPDATE_HIDE);
+                    // break;
+                    set_window_properties(WINDOW_ID_14, posX, posY, 167, (PopupMenu_DisplayedEntryCount * LINE_HEIGHT) + 26, WINDOW_PRIORITY_20, popup_menu_draw_menu_contents, NULL, -1);
+                    set_window_properties(WINDOW_ID_15, 22, -6, 95, 16, WINDOW_PRIORITY_21, popup_menu_draw_title_contents, NULL, WINDOW_ID_14);
+                    set_window_update(WINDOW_ID_15, WINDOW_UPDATE_SHOW);
+                    set_window_update(WINDOW_ID_17, WINDOW_UPDATE_HIDE);
+                    break;
                 case POPUP_MENU_READ_LETTER:
                     set_window_properties(WINDOW_ID_14, posX, posY, 170, (PopupMenu_DisplayedEntryCount * LINE_HEIGHT) + 26, WINDOW_PRIORITY_20, popup_menu_draw_menu_contents, NULL, -1);
                     set_window_properties(WINDOW_ID_15, 32, -6, 104, 16, WINDOW_PRIORITY_21, popup_menu_draw_title_contents, NULL, WINDOW_ID_14);
@@ -757,6 +814,9 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_SELL_ITEM:
                     set_window_properties(WINDOW_ID_16, 116, -14, 32, 32, WINDOW_PRIORITY_21, popup_draw_cost_icon, NULL, WINDOW_ID_14);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    set_window_properties(WINDOW_ID_16, 116, -14, 32, 32, WINDOW_PRIORITY_21, popup_draw_cost_icon, NULL, WINDOW_ID_14);
+                    break;
             }
 #else
             switch (gPopupMenu->popupType) {
@@ -766,6 +826,10 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_SELL_ITEM:
                     set_window_properties(WINDOW_ID_16, 131, -14, 32, 32, WINDOW_PRIORITY_21, popup_draw_cost_icon, NULL, WINDOW_ID_14);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    // set_window_properties(WINDOW_ID_16, 50, 0, 32, 32, WINDOW_PRIORITY_21, popup_draw_cost_icon, NULL, WINDOW_ID_14);
+                    // set_window_properties(WINDOW_ID_16, 131, -14, 32, 32, WINDOW_PRIORITY_21, popup_draw_cost_icon, NULL, WINDOW_ID_14);
+                    break;
             }
 #endif
 
@@ -774,6 +838,11 @@ s32 popup_menu_update(void) {
                 posY = PopupMenu_StarPieceCounterPosY;
                 set_window_properties(WINDOW_ID_CURRENCY_COUNTER, posX, posY, 64, 20, WINDOW_PRIORITY_21, func_800F4D28, NULL, -1);
             }
+            // if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+            //     posX = PopupMenu_StarPieceCounterPosX;
+            //     posY = PopupMenu_StarPieceCounterPosY;
+            //     set_window_properties(WINDOW_ID_CURRENCY_COUNTER, posX, posY, 64, 20, WINDOW_PRIORITY_21, func_800F4D28, NULL, -1);
+            // }
 
             do {
                 cond = FALSE;
@@ -844,6 +913,9 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_SELL_ITEM:
                     set_window_properties(WINDOW_ID_21, D_8010D684, D_8010D686, 120, 32, WINDOW_PRIORITY_20, func_800F4944, NULL, -1);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    set_window_properties(WINDOW_ID_21, D_8010D684, D_8010D686, 120, 32, WINDOW_PRIORITY_20, func_800F4944, NULL, -1);
+                    break;
 #else
                 case POPUP_MENU_USE_ITEM:
                 case POPUP_MENU_CHECK_ITEM:
@@ -871,6 +943,9 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_SELL_ITEM:
                     set_window_properties(WINDOW_ID_21, posX, posY, 120, 32, WINDOW_PRIORITY_20, func_800F4944, NULL, -1);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    set_window_properties(WINDOW_ID_21, posX, posY, 120, 32, WINDOW_PRIORITY_20, func_800F4944, NULL, -1);
+                    break;
 #endif
             }
 #endif
@@ -881,6 +956,7 @@ s32 popup_menu_update(void) {
                     case POPUP_MENU_THROW_AWAY_ITEM:
                     case POPUP_MENU_TRADE_FOR_BADGE:
                     case POPUP_MENU_SELL_ITEM:
+                    case POPUP_MENU_BUY_ITEM:
                     case POPUP_MENU_CHECK_ITEM:
                     case POPUP_MENU_CLAIM_ITEM:
                     case POPUP_MENU_READ_LETTER:
@@ -906,6 +982,7 @@ s32 popup_menu_update(void) {
                     case POPUP_MENU_THROW_AWAY_ITEM:
                     case POPUP_MENU_TRADE_FOR_BADGE:
                     case POPUP_MENU_SELL_ITEM:
+                    case POPUP_MENU_BUY_ITEM:
                     case POPUP_MENU_CHECK_ITEM:
                     case POPUP_MENU_CLAIM_ITEM:
                     case POPUP_MENU_READ_LETTER:
@@ -940,6 +1017,10 @@ s32 popup_menu_update(void) {
             }
             if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
                 set_window_update(WINDOW_ID_16, (s32)basic_window_update);
+            }
+            if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+                set_window_update(WINDOW_ID_16, (s32)basic_window_update);
+                // set_window_update(WINDOW_ID_CURRENCY_COUNTER, (s32)basic_window_update);
             }
             gPopupState = POPUP_STATE_CHOOSING;
             break;
@@ -1046,6 +1127,7 @@ s32 popup_menu_update(void) {
                         case POPUP_MENU_THROW_AWAY_ITEM:
                         case POPUP_MENU_TRADE_FOR_BADGE:
                         case POPUP_MENU_SELL_ITEM:
+                        case POPUP_MENU_BUY_ITEM:
                         case POPUP_MENU_CHECK_ITEM:
                         case POPUP_MENU_CLAIM_ITEM:
                         case POPUP_MENU_USEKEY:
@@ -1134,6 +1216,10 @@ s32 popup_menu_update(void) {
             if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
                 hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
             }
+            if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+                hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
+                // hud_element_set_tint(PopupMenu_TimesHEID, 160, 160, 160);
+            }
             D_8010D690 = MSG_PAL_0D;
 
             gPopupMenu->result = PopupMenu_SelectedIndex + 1;
@@ -1147,6 +1233,7 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_THROW_AWAY_ITEM:
                 case POPUP_MENU_TRADE_FOR_BADGE:
                 case POPUP_MENU_SELL_ITEM:
+                case POPUP_MENU_BUY_ITEM:
                 case POPUP_MENU_CHECK_ITEM:
                 case POPUP_MENU_CLAIM_ITEM:
                 case POPUP_MENU_READ_LETTER:
@@ -1264,12 +1351,17 @@ s32 popup_menu_update(void) {
             if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
                 hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
             }
+            if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+                hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
+                // hud_element_set_tint(PopupMenu_TimesHEID, 160, 160, 160);
+            }
 
             switch (gPopupMenu->popupType) {
                 case POPUP_MENU_USE_ITEM:
                 case POPUP_MENU_THROW_AWAY_ITEM:
                 case POPUP_MENU_TRADE_FOR_BADGE:
                 case POPUP_MENU_SELL_ITEM:
+                case POPUP_MENU_BUY_ITEM:
                 case POPUP_MENU_CHECK_ITEM:
                 case POPUP_MENU_CLAIM_ITEM:
                 case POPUP_MENU_READ_LETTER:
@@ -1351,6 +1443,10 @@ s32 popup_menu_update(void) {
             if (gPopupMenu->popupType == POPUP_MENU_SELL_ITEM) {
                 hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
             }
+            if (gPopupMenu->popupType == POPUP_MENU_BUY_ITEM) {
+                hud_element_set_tint(PopupMenu_TitleIconHEID, 160, 160, 160);
+                // hud_element_set_tint(PopupMenu_TimesHEID, 160, 160, 160);
+            }
             hud_element_set_script(PopupMenu_CursorHEID, &HES_HandPointer);
 
             switch (gPopupMenu->popupType) {
@@ -1358,6 +1454,7 @@ s32 popup_menu_update(void) {
                 case POPUP_MENU_THROW_AWAY_ITEM:
                 case POPUP_MENU_TRADE_FOR_BADGE:
                 case POPUP_MENU_SELL_ITEM:
+                case POPUP_MENU_BUY_ITEM:
                 case POPUP_MENU_CHECK_ITEM:
                 case POPUP_MENU_CLAIM_ITEM:
                 case POPUP_MENU_READ_LETTER:
@@ -1450,6 +1547,7 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
 #endif
         case POPUP_MENU_TRADE_FOR_BADGE:
         case POPUP_MENU_SELL_ITEM:
+        case POPUP_MENU_BUY_ITEM:
         case POPUP_MENU_CHECK_ITEM:
         case POPUP_MENU_CLAIM_ITEM:
         case POPUP_MENU_READ_LETTER:
@@ -1515,6 +1613,9 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
         case POPUP_MENU_SELL_ITEM:
             gDPSetScissor(gMainGfxPos++, G_SC_NON_INTERLACE, x, y, x + 140, y1);
             break;
+        case POPUP_MENU_BUY_ITEM:
+            gDPSetScissor(gMainGfxPos++, G_SC_NON_INTERLACE, x, y, x + 140, y1);
+            break;
     }
 #else
     gDPSetScissor(gMainGfxPos++, G_SC_NON_INTERLACE, x, y, x + PopupContentScissorWidths[gPopupMenu->popupType], y1);
@@ -1548,6 +1649,7 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
                 case POPUP_MENU_THROW_AWAY_ITEM:
                 case POPUP_MENU_TRADE_FOR_BADGE:
                 case POPUP_MENU_SELL_ITEM:
+                case POPUP_MENU_BUY_ITEM:
                 case POPUP_MENU_CHECK_ITEM:
                 case POPUP_MENU_CLAIM_ITEM:
                 case POPUP_MENU_TAKE_FROM_CHEST:
@@ -1611,6 +1713,9 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
                 case POPUP_MENU_SELL_ITEM:
                     draw_number(gPopupMenu->value[t], x + ITEM_PRICE_X, y, 1, msgPal, PopupMenu_Alpha, DRAW_NUMBER_STYLE_MONOSPACE_RIGHT);
                     break;
+                case POPUP_MENU_BUY_ITEM:
+                    draw_number(gPopupMenu->value[t], x + ITEM_PRICE_X, y, 1, msgPal, PopupMenu_Alpha, DRAW_NUMBER_STYLE_MONOSPACE_RIGHT);
+                    break;
             }
             y += LINE_HEIGHT;
             if (i == 0) {
@@ -1634,6 +1739,7 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
         case POPUP_MENU_TRADE_FOR_BADGE:
         case POPUP_MENU_UPGRADE_PARTNER:
         case POPUP_MENU_SELL_ITEM:
+        case POPUP_MENU_BUY_ITEM:
         case POPUP_MENU_CHECK_ITEM:
         case POPUP_MENU_CLAIM_ITEM:
         case POPUP_MENU_READ_LETTER:
@@ -1723,6 +1829,7 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
         case POPUP_MENU_USE_ITEM:
         case POPUP_MENU_THROW_AWAY_ITEM:
         case POPUP_MENU_TRADE_FOR_BADGE:
+        case POPUP_MENU_BUY_ITEM:
         case POPUP_MENU_SELL_ITEM:
         case POPUP_MENU_CHECK_ITEM:
         case POPUP_MENU_CLAIM_ITEM:
@@ -1749,6 +1856,9 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
             offset = 32;
             break;
         case POPUP_MENU_SELL_ITEM:
+            offset = 31;
+            break;
+        case POPUP_MENU_BUY_ITEM:
             offset = 31;
             break;
         default:
@@ -1781,6 +1891,9 @@ void popup_menu_draw_menu_contents(s32* userData, s32 baseX, s32 baseY, s32 widt
             offset = 35;
             break;
         case POPUP_MENU_SELL_ITEM:
+            offset = 31;
+            break;
+        case POPUP_MENU_BUY_ITEM:
             offset = 31;
             break;
         case POPUP_MENU_CHECK_ITEM:
@@ -1835,6 +1948,7 @@ void popup_menu_draw_title_contents(s32* userData, s32 baseX, s32 baseY, s32 wid
         case POPUP_MENU_USE_ITEM:
         case POPUP_MENU_THROW_AWAY_ITEM:
         case POPUP_MENU_SELL_ITEM:
+        case POPUP_MENU_BUY_ITEM:
         case POPUP_MENU_CHECK_ITEM:
         case POPUP_MENU_CLAIM_ITEM:
             switch (gPopupMenu->dipMode) {
@@ -1887,6 +2001,7 @@ void popup_menu_draw_title_contents(
         case POPUP_MENU_USE_ITEM:
         case POPUP_MENU_THROW_AWAY_ITEM:
         case POPUP_MENU_SELL_ITEM:
+        case POPUP_MENU_BUY_ITEM:
         case POPUP_MENU_CHECK_ITEM:
         case POPUP_MENU_CLAIM_ITEM:
             switch (gPopupMenu->dipMode) {
@@ -2007,6 +2122,11 @@ void func_800F4944(s32* userData, s32 baseX, s32 baseY, s32 width, s32 height, s
                 baseX += 76 - (msgWidth / 2);
                 draw_msg(MSG_Menus_0065, baseX - 4, baseY + 2, 255, MSG_PAL_0F, 0);
                 break;
+            case POPUP_MENU_BUY_ITEM:
+                msgWidth = get_msg_width(MSG_Misc_MenuBuy, 0) + 18;
+                baseX += 76 - (msgWidth / 2);
+                draw_msg(MSG_Misc_MenuBuy, baseX - 4, baseY + 2, 255, MSG_PAL_0F, 0);
+                break;
             case POPUP_MENU_CHECK_ITEM:
                 msgWidth = get_msg_width(MSG_Menus_0066, 0) + 18;
                 baseX += 76 - (msgWidth / 2);
@@ -2083,6 +2203,14 @@ void func_800F4944(s32* userData, s32 baseX, s32 baseY, s32 width, s32 height, s
                 msgWidth = get_msg_width(MSG_Menus_0065, 0);
                 baseX += 60 - (msgWidth / 2);
                 draw_msg(MSG_Menus_0065, baseX, baseY, 255, MSG_PAL_0F, 0);
+                break;
+            case POPUP_MENU_BUY_ITEM:
+                msgWidth = get_msg_width(MSG_Misc_MenuBuy, 0);
+                // baseX += 64 - (msgWidth / 2);
+                // draw_msg(MSG_Menus_0070, baseX, baseY - 4, 255, MSG_PAL_0F, 0);
+                // break;
+                baseX += 60 - (msgWidth / 2);
+                draw_msg(MSG_Misc_MenuBuy, baseX, baseY, 255, MSG_PAL_0F, 0);
                 break;
             case POPUP_MENU_CHECK_ITEM:
                 msgWidth = get_msg_width(MSG_Menus_0066, 0);
@@ -2176,6 +2304,11 @@ void popup_draw_cost_icon(s32* userData, s32 x, s32 y) {
             hudElement = PopupMenu_TitleIconHEID;
             yPos = y + 17;
             break;
+        case POPUP_TYPE_BUY_ITEM:
+            xPos = x + 17;
+            hudElement = &HES_StatusCoin;
+            yPos = y + 17;
+            break;
         default:
             return;
     }
@@ -2208,6 +2341,12 @@ void func_800F4D28(s32* userData, s32 x, s32 y) {
         hud_element_set_render_pos(hudElement, xPos, y + 10);
     }
 
+    // if (gPopupMenu->popupType == POPUP_TYPE_BUY_ITEM) {
+    //     hud_element_set_render_pos(hudElement, xPos, y - 9);
+    // } else {
+    //     hud_element_set_render_pos(hudElement, xPos, y + 10);
+    // }
+
     hud_element_draw_clipped(hudElement);
 
     hudElement = PopupMenu_TimesHEID;
@@ -2219,6 +2358,12 @@ void func_800F4D28(s32* userData, s32 x, s32 y) {
     if (type == POPUP_TYPE_TRADE_FOR_BADGE) {
         draw_number(playerData->starPieces, x + 58, y + 4, DRAW_NUMBER_CHARSET_THIN, MSG_PAL_STANDARD, PopupMenu_Alpha, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
     }
+
+    // type = gPopupMenu->popupType;
+    // if (type == POPUP_TYPE_BUY_ITEM) {
+    //     // draw_number(statusBar->displayCoins, x + 58, y + 4, DRAW_NUMBER_CHARSET_THIN, MSG_PAL_STANDARD, PopupMenu_Alpha, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+    //     draw_number(playerData->coins, x + 58, y + 4, DRAW_NUMBER_CHARSET_THIN, MSG_PAL_STANDARD, PopupMenu_Alpha, DRAW_NUMBER_STYLE_MONOSPACE | DRAW_NUMBER_STYLE_ALIGN_RIGHT);
+    // }
 }
 
 void create_standard_popup_menu(PopupMenu* popup) {

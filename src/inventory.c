@@ -67,8 +67,8 @@ void clear_player_data(void) {
     playerData->level = 27;
     playerData->bootsLevel = 2;
     playerData->hasActionCommands = TRUE;
-    playerData->coins = 0;
-    playerData->starPieces = 0;
+    playerData->coins = 100;
+    playerData->starPieces = 50;
     playerData->starPoints = 0;
     playerData->unused_011 = 0;
     playerData->unused_288 = 0;

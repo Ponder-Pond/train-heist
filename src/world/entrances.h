@@ -1337,7 +1337,8 @@ enum {
     tst_13_ENTRY_0   = 0,
     tst_20_ENTRY_0   = 0,
     // Train Heist
-    trn_01_ENTRY_Center     = 0,
+    trn_01_ENTRY_Scene      = 0,
+    trn_01_ENTRY_Center     = 1,
 };
 
 #endif

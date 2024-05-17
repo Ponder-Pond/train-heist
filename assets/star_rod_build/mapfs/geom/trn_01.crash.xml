@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map textures="trn_tex">
-	<Editor>
-		<Camera pos="-197.941086,43.121227,58.911888" pitch="16.800003" yaw="0.320099"/>
-		<Camera pos="0.000000,65536.000000,-152.000000"/>
-		<Camera pos="65536.000000,62.000000,-152.000000"/>
-		<Camera pos="-195.686310,9.067484,65536.000000"/>
-	</Editor>
 	<ModelTree>
 		<Node name="Root" id="25">
 			<Node name="TrimTop" id="0"/>
@@ -61,25 +55,19 @@
 		</Node>
 	</ZoneTree>
 	<MarkerTree>
-		<Node name="Root" id="F">
-			<Node name="Entrances" id="1">
-				<Node name="Entry_Scene" id="FFFFFFFF"/>
-				<Node name="Entry_Center" id="0"/>
+		<Node name="Root" id="A">
+			<Node name="Entrances" id="0">
+				<Node name="Entry_Center" id="FFFFFFFF"/>
 			</Node>
-			<Node name="NPCs" id="A">
-				<Node name="Toadsworth" id="2"/>
-				<Node name="TayceT" id="3"/>
-				<Node name="ToadMinister" id="4"/>
-				<Node name="Bubba" id="5"/>
-				<Node name="Toad" id="6"/>
-				<Node name="Luigi" id="7"/>
-				<Node name="CalamityKammy" id="8"/>
-				<Node name="Peach" id="9"/>
-			</Node>
-			<Node name="ScenePositions" id="E">
-				<Node name="Pos_Toadsworth" id="B"/>
-				<Node name="Pos_Peach" id="C"/>
-				<Node name="Pos_Toad" id="D"/>
+			<Node name="NPCs" id="9">
+				<Node name="Toadsworth" id="1"/>
+				<Node name="TayceT" id="2"/>
+				<Node name="ToadMinister" id="3"/>
+				<Node name="Bubba" id="4"/>
+				<Node name="Toad" id="5"/>
+				<Node name="Luigi" id="6"/>
+				<Node name="CalamityKammy" id="7"/>
+				<Node name="Peach" id="8"/>
 			</Node>
 		</Node>
 	</MarkerTree>
@@ -3183,7 +3171,7 @@
 			<HitObject type="ROOT"/>
 		</Zone>
 		<Zone ver="0">
-			<MapObject name="FloorKitchen" id="0" hidden="true"/>
+			<MapObject name="FloorKitchen" id="0"/>
 			<HitObject type="HIT"/>
 			<HitMesh ver="0">
 				<TriangleBatch ver="0">
@@ -3234,71 +3222,56 @@
 	</Zones>
 	<Markers>
 		<Marker ver="4" type="Root">
-			<MapObject name="Root" id="F"/>
+			<MapObject name="Root" id="A"/>
 		</Marker>
 		<Marker ver="4" type="Group">
-			<MapObject name="ScenePositions" id="E"/>
+			<MapObject name="NPCs" id="9"/>
 		</Marker>
-		<Marker ver="4" type="Position" pos="68,0,-84" yaw="0.000000">
-			<MapObject name="Pos_Toad" id="D"/>
-		</Marker>
-		<Marker ver="4" type="Position" pos="102,0,-84" yaw="0.000000">
-			<MapObject name="Pos_Peach" id="C"/>
-		</Marker>
-		<Marker ver="4" type="Position" pos="195,0,-84" yaw="0.000000">
-			<MapObject name="Pos_Toadsworth" id="B"/>
-		</Marker>
-		<Marker ver="4" type="Group">
-			<MapObject name="NPCs" id="A"/>
-		</Marker>
-		<Marker ver="4" type="NPC" pos="151,0,-84" yaw="270.000000">
-			<MapObject name="Peach" id="9"/>
+		<Marker ver="4" type="NPC" pos="151,-1,-84" yaw="270.000000">
+			<MapObject name="Peach" id="8"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_ParadePeach_IdleRaisedArms"/>
 		</Marker>
-		<Marker ver="4" type="NPC" pos="-225,0,-5" yaw="90.000000">
-			<MapObject name="CalamityKammy" id="8"/>
+		<Marker ver="4" type="NPC" pos="-247,0,-5" yaw="90.000000">
+			<MapObject name="CalamityKammy" id="7"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_CalamityKammy_Idle"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="220,17,-133" yaw="270.000000">
-			<MapObject name="Luigi" id="7"/>
+			<MapObject name="Luigi" id="6"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
-			<Sprite animation="ANIM_LuigiSleeping_LuigiSleep"/>
+			<Sprite/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="73,-1,-149" yaw="270.000000">
-			<MapObject name="Toad" id="6"/>
+			<MapObject name="Toad" id="5"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_Toad_Red_Idle"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="-79,0,-82" yaw="270.000000">
-			<MapObject name="Bubba" id="5"/>
+			<MapObject name="Bubba" id="4"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_BigBubba_Idle"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="-39,0,-70" yaw="270.000000">
-			<MapObject name="ToadMinister" id="4"/>
+			<MapObject name="ToadMinister" id="3"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_ToadMinister_Idle"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="-207,0,-141" yaw="90.000000">
-			<MapObject name="TayceT" id="3"/>
+			<MapObject name="TayceT" id="2"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
 			<Sprite animation="ANIM_TayceT_Cooking"/>
 		</Marker>
 		<Marker ver="4" type="NPC" pos="263,0,-11" yaw="270.000000">
-			<MapObject name="Toadsworth" id="2"/>
+			<MapObject name="Toadsworth" id="1"/>
 			<Movement type="Stationary" data="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
-			<Sprite animation="ANIM_Toadsworth_Idle"/>
+			<Sprite animation="ANIM_Toad_Red_Still"/>
 		</Marker>
 		<Marker ver="4" type="Group">
-			<MapObject name="Entrances" id="1"/>
+			<MapObject name="Entrances" id="0"/>
 		</Marker>
 		<Marker ver="4" type="Entry" pos="0,0,0" yaw="0.000000">
-			<MapObject name="Entry_Center" id="0"/>
-		</Marker>
-		<Marker ver="4" type="Entry" pos="167,0,-84" yaw="0.000000">
-			<MapObject name="Entry_Scene" id="FFFFFFFF"/>
+			<MapObject name="Entry_Center" id="FFFFFFFF"/>
 		</Marker>
 	</Markers>
 	<ScriptData>

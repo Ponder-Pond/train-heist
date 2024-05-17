@@ -112,6 +112,7 @@ EvtScript N(EVS_Init) = {
     // Call(HPBarToHome, ACTOR_SELF)
     // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_TARGET, TRUE)
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    Call(SetActorYaw, ACTOR_SELF, 180)
     Return
     End
 };
@@ -237,14 +238,19 @@ EvtScript N(EVS_TakeTurn) = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Add(LVar1, 15)
+    Add(LVar0, 10)
+    Add(LVar1, 30)
     Call(SetBattleCamTarget, LVar0, LVar1, LVar2)
-    Call(SetBattleCamZoom, 300)
+    Call(SetBattleCamZoom, 250)
     Call(SetBattleCamOffsetZ, 0)
-    Call(MoveBattleCamOver, 10)
-    Wait(60)
+    Call(MoveBattleCamOver, 30)
+    Wait(30)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar0, 20)
+    Add(LVar1, 15)
+    PlayEffect(EFFECT_RECOVER, 2, LVar0, LVar1, LVar2, 0, 0)
+    Wait(30)
     // Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_PyroGuy_Anim03)
-    Wait(10)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return

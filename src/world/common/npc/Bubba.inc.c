@@ -1,7 +1,7 @@
 #include "Bubba.h"
 
 NpcSettings N(NpcSettings_Bubba) = {
-    .height = 80,
-    .radius = 64,
+    .height = 55,
+    .radius = 60,
     .level = ACTOR_LEVEL_NONE,
 };

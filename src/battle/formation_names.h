@@ -569,4 +569,7 @@ enum BattleNames {
     // New Battle Names
     BTL_TRN_FORMATION_00       = 0x0000,
     BTL_TRN_FORMATION_01       = 0x0001,
+    BTL_TRN_FORMATION_02       = 0x0002,
+    BTL_TRN_FORMATION_03       = 0x0003,
+    BTL_TRN_FORMATION_04       = 0x0004,
 };

@@ -268,7 +268,7 @@ void state_step_title_screen(void) {
                 gGameStatusPtr->startupState = TITLE_STATE_BEGIN_DISMISS;
                 TitleScreenNextState = NEXT_STATE_FILE_SELECT;
                 sfx_play_sound(SOUND_FILE_MENU_IN);
-                bgm_set_song(0, SONG_FILE_SELECT, 0, 500, 8);
+                bgm_set_song(0, SONG_RIDING_THE_RAILS, 0, 500, 8);
                 return;
             }
             break;

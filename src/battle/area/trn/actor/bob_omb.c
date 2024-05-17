@@ -9,6 +9,7 @@ extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_HandleEvent);
+extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_HandleEvent_Ignited);
 
 enum N(ActorPartIDs) {
@@ -17,7 +18,7 @@ enum N(ActorPartIDs) {
 
 enum N(ActorVars) {
     AVAR_HitDuringCombo = 0,
-    AVAR_Ignited        = 8,
+    AVAR_IgnitedOnce    = 1,
 };
 
 enum N(ActorParams) {
@@ -148,8 +149,10 @@ EvtScript N(EVS_Init) = {
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
-    Call(SetActorVar, ACTOR_SELF, AVAR_Ignited, FALSE)
+    Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, FALSE)
     Call(SetActorVar, ACTOR_SELF, AVAR_HitDuringCombo, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, FALSE)
     Return
     End
 };
@@ -165,7 +168,7 @@ EvtScript N(EVS_Ignite) = {
         Return
     EndIf
     Label(0)
-    Call(SetActorVar, ACTOR_SELF, AVAR_Ignited, TRUE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, TRUE)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(IgnitedAnims)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent_Ignited)))
     Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, TRUE)
@@ -187,7 +190,7 @@ EvtScript N(EVS_Ignite) = {
 
 EvtScript N(EVS_Defuse) = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
-    Call(SetActorVar, ACTOR_SELF, AVAR_Ignited, FALSE)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, FALSE)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultAnims)))
     Call(SetPartEventBits, ACTOR_SELF, PRT_MAIN, ACTOR_EVENT_FLAG_EXPLODE_ON_CONTACT, FALSE)
     Call(SetStatusTable, ACTOR_SELF, Ref(N(StatusTable)))
@@ -201,7 +204,7 @@ EvtScript N(EVS_Defuse) = {
 };
 
 EvtScript N(EVS_Cleanup) = {
-    Call(GetActorVar, ACTOR_SELF, AVAR_Ignited, LVar0)
+    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
     IfEq(LVar0, TRUE)
         Call(StopLoopingSoundAtActor, ACTOR_SELF, 0)
         Call(EnableActorPaletteEffects, ACTOR_SELF, PRT_MAIN, FALSE)
@@ -689,12 +692,31 @@ EvtScript N(EVS_Attack_Blast) = {
 EvtScript N(EVS_TakeTurn) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(GetActorVar, ACTOR_SELF, AVAR_Ignited, LVar0)
+    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
     IfFalse(LVar0)
         ExecWait(N(EVS_Attack_Tackle))
     Else
         ExecWait(N(EVS_Attack_Blast))
         Return
+    EndIf
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_HandlePhase) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    // Call(GetBattlePhase, LVar0)
+    // Switch(LVar0)
+    //     CaseEq(PHASE_ENEMY_BEGIN)
+    Call(GetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, LVar0)
+    IfEq(LVar0, FALSE)
+        Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
+        IfEq(LVar0, TRUE)
+            ExecWait(N(EVS_Ignite))
+        EndIf
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)

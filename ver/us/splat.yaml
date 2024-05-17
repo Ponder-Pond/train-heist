@@ -5964,7 +5964,7 @@ segments:
     - [auto, c, actor/koopa_bandits_red]
     - [auto, c, actor/pyro_guy]
     - [auto, c, actor/bob_omb]
-    - [auto, c, actor/koopa_the_kid]
+    - [auto, c, actor/bowser_the_kid]
     - [auto, c, actor/koopa_gang]
 
 #######################

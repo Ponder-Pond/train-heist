@@ -396,7 +396,7 @@ EvtScript N(EVS_Defeat) = {
 //         EndThread
 //     EndIf
 
-//     Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+//     Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
 //     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnOne)
 //     Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
 //     Return
@@ -413,23 +413,23 @@ EvtScript N(EVS_TakeTurn) = {
         CaseEq(AVAL_KoopaGang_TowerState_None)
             Label(LBL_FORMTOWER)
                 ExecWait(N(EVS_Move_FormTower))
-            // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
             Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
             Goto(LBL_ENDTURN)
         CaseEq(AVAL_KoopaGang_TowerState_Stable)
-            // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
             Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
             Goto(LBL_ENDTURN)
         CaseEq(AVAL_KoopaGang_TowerState_Unstable)
             ExecWait(N(EVS_Move_Spin))
-            // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
+            // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
             Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, TRUE)
             Goto(LBL_ENDTURN)
         CaseEq(AVAL_KoopaGang_TowerState_Toppled)
             Call(GetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, LVar0)
             Switch(LVar0)
                 CaseEq(AVAL_KoopaGang_ToppleTurnOne)
-                    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+                    // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
                     Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
                     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_ToppleTurns, AVAL_KoopaGang_ToppleTurnZero)
                 CaseEq(AVAL_KoopaGang_ToppleTurnZero)
@@ -464,7 +464,7 @@ EvtScript N(EVS_Move_FormTower) = {
     // Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(DefaultDefense)))
 
 
-    // Call(SetActorVar, ACTOR_KOOPA_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
+    // Call(SetActorVar, ACTOR_BOWSER_THE_KID, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
     Call(SetActorVar, ACTOR_ENEMY0, AVAR_BowserPhase_KoopaGangSpitAttack, FALSE)
     Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
     Call(SetActorVar, ACTOR_SELF, AVAR_KoopaGang_TowerState, AVAL_KoopaGang_TowerState_Unstable)

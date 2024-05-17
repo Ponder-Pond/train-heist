@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Map stage="true" background="trn_bg" textures="trn_tex">
 	<Editor>
-		<Camera pos="106.361122,28.726330,121.665359" pitch="4.800006" yaw="0.640331"/>
+		<Camera pos="-108.758438,65.057907,459.528809" pitch="-1.599994" yaw="0.320519"/>
 		<Camera pos="101.772491,65536.000000,23.650030"/>
 		<Camera pos="65536.000000,0.000000,0.000000"/>
 		<Camera pos="117.469170,20.411375,65536.000000"/>

@@ -49,3 +49,4 @@ extern EvtScript N(EVS_NpcInit_Toad);
 extern EvtScript N(EVS_NpcInteract_Toad);
 extern EvtScript N(EVS_NpcInit_TayceT);
 extern EvtScript N(EVS_NpcInteract_TayceT);
+extern EvtScript N(EVS_Scene_BeginGame);

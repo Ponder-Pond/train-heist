@@ -20,8 +20,7 @@ enum N(ActorPartIDs) {
 };
 
 enum N(ActorParams) {
-    DMG_HAMMER_THROW    = 3,
-    DMG_HAMMER_SURGE    = 1,
+    DMG_HAMMER_SURGE    = 2,
     HEAL_AMT           = 10,
 };
 
@@ -294,122 +293,6 @@ EvtScript N(EVS_HandleEvent) = {
     End
 };
 
-EvtScript N(EVS_Attack_HammerThrow) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
-    Call(GetBattlePhase, LVar0)
-    IfEq(LVar0, PHASE_FIRST_STRIKE)
-        Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-        Call(MoveBattleCamOver, 1)
-    EndIf
-    Call(GetBattlePhase, LVar0)
-    IfEq(LVar0, PHASE_FIRST_STRIKE)
-        ChildThread
-            Set(LVar0, 0)
-            Label(0)
-            Add(LVar0, 20)
-            Mod(LVar0, 360)
-            Call(SetPartRotation, ACTOR_SELF, PRT_HAMMER_1, 0, 0, LVar0)
-            Wait(1)
-            Goto(0)
-        EndChildThread
-        Call(SetPartPos, ACTOR_SELF, PRT_HAMMER_1, 0, 50, 0)
-        Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER_1, ACTOR_PART_FLAG_INVISIBLE, FALSE)
-        Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_0C)
-        Goto(100)
-    EndIf
-    ChildThread
-        Set(LVar0, 0)
-        Label(0)
-        Add(LVar0, 20)
-        Mod(LVar0, 360)
-        Call(SetPartRotation, ACTOR_SELF, PRT_HAMMER_1, 0, 0, LVar0)
-        Wait(1)
-        Goto(0)
-    EndChildThread
-    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Sub(LVar0, 23)
-    Add(LVar1, 23)
-    Sub(LVar2, 2)
-    Call(SetPartPos, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_0C)
-    Wait(8)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER_1, ACTOR_PART_FLAG_INVISIBLE, FALSE)
-    Label(100)
-    Thread
-        Wait(15)
-        Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_02)
-    EndThread
-    Call(GetStatusFlags, ACTOR_SELF, LVar0)
-    IfFlag(LVar0, STATUS_FLAG_SHRINK)
-        Call(SetPartScale, ACTOR_SELF, PRT_HAMMER_1, Float(0.4), Float(0.4), Float(0.4))
-    Else
-        Call(SetPartScale, ACTOR_SELF, PRT_HAMMER_1, Float(1.0), Float(1.0), Float(1.0))
-    EndIf
-    Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
-    Switch(LVar0)
-        CaseOrEq(HIT_RESULT_MISS)
-        CaseOrEq(HIT_RESULT_LUCKY)
-            Set(LVarA, LVar0)
-            Call(SetPartSounds, ACTOR_SELF, PRT_HAMMER_1, ACTOR_SOUND_JUMP, SOUND_NONE, SOUND_NONE)
-            Call(PlaySoundAtPart, ACTOR_SELF, PRT_HAMMER_1, SOUND_HAMMER_BROS_THROW)
-            Call(SetGoalToTarget, ACTOR_SELF)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Sub(LVar0, 20)
-            Set(LVar1, 10)
-            Call(SetPartJumpGravity, ACTOR_SELF, PRT_HAMMER_1, Float(1.3))
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 15, TRUE)
-            IfEq(LVarA, HIT_RESULT_LUCKY)
-                Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
-            EndIf
-            Sub(LVar0, 40)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 15, TRUE)
-            Sub(LVar0, 30)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 10, TRUE)
-            Sub(LVar0, 20)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 5, TRUE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER_1, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-            Wait(15)
-            Call(YieldTurn)
-            Call(AddActorDecoration, ACTOR_SELF, PRT_MAIN, 0, ACTOR_DECORATION_SWEAT)
-            Wait(20)
-            Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 0)
-            Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-            Call(UseIdleAnimation, ACTOR_SELF, TRUE)
-            Return
-        EndCaseGroup
-    EndSwitch
-    Call(SetPartSounds, ACTOR_SELF, PRT_HAMMER_1, ACTOR_SOUND_JUMP, SOUND_NONE, SOUND_NONE)
-    Call(PlaySoundAtPart, ACTOR_SELF, PRT_HAMMER_1, SOUND_HAMMER_BROS_THROW)
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Call(SetPartJumpGravity, ACTOR_SELF, PRT_HAMMER_1, Float(1.3))
-    Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 15, TRUE)
-    Wait(2)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_NO_CONTACT, 0, DMG_STATUS_KEY(STATUS_FLAG_SHRINK, 2, 100), DMG_HAMMER_THROW, BS_FLAGS1_TRIGGER_EVENTS)
-    Switch(LVar0)
-        CaseOrEq(HIT_RESULT_HIT)
-        CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(GetPartOffset, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2)
-            Sub(LVar0, 50)
-            Set(LVar1, 10)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 20, TRUE)
-            Sub(LVar0, 30)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 10, TRUE)
-            Sub(LVar0, 20)
-            Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER_1, LVar0, LVar1, LVar2, 5, TRUE)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER_1, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-            Wait(20)
-            Call(YieldTurn)
-        EndCaseGroup
-    EndSwitch
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
-    Return
-    End
-};
-
 EvtScript N(EVS_HammerSurge_Miss) = {
     Call(SetAnimationRate, ACTOR_SELF, PRT_MAIN, Float(2.0))
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_02)
@@ -586,35 +469,7 @@ EvtScript N(EVS_Attack_HammerSurge) = {
 EvtScript N(EVS_TakeTurn) = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    ExecWait(N(EVS_Heal_Self))
-    // Call(RandInt, 100, LVar0)
-    // Switch(LVar0)
-    //     CaseLt(60)
-    //         ExecWait(N(EVS_Attack_HammerThrow))
-    //     CaseDefault
-    //         ExecWait(N(EVS_Attack_HammerSurge))
-    // EndSwitch
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
-    Return
-    End
-};
-
-EvtScript N(EVS_Heal_Self) = {
-    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_RECOVER_HEART)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HEART_BOUNCE)
-    Wait(30)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_STAR_BOUNCE_A)
-    Thread
-        Call(FreezeBattleState, TRUE)
-        Call(HealActor, ACTOR_SELF, HEAL_AMT, FALSE)
-        Call(FreezeBattleState, FALSE)
-    EndThread
-    Call(WaitForBuffDone)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_02)
-    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    ExecWait(N(EVS_Attack_HammerSurge))
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return

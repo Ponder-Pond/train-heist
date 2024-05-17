@@ -1,10 +1,11 @@
 #include "../area.h"
 #include "sprite/npc/KoopaTheKid.h"
 #include "sprite/npc/KoopaGang.h"
+#include "sprite/npc/HammerBrosSMB3.h"
 #include "boss.h"
 #include "dx/debug_menu.h"
 
-#define NAMESPACE A(koopa_the_kid)
+#define NAMESPACE A(bowser_the_kid)
 
 extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
@@ -122,8 +123,8 @@ ActorPartBlueprint N(ActorParts)[] = {
 
 ActorBlueprint NAMESPACE = {
     .flags = ACTOR_FLAG_FLYING | ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN,
-    .type = ACTOR_TYPE_KOOPA_THE_KID,
-    .level = ACTOR_LEVEL_KOOPA_THE_KID,
+    .type = ACTOR_TYPE_BOWSER_THE_KID,
+    .level = ACTOR_LEVEL_BOWSER_THE_KID,
     .maxHP = 30,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
@@ -135,7 +136,7 @@ ActorBlueprint NAMESPACE = {
     .spookChance = 0,
     .upAndAwayChance = 0,
     .spinSmashReq = 4,
-    .powerBounceChance = 65,
+    .powerBounceChance = 0,
     .coinReward = 0,
     .size = { 120, 120 },
     .healthBarOffset = { 0, 0 },
@@ -275,14 +276,91 @@ EvtScript N(EVS_Death) = {
     Call(HideHealthBar, ACTOR_SELF)
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(ActorExists, ACTOR_KOOPA_GANG, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_KOOPA_GANG, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_KOOPA_GANG)
+                Call(EnableIdleScript, ACTOR_KOOPA_GANG, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_KOOPA_GANG, FALSE)
+                // Call(SetAnimation, ACTOR_KOOPA_GANG, PRT_MAIN, ANIM_ChainChomp_Hurt)
+                Wait(10)
+                Set(LVar2, 0)
+                Loop(24)
+                    Call(SetActorYaw, ACTOR_KOOPA_GANG, LVar2)
+                    Add(LVar2, 30)
+                    Wait(1)
+                EndLoop
+                Call(SetActorYaw, ACTOR_KOOPA_GANG, 0)
+                Call(GetActorPos, ACTOR_KOOPA_GANG, LVar0, LVar1, LVar2)
+                Add(LVar1, 10)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                Call(PlaySoundAtActor, ACTOR_KOOPA_GANG, SOUND_ACTOR_DEATH)
+                Set(LVar3, 0)
+                Loop(12)
+                    Call(SetActorRotation, ACTOR_KOOPA_GANG, LVar3, 0, 0)
+                    Add(LVar3, 8)
+                    Wait(1)
+                EndLoop
+                Call(RemoveActor, ACTOR_KOOPA_GANG)
+            EndThread
+        EndIf
+    EndIf
+    Call(ActorExists, ACTOR_HAMMER_BRO, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_HAMMER_BRO, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_HAMMER_BRO)
+                Call(EnableIdleScript, ACTOR_HAMMER_BRO, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_HAMMER_BRO, FALSE)
+                Call(SetAnimation, ACTOR_HAMMER_BRO, PRT_MAIN, ANIM_HammerBrosSMB3_Anim_0E)
+                Wait(10)
+                Set(LVar2, 0)
+                Loop(24)
+                    Call(SetActorYaw, ACTOR_HAMMER_BRO, LVar2)
+                    Add(LVar2, 30)
+                    Wait(1)
+                EndLoop
+                Call(SetActorYaw, ACTOR_HAMMER_BRO, 0)
+                Call(GetActorPos, ACTOR_HAMMER_BRO, LVar0, LVar1, LVar2)
+                Add(LVar1, 10)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                Call(PlaySoundAtActor, ACTOR_HAMMER_BRO, SOUND_ACTOR_DEATH)
+                Set(LVar3, 0)
+                Loop(12)
+                    Call(SetActorRotation, ACTOR_HAMMER_BRO, LVar3, 0, 0)
+                    Add(LVar3, 8)
+                    Wait(1)
+                EndLoop
+                Call(RemoveActor, ACTOR_HAMMER_BRO)
+            EndThread
+        EndIf
+    EndIf
+    // ExecWait(EVS_Enemy_DeathWithoutRemove)
+    Label(0)
+        Call(ActorExists, ACTOR_KOOPA_GANG, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
+        Call(ActorExists, ACTOR_HAMMER_BRO, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
     Set(LVar2, EXEC_DEATH_NO_SPINNING)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_ACTOR_DEATH)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_SHADOW, TRUE)
     Wait(30)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    Call(RemoveActor, ACTOR_SELF)
+    // Call(RemoveActor, ACTOR_SELF)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_DMG_APPLY, TRUE)
+    Call(SetBattleFlagBits, BS_FLAGS1_DISABLE_CELEBRATION | BS_FLAGS1_BATTLE_FLED, TRUE)
+    Call(SetEndBattleFadeOutRate, 20)
     Return
     End
 };

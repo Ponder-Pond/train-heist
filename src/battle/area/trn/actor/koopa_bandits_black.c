@@ -1,5 +1,8 @@
 #include "../area.h"
+#include "mapfs/trn_bt00_shape.h"
 #include "sprite/npc/KoopaGang.h"
+#include "sprite/npc/ShyGuyRider.h"
+#include "boss.h"
 
 #define NAMESPACE A(black_bandit_koopa)
 
@@ -31,6 +34,8 @@ extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
+extern EvtScript N(EVS_Defeat);
+extern EvtScript N(EVS_FourthPhaseTransition);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_Attack_SniperShot);
 
@@ -105,7 +110,7 @@ ActorBlueprint NAMESPACE = {
     .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .type = THIS_ACTOR_TYPE,
     .level = THIS_LEVEL,
-    .maxHP = 15,
+    .maxHP = 1,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
     .initScript = &N(EVS_Init),
@@ -235,6 +240,163 @@ EvtScript N(EVS_HandleEvent) = {
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Defeat) = {
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Wait(10)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 20)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    Wait(10)
+    // ExecWait(N(EVS_FourthPhaseTransition))
+    Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_SHY_GUY_RIDER_1, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_SHY_GUY_RIDER_1)
+                Call(EnableIdleScript, ACTOR_SHY_GUY_RIDER_1, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_1, FALSE)
+                // Call(SetAnimation, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ANIM_ShyGuyRider_Hurt)
+                Wait(10)
+                // Set(LVar2, 0)
+                // Loop(24)
+                //     Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_1, LVar2)
+                //     Add(LVar2, 30)
+                //     Wait(1)
+                // EndLoop
+                // Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_1, 0)
+                // Call(GetActorPos, ACTOR_SHY_GUY_RIDER_1, LVar0, LVar1, LVar2)
+                // Add(LVar1, 10)
+                // PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                // Call(PlaySoundAtActor, ACTOR_SHY_GUY_RIDER_1, SOUND_ACTOR_DEATH)
+                // Set(LVar3, 0)
+                // Loop(12)
+                //     Call(SetActorRotation, ACTOR_SHY_GUY_RIDER_1, LVar3, 0, 0)
+                //     Add(LVar3, 8)
+                //     Wait(1)
+                // EndLoop
+                Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
+            EndThread
+        EndIf
+    EndIf
+    Call(ActorExists, ACTOR_SHY_GUY_RIDER_2, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_SHY_GUY_RIDER_2, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_SHY_GUY_RIDER_2)
+                Call(EnableIdleScript, ACTOR_SHY_GUY_RIDER_2, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_SHY_GUY_RIDER_2, FALSE)
+                // Call(SetAnimation, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_0E)
+                Wait(10)
+                // Set(LVar2, 0)
+                // Loop(24)
+                //     Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_2, LVar2)
+                //     Add(LVar2, 30)
+                //     Wait(1)
+                // EndLoop
+                // Call(SetActorYaw, ACTOR_SHY_GUY_RIDER_2, 0)
+                // Call(GetActorPos, ACTOR_SHY_GUY_RIDER_2, LVar0, LVar1, LVar2)
+                // Add(LVar1, 10)
+                // PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                // Call(PlaySoundAtActor, ACTOR_SHY_GUY_RIDER_2, SOUND_ACTOR_DEATH)
+                // Set(LVar3, 0)
+                // Loop(12)
+                //     Call(SetActorRotation, ACTOR_SHY_GUY_RIDER_2, LVar3, 0, 0)
+                //     Add(LVar3, 8)
+                //     Wait(1)
+                // EndLoop
+                Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
+            EndThread
+        EndIf
+    EndIf
+    ExecWait(EVS_Enemy_DeathWithoutRemove)
+    Label(0)
+        Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
+        Call(ActorExists, ACTOR_SHY_GUY_RIDER_2, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
+    Call(RemoveActor, ACTOR_SELF)
+    Return
+    End
+};
+
+EvtScript N(EVS_FourthPhaseTransition) = {
+    // Call(CancelEnemyTurn, 1)
+    // Call(EnableModel, MODEL_Tunnel, TRUE)
+    // Set(LVar0, 0)
+    // Label(0)
+    //     Set(LVar0, 0) // Reset LVar0 to 0
+    //     Loop(0)
+    //         Add(LVar0, 10) // Increment LVar0 by 10
+    //         IfGt(LVar0, 1000)
+    //             //* Models
+    //             Call(EnableModel, MODEL_SnipingCrate, FALSE)
+    //             Call(EnableModel, MODEL_BarrelBlack, FALSE)
+    //             Call(EnableModel, MODEL_BombBox, TRUE)
+    //             Call(EnableModel, MODEL_BombPile, TRUE)
+    //             Call(EnableModel, MODEL_BarrelRed, TRUE)
+    //             // BLACKANCHOR Actors
+    //             Call(SetActorPos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // Call(RemoveActor, ACTOR_BLACK_BANDIT)
+    //             Call(SetActorPos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // Call(RemoveActor, ACTOR_CRATE)
+    //             Call(SetActorPos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // Call(RemoveActor, ACTOR_DYANMITE_CRATE)
+    //             Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
+    //             Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // REDANCHOR Actors
+    //             Call(SetActorPos, ACTOR_RED_BANDIT, 115, 25, 20)
+    //             Call(ForceHomePos, ACTOR_RED_BANDIT, 115, 25, 20)
+    //             Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //             Call(SetActorPos, ACTOR_PYRO_GUY, 145, 55, 25)
+    //             Call(ForceHomePos, ACTOR_PYRO_GUY, 145, 55, 25)
+    //             Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
+    //             Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //         EndIf
+    //         IfGt(LVar0, 2250)
+    //             Set(LVar0, 0) // Reset LVar0 back to 0 when it exceeds 2250
+    //             Goto(1) // Go to Label 1 to perform additional actions
+    //         EndIf
+    //         Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
+    //         Wait(1)
+    //     EndLoop
+    // Goto(0)
+    // Label(1)
+    //     Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
+    //     // DebugPrintf("Transition Done!")
+    //     Call(EnableModel, MODEL_Tunnel, FALSE)
     Return
     End
 };

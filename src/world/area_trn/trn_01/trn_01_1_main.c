@@ -1,10 +1,29 @@
 #include "trn_01.h"
 
+API_CALLABLE(N(MapTransition)) {
+    set_map_transition_effect(TRANSITION_BEGIN_OR_END_GAME);
+    return ApiStatus_DONE2;
+}
+
+EvtScript N(EVS_EnterMap) = {
+    Call(GetEntryID, LVar0)
+    Switch(LVar0)
+        CaseEq(trn_01_ENTRY_Scene)
+            Call(N(MapTransition))
+            Exec(N(EVS_Scene_BeginGame))
+            Wait(5)
+        CaseEq(trn_01_ENTRY_Center)
+    EndSwitch
+    Return
+    End
+};
+
 EvtScript N(EVS_Main) = {
     Set(GB_WorldLocation, GEN_MAP_LOCATION)
     Call(SetSpriteShading, SHADING_NONE)
     EVT_SETUP_CAMERA_DEFAULT(0, 0, 0)
     Call(MakeNpcs, TRUE, Ref(N(DefaultNPCs)))
+    Exec(N(EVS_EnterMap))
     Exec(N(EVS_StartTexPanners))
     Exec(N(EVS_TrainBounce))
     Return

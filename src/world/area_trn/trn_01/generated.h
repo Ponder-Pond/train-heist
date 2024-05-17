@@ -6,6 +6,7 @@
 
 // type: EntryList
 #define GEN_ENTRY_LIST \
+    {  167.0,    0.0,  -84.0,    0.0 }, \
     {    0.0,    0.0,    0.0,    0.0 },
 
 // type: TexPanner
@@ -14,6 +15,14 @@
     TEX_PAN_PARAMS_STEP( -2000,     0,     0,     0) \
     TEX_PAN_PARAMS_FREQ(     1,     0,     0,     0) \
     TEX_PAN_PARAMS_INIT(     0,     0,     0,     0)
+
+// type: Marker:Entry
+// name: Entry_Scene
+#define GEN_ENTRY_SCENE_X 167
+#define GEN_ENTRY_SCENE_Y 0
+#define GEN_ENTRY_SCENE_Z -84
+#define GEN_ENTRY_SCENE_DIR 0
+#define GEN_ENTRY_SCENE_VEC 167,0,-84
 
 // type: Marker:Entry
 // name: Entry_Center
@@ -25,7 +34,7 @@
 
 // type: Marker:NPC
 // name: Toadsworth
-// anim: ANIM_Toad_Red_Still
+// anim: ANIM_Toadsworth_Idle
 #define GEN_TOADSWORTH_X 263
 #define GEN_TOADSWORTH_Y 0
 #define GEN_TOADSWORTH_Z -11
@@ -58,7 +67,7 @@
 
 // type: Marker:NPC
 // name: Bubba
-// anim: ANIM_WorldSushie_Still
+// anim: ANIM_BigBubba_Idle
 #define GEN_BUBBA_X -79
 #define GEN_BUBBA_Y 0
 #define GEN_BUBBA_Z -82
@@ -80,7 +89,7 @@
 
 // type: Marker:NPC
 // name: Luigi
-// anim: ANIM_Luigi_IdleSit
+// anim: ANIM_LuigiSleeping_LuigiSleep
 #define GEN_LUIGI_X 220
 #define GEN_LUIGI_Y 17
 #define GEN_LUIGI_Z -133
@@ -91,12 +100,12 @@
 
 // type: Marker:NPC
 // name: CalamityKammy
-// anim: ANIM_WorldKammy_Anim00
-#define GEN_CALAMITY_KAMMY_X -247
+// anim: ANIM_CalamityKammy_Idle
+#define GEN_CALAMITY_KAMMY_X -225
 #define GEN_CALAMITY_KAMMY_Y 0
 #define GEN_CALAMITY_KAMMY_Z -5
 #define GEN_CALAMITY_KAMMY_DIR 90
-#define GEN_CALAMITY_KAMMY_VEC -247,0,-5
+#define GEN_CALAMITY_KAMMY_VEC -225,0,-5
 #define GEN_CALAMITY_KAMMY_TERRITORY \
 {}
 
@@ -104,10 +113,34 @@
 // name: Peach
 // anim: ANIM_ParadePeach_IdleRaisedArms
 #define GEN_PEACH_X 151
-#define GEN_PEACH_Y -1
+#define GEN_PEACH_Y 0
 #define GEN_PEACH_Z -84
 #define GEN_PEACH_DIR 270
-#define GEN_PEACH_VEC 151,-1,-84
+#define GEN_PEACH_VEC 151,0,-84
 #define GEN_PEACH_TERRITORY \
 {}
+
+// type: Marker:Position
+// name: Pos_Toadsworth
+#define GEN_POS_TOADSWORTH_X 195
+#define GEN_POS_TOADSWORTH_Y 0
+#define GEN_POS_TOADSWORTH_Z -84
+#define GEN_POS_TOADSWORTH_DIR 0
+#define GEN_POS_TOADSWORTH_VEC 195,0,-84
+
+// type: Marker:Position
+// name: Pos_Peach
+#define GEN_POS_PEACH_X 102
+#define GEN_POS_PEACH_Y 0
+#define GEN_POS_PEACH_Z -84
+#define GEN_POS_PEACH_DIR 0
+#define GEN_POS_PEACH_VEC 102,0,-84
+
+// type: Marker:Position
+// name: Pos_Toad
+#define GEN_POS_TOAD_X 68
+#define GEN_POS_TOAD_Y 0
+#define GEN_POS_TOAD_Z -84
+#define GEN_POS_TOAD_DIR 0
+#define GEN_POS_TOAD_VEC 68,0,-84
 

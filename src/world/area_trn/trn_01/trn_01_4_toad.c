@@ -142,49 +142,49 @@ API_CALLABLE(N(Toad_ShopBadgesPopup)) {
 
 EvtScript N(EVS_NpcInteract_Toad) = {
     IfGe(GB_TRN01_Toad_PurchaseCount, TOAD_BADGE_COUNT)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad6)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad6)
         Return
     EndIf
     IfEq(MF_PurchasedBadge, TRUE)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad3)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad3)
     Else
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad1)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad1)
     EndIf
     Call(ShowChoice, MSG_Choice_0014)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad4)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad4)
         Return
     EndIf
     Call(N(Toad_GetPlayerStarPieces), LVar0)
     IfEq(LVar0, 0)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad5)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad5)
         Return
     EndIf
-    Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad7)
+    Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad7)
     Label(0)
     Call(N(Toad_ShopBadgesPopup))
     Wait(10)
     IfEq(LVar0, -1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad8)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad8)
         Return
     EndIf
     Call(N(Toad_GetPlayerStarPieces), LVar3)
     IfLt(LVar3, LVar1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad8)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad8)
         Goto(0)
     EndIf
     Call(SetMessageText, LVar4, 0)
     Call(SetMessageValue, LVar1, 1)
     Call(SetMessageValue, LVar5, 2)
     IfEq(LVar1, 1)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad2)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad2)
     Else
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad9)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad9)
     EndIf
     Set(LVar3, LVar0)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad10)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad10)
         Goto(0)
     EndIf
     Call(CloseMessage)
@@ -201,18 +201,18 @@ EvtScript N(EVS_NpcInteract_Toad) = {
     // EVT_GIVE_REWARD(LVar3)
     // #define NAME_SUFFIX
     IfGe(GB_TRN01_Toad_PurchaseCount, TOAD_BADGE_COUNT)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad11)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad11)
         Return
     EndIf
     Call(N(Toad_GetPlayerStarPieces), LVar0)
     IfLe(LVar0, 0)
-        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad11)
+        Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad11)
         Return
     EndIf
-    Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad12)
+    Call(SpeakToPlayer, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad12)
     Call(ShowChoice, MSG_Choice_000D)
     IfEq(LVar0, 1)
-        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BuyToad13)
+        Call(ContinueSpeech, NPC_Toad, ANIM_Toad_Red_Talk, ANIM_Toad_Red_Idle, 0, MSG_Misc_BorrowToad13)
         Return
     EndIf
     Call(CloseMessage)

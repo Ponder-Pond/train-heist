@@ -1,5 +1,8 @@
 #include "../area.h"
+#include "mapfs/trn_bt00_shape.h"
 #include "sprite/npc/KoopaGang.h"
+#include "sprite/npc/ChainChomp.h"
+#include "sprite/npc/HammerBrosSMB3.h"
 #include "boss.h"
 
 #define NAMESPACE A(yellow_bandit_koopa)
@@ -23,7 +26,7 @@ enum N(ThisBanditsParams) {
     THIS_ANIM_EXIT_SHELL        = ANIM_KoopaGang_Yellow_ExitShell,
     THIS_ANIM_SHELL_SPIN        = ANIM_KoopaGang_Yellow_ShellSpin,
     THIS_ANIM_POINT             = ANIM_KoopaGang_Yellow_PointForward,
-    HEAL_AMT                    = 2,
+    ATTACK_BOOST_AMT            = 1,
     DMG_SHELL_TOSS              = 2,
 };
 
@@ -33,6 +36,8 @@ extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_TakeTurn);
+extern EvtScript N(EVS_Defeat);
+extern EvtScript N(EVS_ThirdPhaseTransition);
 extern EvtScript N(EVS_Move_Cheer);
 extern EvtScript N(EVS_Attack_ShellToss);
 
@@ -94,7 +99,7 @@ ActorBlueprint NAMESPACE = {
     .flags = 0, //ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .type = THIS_ACTOR_TYPE,
     .level = THIS_LEVEL,
-    .maxHP = 15,
+    .maxHP = 1,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
     .initScript = &N(EVS_Init),
@@ -200,7 +205,7 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_Hit)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, THIS_ANIM_HURT)
-            ExecWait(EVS_Enemy_Death)
+            ExecWait(N(EVS_Defeat))
             Return
         CaseEq(EVENT_RECOVER_STATUS)
             // Call(GetActorVar, ACTOR_SELF, AVAR_Koopa_State, LVar0)
@@ -212,6 +217,164 @@ EvtScript N(EVS_HandleEvent) = {
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_Defeat) = {
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Wait(10)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 20)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    Wait(10)
+    // ExecWait(N(EVS_ThirdPhaseTransition))
+    Call(ActorExists, ACTOR_GIANT_CHOMP, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_GIANT_CHOMP, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_GIANT_CHOMP)
+                Call(EnableIdleScript, ACTOR_GIANT_CHOMP, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_GIANT_CHOMP, FALSE)
+                Call(SetAnimation, ACTOR_GIANT_CHOMP, PRT_MAIN, ANIM_ChainChomp_Hurt)
+                Wait(10)
+                Set(LVar2, 0)
+                Loop(24)
+                    Call(SetActorYaw, ACTOR_GIANT_CHOMP, LVar2)
+                    Add(LVar2, 30)
+                    Wait(1)
+                EndLoop
+                Call(SetActorYaw, ACTOR_GIANT_CHOMP, 0)
+                Call(GetActorPos, ACTOR_GIANT_CHOMP, LVar0, LVar1, LVar2)
+                Add(LVar1, 10)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                Call(PlaySoundAtActor, ACTOR_GIANT_CHOMP, SOUND_ACTOR_DEATH)
+                Set(LVar3, 0)
+                Loop(12)
+                    Call(SetActorRotation, ACTOR_GIANT_CHOMP, LVar3, 0, 0)
+                    Add(LVar3, 8)
+                    Wait(1)
+                EndLoop
+                Call(RemoveActor, ACTOR_GIANT_CHOMP)
+            EndThread
+        EndIf
+    EndIf
+    Call(ActorExists, ACTOR_HAMMER_BRO_ALT, LVar2)
+    IfNe(LVar2, FALSE)
+        Call(GetActorHP, ACTOR_HAMMER_BRO_ALT, LVar2)
+        IfNe(LVar2, 0)
+            Thread
+                Call(HideHealthBar, ACTOR_HAMMER_BRO_ALT)
+                Call(EnableIdleScript, ACTOR_HAMMER_BRO_ALT, IDLE_SCRIPT_DISABLE)
+                Call(UseIdleAnimation, ACTOR_HAMMER_BRO_ALT, FALSE)
+                Call(SetAnimation, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ANIM_HammerBrosSMB3_Alt_Anim_0E)
+                Wait(10)
+                Set(LVar2, 0)
+                Loop(24)
+                    Call(SetActorYaw, ACTOR_HAMMER_BRO_ALT, LVar2)
+                    Add(LVar2, 30)
+                    Wait(1)
+                EndLoop
+                Call(SetActorYaw, ACTOR_HAMMER_BRO_ALT, 0)
+                Call(GetActorPos, ACTOR_HAMMER_BRO_ALT, LVar0, LVar1, LVar2)
+                Add(LVar1, 10)
+                PlayEffect(EFFECT_BIG_SMOKE_PUFF, LVar0, LVar1, LVar2, 0, 0, 0, 0, 0)
+                Call(PlaySoundAtActor, ACTOR_HAMMER_BRO_ALT, SOUND_ACTOR_DEATH)
+                Set(LVar3, 0)
+                Loop(12)
+                    Call(SetActorRotation, ACTOR_HAMMER_BRO_ALT, LVar3, 0, 0)
+                    Add(LVar3, 8)
+                    Wait(1)
+                EndLoop
+                Call(RemoveActor, ACTOR_HAMMER_BRO_ALT)
+            EndThread
+        EndIf
+    EndIf
+    ExecWait(EVS_Enemy_DeathWithoutRemove)
+    Label(0)
+        Call(ActorExists, ACTOR_GIANT_CHOMP, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
+        Call(ActorExists, ACTOR_HAMMER_BRO_ALT, LVar0)
+        IfNe(LVar0, FALSE)
+            Wait(1)
+            Goto(0)
+        EndIf
+    Call(RemoveActor, ACTOR_SELF)
+    Return
+    End
+};
+
+EvtScript N(EVS_ThirdPhaseTransition) = {
+    // Call(CancelEnemyTurn, 1)
+    // Call(EnableModel, MODEL_Tunnel, TRUE)
+    // Set(LVar0, 0)
+    // Label(0)
+    //     Set(LVar0, 0) // Reset LVar0 to 0
+    //     Loop(0)
+    //         Add(LVar0, 10) // Increment LVar0 by 10
+    //         IfGt(LVar0, 1000)
+    //             //* Models
+    //             Call(EnableModel, MODEL_SnipingCrate, TRUE)
+    //             Call(EnableModel, MODEL_BarrelBlack, TRUE)
+    //             // YELLOWANCHOR Actors
+    //             Call(SetActorPos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_YELLOW_BANDIT, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_YELLOW_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_YELLOW_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             Call(SetActorPos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_GIANT_CHOMP, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_GIANT_CHOMP, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_GIANT_CHOMP, 2, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    //             Call(SetActorPos, ACTOR_HAMMER_BRO_ALT, NPC_DISPOSE_LOCATION)
+    //             Call(ForceHomePos, ACTOR_HAMMER_BRO_ALT, NPC_DISPOSE_LOCATION)
+    //             Call(SetActorFlagBits, ACTOR_HAMMER_BRO_ALT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    //             Call(SetPartFlagBits, ACTOR_HAMMER_BRO_ALT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    //             // BLACKANCHOR Actors
+    //             Call(SetActorPos, ACTOR_BLACK_BANDIT, 115, 10, 20)
+    //             Call(ForceHomePos, ACTOR_BLACK_BANDIT, 115, 10, 20)
+    //             Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //             // Call(RemoveActor, ACTOR_BLACK_BANDIT)
+    //             Call(SetActorPos, ACTOR_CRATE, 15, 0, 20)
+    //             Call(ForceHomePos, ACTOR_CRATE, 15, 0, 20)
+    //             Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //             // Call(RemoveActor, ACTOR_CRATE)
+    //             Call(SetActorPos, ACTOR_DYANMITE_CRATE, 55, 0, 20)
+    //             Call(ForceHomePos, ACTOR_DYANMITE_CRATE, 55, 0, 20)
+    //             Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //             // Call(RemoveActor, ACTOR_DYANMITE_CRATE)
+    //             Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, 45, -25, -50)
+    //             Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, 45, -25, -50)
+    //             Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //             // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
+    //             Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, -25, -25, -50)
+    //             Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, -25, -25, -50)
+    //             Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
+    //             Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    //         EndIf
+    //         IfGt(LVar0, 2250)
+    //             Set(LVar0, 0) // Reset LVar0 back to 0 when it exceeds 2250
+    //             Goto(1) // Go to Label 1 to perform additional actions
+    //         EndIf
+    //         Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
+    //         Wait(1)
+    //     EndLoop
+    // Goto(0)
+    // Label(1)
+    //     Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
+    //     // DebugPrintf("Transition Done!")
+    //     Call(EnableModel, MODEL_Tunnel, FALSE)
     Return
     End
 };
@@ -252,20 +415,21 @@ EvtScript N(EVS_Move_Cheer) = {
     PlayEffect(EFFECT_LENS_FLARE, 0, LVar0, LVar1, LVar2, 30, 0)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_SMALL_LENS_FLARE)
     Wait(30)
-    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO_ALT, SOUND_RECOVER_HEART)
-    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO_ALT, SOUND_HEART_BOUNCE)
-    Wait(30)
-    Call(PlaySoundAtActor, ACTOR_HAMMER_BRO_ALT, SOUND_STAR_BOUNCE_A)
+    Thread
+        Wait(10)
+        Call(PlaySoundAtActor, ACTOR_HAMMER_BRO_ALT, SOUND_MAGIKOOPA_POWER_UP)
+    EndThread
     Thread
         Call(FreezeBattleState, TRUE)
-        Call(HealActor, ACTOR_HAMMER_BRO_ALT, HEAL_AMT, FALSE)
+        Call(BoostAttack, ACTOR_HAMMER_BRO_ALT, ATTACK_BOOST_AMT, FALSE)
         Call(FreezeBattleState, FALSE)
     EndThread
     Call(WaitForBuffDone)
     Wait(5)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_IDLE)
-    Wait(15)
+    Wait(5)
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(YieldTurn)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Return

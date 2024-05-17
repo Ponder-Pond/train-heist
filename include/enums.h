@@ -2984,7 +2984,7 @@ enum Areas {
     AREA_KZN,
     AREA_FLO,
     AREA_OSR,
-    AREA_END,
+    // AREA_END,
     AREA_MGM,
     AREA_GV,
     AREA_TST,

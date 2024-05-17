@@ -5950,6 +5950,7 @@ segments:
     type: code
     start: auto
     vram_class: battle_area
+    subalign: 8
     subsegments:
     - [auto, c, area]
     - [auto, c, actor/koopa_bandits_green]
@@ -7366,6 +7367,7 @@ segments:
     dir: world/area_kmr/kmr_04
     type: code
     start: 0x8CA900
+    subalign: 8
     vram_class: map
     subsegments:
     - [auto, c, kmr_04_0_header]
@@ -7377,6 +7379,7 @@ segments:
     - start: 0x8CC4F0
       type: .data
       name: kmr_04_5_foliage
+      subalign: 8
       subsegments:
       - [0x8CC4F0, ci4, hammer_block_message, 48, 48]
       - [0x8CC970, palette, hammer_block_message]
@@ -9182,6 +9185,7 @@ segments:
     dir: world/area_osr/osr_00
     type: code
     start: 0xAAC830
+    subalign: 16
     vram_class: map
     subsegments:
     - [auto, c, osr_00_0_header]
@@ -9194,6 +9198,7 @@ segments:
     dir: world/area_osr/osr_01
     type: code
     start: 0xAAFFF0
+    subalign: 16
     vram_class: map
     subsegments:
     - [auto, c, osr_01_0_header]

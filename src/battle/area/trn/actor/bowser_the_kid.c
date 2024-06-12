@@ -146,6 +146,41 @@ ActorBlueprint NAMESPACE = {
 
 #include "common/StartRumbleWithParams.inc.c"
 
+API_CALLABLE(N(FadeScreenToBlack)) {
+    if (isInitialCall) {
+        script->functionTemp[1] = 0;
+    }
+
+    script->functionTemp[1] += 16;
+
+    if (script->functionTemp[1] > 255) {
+        script->functionTemp[1] = 255;
+    }
+
+    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
+
+    if (script->functionTemp[1] == 255) {
+        return ApiStatus_DONE2;
+    }
+
+    return ApiStatus_BLOCK;
+}
+
+API_CALLABLE(N(FadeScreenFromBlack)) {
+    if (isInitialCall) {
+        script->functionTemp[1] = 255;
+    }
+
+    script->functionTemp[1] -= 16;
+    if (script->functionTemp[1] <= 0) {
+        script->functionTemp[1] = 0;
+        return ApiStatus_DONE2;
+    }
+
+    set_screen_overlay_params_front(OVERLAY_SCREEN_COLOR, script->functionTemp[1]);
+    return ApiStatus_BLOCK;
+}
+
 EvtScript N(EVS_Init) = {
     Call(SetActorVar, ACTOR_SELF, AVAR_TurnCount, 0)
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))

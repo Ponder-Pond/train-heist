@@ -572,4 +572,5 @@ enum BattleNames {
     BTL_TRN_FORMATION_02       = 0x0002,
     BTL_TRN_FORMATION_03       = 0x0003,
     BTL_TRN_FORMATION_04       = 0x0004,
+    BTL_TRN_FORMATION_05       = 0x0005,
 };

@@ -1480,5 +1480,12 @@
 				<Command val="2000"/>
 			</Component>
 		</Animation>
+		<Animation name="RedHold">
+			<Component name="Comp_0" xyz="-4,0,0">
+				<Command val="104D"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
 	</AnimationList>
 </SpriteSheet>

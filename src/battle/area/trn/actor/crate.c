@@ -149,8 +149,13 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_BurnHit)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Crate_Break)
-            Set(LVar2, EXEC_DEATH_NO_SPINNING)
-            ExecWait(EVS_Enemy_Death)
+            Label(0)
+                Call(ActorExists, ACTOR_CRATE, LVar0)
+                IfNe(LVar0, FALSE)
+                    Wait(1)
+                    Goto(0)
+                EndIf
+            Call(RemoveActor, ACTOR_SELF)
             Return
         CaseOrEq(EVENT_ZERO_DAMAGE)
             Wait(25)
@@ -172,8 +177,13 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_Hit)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Crate_Break)
-            Set(LVar2, EXEC_DEATH_NO_SPINNING)
-            ExecWait(EVS_Enemy_Death)
+            Label(0)
+                Call(ActorExists, ACTOR_CRATE, LVar0)
+                IfNe(LVar0, FALSE)
+                    Wait(1)
+                    Goto(0)
+                EndIf
+            Call(RemoveActor, ACTOR_SELF)
             Return
         CaseDefault
     EndSwitch

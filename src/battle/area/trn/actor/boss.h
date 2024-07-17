@@ -2,26 +2,44 @@
 #define _BOSS_COMMON_H_
 
 enum N(BattleCommon) {
-    // Green Phase Actors
+    // Train Heist Formation Actors
     ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
     ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,
     ACTOR_BRIGADER_BONES                = ACTOR_ENEMY2,
-    // Yellow Phase Actors
-    ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY0,
-    ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY1,
-    ACTOR_HAMMER_BRO_ALT                = ACTOR_ENEMY2,
-    // Black Phase Actors
-    ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY0,
-    ACTOR_CRATE                         = ACTOR_ENEMY1,
-    ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY2,
-    ACTOR_SHY_GUY_RIDER_1               = ACTOR_ENEMY3,
-    ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY4,
-    // Red Phase Actors
-    ACTOR_RED_BANDIT                    = ACTOR_ENEMY0,
-    ACTOR_PYRO_GUY                      = ACTOR_ENEMY1,
-    ACTOR_BOB_OMB                       = ACTOR_ENEMY2,
+    ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY3,
+    ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY4,
+    ACTOR_HAMMER_BRO_ALT                = ACTOR_ENEMY5,
+    ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY6,
+    ACTOR_CRATE                         = ACTOR_ENEMY7,
+    ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY8,
+    ACTOR_SHY_GUY_RIDER_1               = ACTOR_ENEMY9,
+    ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY10,
+    ACTOR_RED_BANDIT                    = ACTOR_ENEMY11,
+    ACTOR_PYRO_GUY                      = ACTOR_ENEMY12,
+    ACTOR_BOB_OMB                       = ACTOR_ENEMY13,
+    // ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY13,
+    // ACTOR_KOOPA_GANG                    = ACTOR_ENEMY14,
+    // ACTOR_HAMMER_BRO                    = ACTOR_ENEMY15,
+    // // Green Phase Actors
+    // ACTOR_GREEN_BANDIT                  = ACTOR_ENEMY0,
+    // ACTOR_BUZZY_BEETLE                  = ACTOR_ENEMY1,
+    // ACTOR_BRIGADER_BONES                = ACTOR_ENEMY2,
+    // // Yellow Phase Actors
+    // ACTOR_YELLOW_BANDIT                 = ACTOR_ENEMY0,
+    // ACTOR_GIANT_CHOMP                   = ACTOR_ENEMY1,
+    // ACTOR_HAMMER_BRO_ALT                = ACTOR_ENEMY2,
+    // // Black Phase Actors
+    // ACTOR_BLACK_BANDIT                  = ACTOR_ENEMY0,
+    // ACTOR_CRATE                         = ACTOR_ENEMY1,
+    // ACTOR_DYANMITE_CRATE                = ACTOR_ENEMY2,
+    // ACTOR_SHY_GUY_RIDER_1               = ACTOR_ENEMY3,
+    // ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY4,
+    // // Red Phase Actors
+    // ACTOR_RED_BANDIT                    = ACTOR_ENEMY0,
+    // ACTOR_PYRO_GUY                      = ACTOR_ENEMY1,
+    // ACTOR_BOB_OMB                       = ACTOR_ENEMY2,
     // Bowser Phase Actors
-    ACTOR_BOWSER_THE_KID                 = ACTOR_ENEMY0,
+    ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
     ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
     ACTOR_HAMMER_BRO                    = ACTOR_ENEMY2,
     // Phase Actor Vars
@@ -37,6 +55,7 @@ enum N(BattleCommon) {
     AVAL_GreenPhase_SlowCannonAttack    = 0,
     AVAL_GreenPhase_FastCannonAttack    = 1,
     AVAR_GreenPhase_BrigaderCommand     = 2,
+    AVAR_GreenPhase_ActorsSpawned       = 3,
     // Yellow Phase Actor Vars
     // Black Phase Actor Vars
     AVAR_BlackPhase_RidersDefeated      = 1,

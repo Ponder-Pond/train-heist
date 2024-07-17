@@ -97,9 +97,9 @@
 
 #define WORLD_ENTITY_HEAP_SIZE 0x17FF0
 #define COLLISION_HEAP_SIZE 0x18000
-#define GENERAL_HEAP_SIZE 0x60000 // Was 0x54000. Then I changed it to 0x60000.
-#define SPRITE_HEAP_SIZE 0xC0000 // Was 0x60000. Then I changed it to 0x80000. Then I changed it to 0xC0000.
-#define BATTLE_HEAP_SIZE 0x96000 // Was 0x25800. Was 0x4B000. Then I changed it to 0x96000.
+#define GENERAL_HEAP_SIZE 0x54000 // Was 0x54000. Then I changed it to 0x60000.
+#define SPRITE_HEAP_SIZE 0xC0000 // Was 0x60000. Then I changed it to 0x80000. Then I changed it to 0xC0000. Now 0xF0000
+#define BATTLE_HEAP_SIZE 0x96000 // Was 0x25800. Was 0x4B000. Then I changed it to 0x96000. Changed it again to 0x4A000.
 #define FRAME_BUFFER_SIZE 0x25800
 
 #define CAM_NEAR_CLIP 16

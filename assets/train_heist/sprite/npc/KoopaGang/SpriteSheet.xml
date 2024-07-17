@@ -9,9 +9,9 @@
 		<Palette id="5" src="Cannon.png"/>
 		<Palette id="6" src="ParaBeetle.png"/>
 		<Palette id="7" src="BulletBiff.png"/>
-		<Palette id="8" name="Bomb" src="Bomb.png"/>
-		<Palette id="9" name="Flame" src="Flame.png"/>
-		<Palette id="A" name="Pokey" src="Pokey.png"/>
+		<Palette id="8" src="Bomb.png"/>
+		<Palette id="9" src="Flame.png"/>
+		<Palette id="A" src="Pokey.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="Neutral" palette="0" src="Neutral.png"/>
@@ -254,7 +254,7 @@
 				<Command val="0"/>
 				<Command val="0"/>
 				<Command val="2"/>
-				<Command val="2078"/>
+				<Command val="203C"/>
 			</Component>
 		</Animation>
 		<Animation name="TopExitShell">
@@ -303,7 +303,7 @@
 				<Command val="2"/>
 				<Command val="1000"/>
 				<Command val="2"/>
-				<Command val="2054"/>
+				<Command val="202A"/>
 			</Component>
 		</Animation>
 		<Animation name="HurtStill">
@@ -316,7 +316,7 @@
 				<Command val="0"/>
 				<Command val="1010"/>
 				<Command val="4"/>
-				<Command val="2004"/>
+				<Command val="2002"/>
 			</Component>
 		</Animation>
 		<Animation name="Hurt">
@@ -357,7 +357,7 @@
 				<Command val="6"/>
 				<Command val="102D"/>
 				<Command val="2"/>
-				<Command val="2008"/>
+				<Command val="2004"/>
 			</Component>
 		</Animation>
 		<Animation name="PointForward">
@@ -366,7 +366,7 @@
 				<Command val="4"/>
 				<Command val="1029"/>
 				<Command val="2"/>
-				<Command val="2004"/>
+				<Command val="2002"/>
 			</Component>
 		</Animation>
 		<Animation name="EnterShell">
@@ -435,7 +435,7 @@
 				<Command val="0"/>
 				<Command val="0"/>
 				<Command val="2"/>
-				<Command val="2074"/>
+				<Command val="203C"/>
 			</Component>
 		</Animation>
 		<Animation name="ExitShell">
@@ -503,7 +503,7 @@
 				<Command val="0"/>
 				<Command val="1003"/>
 				<Command val="2"/>
-				<Command val="2072"/>
+				<Command val="2039"/>
 			</Component>
 		</Animation>
 		<Animation name="Digging">

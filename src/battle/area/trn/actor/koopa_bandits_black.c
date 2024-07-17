@@ -212,8 +212,8 @@ EvtScript N(EVS_Init) = {
 };
 
 EvtScript N(EVS_ManageThirdPhase) = {
-    Call(EnableModel, MODEL_SnipingCrate, TRUE)
-    Call(EnableModel, MODEL_BarrelBlack, TRUE)
+    // Call(EnableModel, MODEL_SnipingCrate, TRUE)
+    // Call(EnableModel, MODEL_BarrelBlack, TRUE)
     Call(N(FadeScreenFromBlack))
     Return
     End

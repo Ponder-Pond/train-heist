@@ -242,9 +242,9 @@ EvtScript N(EVS_Init) = {
 };
 
 EvtScript N(EVS_ManageFourthPhase) = {
-    Call(EnableModel, MODEL_BombBox, TRUE)
-    Call(EnableModel, MODEL_BombPile, TRUE)
-    Call(EnableModel, MODEL_BarrelRed, TRUE)
+    // Call(EnableModel, MODEL_BombBox, TRUE)
+    // Call(EnableModel, MODEL_BombPile, TRUE)
+    // Call(EnableModel, MODEL_BarrelRed, TRUE)
     Call(N(FadeScreenFromBlack))
     Return
     End

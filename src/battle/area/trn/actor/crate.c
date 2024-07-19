@@ -8,6 +8,7 @@ extern EvtScript N(EVS_Init);
 extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_HandleEvent);
+extern EvtScript N(EVS_CrateExplode);
 
 enum N(ActorPartIDs) {
     PRT_MAIN        = 1,
@@ -147,15 +148,7 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar1, ANIM_Crate_IdleOpenEmpty)
             SetConst(LVar2, -1)
             ExecWait(EVS_Enemy_BurnHit)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_Crate_Break)
-            Label(0)
-                Call(ActorExists, ACTOR_CRATE, LVar0)
-                IfNe(LVar0, FALSE)
-                    Wait(1)
-                    Goto(0)
-                EndIf
-            Call(RemoveActor, ACTOR_SELF)
+            ExecWait(N(EVS_CrateExplode))
             Return
         CaseOrEq(EVENT_ZERO_DAMAGE)
             Wait(25)
@@ -175,20 +168,33 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Crate_IdleOpenEmpty)
             ExecWait(EVS_Enemy_Hit)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_Crate_Break)
-            Label(0)
-                Call(ActorExists, ACTOR_CRATE, LVar0)
-                IfNe(LVar0, FALSE)
-                    Wait(1)
-                    Goto(0)
-                EndIf
-            Call(RemoveActor, ACTOR_SELF)
+            ExecWait(N(EVS_CrateExplode))
             Return
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_CrateExplode) = {
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar2, 2)
+    PlayEffect(EFFECT_SMOKE_RING, 0, LVar0, LVar1, LVar2, 0)
+    Add(LVar1, 16)
+    Add(LVar2, 2)
+    PlayEffect(EFFECT_BLAST, 0, LVar0, LVar1, LVar2, Float(3.0), 30, 0)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_BULLET_BILL_EXPLODE_A)
+    Call(StartRumble, BTL_RUMBLE_PLAYER_MAX)
+    Thread
+        Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.0))
+    EndThread
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Crate_Break)
+    Wait(30)
+    Call(RemoveActor, ACTOR_SELF)
     Return
     End
 };

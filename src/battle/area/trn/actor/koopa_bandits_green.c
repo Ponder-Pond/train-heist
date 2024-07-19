@@ -856,75 +856,53 @@ EvtScript N(EVS_Defeat) = {
     End
 };
 
-Vec3i N(SummonedPos) = { 0, -1000, 0 };
+Vec3i N(YellowBanditSpawnPos) = { 105, 0, 10 };
 
 Formation N(SpawnYellowBandit) = {
-    ACTOR_BY_POS(A(yellow_bandit_koopa), N(SummonedPos), 50),
+    ACTOR_BY_POS(A(yellow_bandit_koopa), N(YellowBanditSpawnPos), 50),
 };
+
+Vec3i N(GiantChainChompSpawnPos) = { 25, 0, 11 };
 
 Formation N(SpawnGiantChainChomp) = {
-    ACTOR_BY_POS(A(giant_chain_chomp), N(SummonedPos), 100),
+    ACTOR_BY_POS(A(giant_chain_chomp), N(GiantChainChompSpawnPos), 100),
 };
 
+Vec3i N(HammerBroAltSpawnPos) = { 145, 0, 10 };
+
 Formation N(SpawnHammerBroAlt) = {
-    ACTOR_BY_POS(A(hammer_bro_alt), N(SummonedPos), 75),
+    ACTOR_BY_POS(A(hammer_bro_alt), N(HammerBroAltSpawnPos), 75),
 };
 
 EvtScript N(EVS_SecondPhaseTransition) = {
     Call(CancelEnemyTurn, 1)
     Call(EnableModel, MODEL_Tunnel, TRUE)
-    Set(LVar0, 0)
-    Label(0)
-        Set(LVar0, 0) // Reset LVar0 to 0
-        Loop(0)
-            Add(LVar0, 10) // Increment LVar0 by 10
-            IfGt(LVar0, 1000)
-                Call(GetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, LVar3)
-                IfEq(LVar3, FALSE)
-                    Call(EnableModel, MODEL_BombBox, FALSE)
-                    Call(SummonEnemy, Ref(N(SpawnYellowBandit)), FALSE)
-                    Set(LVarA, LVar0)
-                    Call(SetActorPos, LVarA, 105, 0, 10)
-                    Call(ForceHomePos, LVarA, 105, 0, 10)
-                    Call(SetActorFlagBits, LVarA, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                    Call(SetPartFlagBits, LVarA, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-                    Call(SetPartFlagBits, LVarA, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                    // Wait(1)
-                    Call(SummonEnemy, Ref(N(SpawnGiantChainChomp)), FALSE)
-                    Set(LVarB, LVar0)
-                    Call(SetActorPos, LVarB, 25, 0, 11)
-                    Call(ForceHomePos, LVarB, 25, 0, 11)
-                    Call(SetActorFlagBits, LVarB, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                    Call(SetPartFlagBits, LVarB, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                    Call(SetPartFlagBits, LVarB, 2, ACTOR_PART_FLAG_NO_TARGET, FALSE)
-                    // Wait(1)
-                    Call(SummonEnemy, Ref(N(SpawnHammerBroAlt)), FALSE)
-                    Set(LVarC, LVar0)
-                    Call(SetActorPos, LVarC, 145, 0, 10)
-                    Call(ForceHomePos, LVarC, 145, 0, 10)
-                    Call(SetActorFlagBits, LVarC, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                    Call(SetPartFlagBits, LVarC, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-                    Call(SetPartFlagBits, LVarC, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
-                    Wait(30)
-                    Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, TRUE)
-                Else
-                    Wait(1)
-                EndIf
+    Set(LVarA, 0)
+    Loop(0)
+        Add(LVarA, 10) // Increment LVarA by 10
+        IfGt(LVarA, 2250)
+            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            BreakLoop
+        EndIf
+        IfGt(LVarA, 1000)
+            Call(GetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, LVarB)
+            IfEq(LVarB, FALSE)
+                Call(EnableModel, MODEL_BombBox, FALSE)
+                Call(SummonEnemy, Ref(N(SpawnYellowBandit)), FALSE)
+                Call(SummonEnemy, Ref(N(SpawnGiantChainChomp)), FALSE)
+                Call(SummonEnemy, Ref(N(SpawnHammerBroAlt)), FALSE)
+                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_GreenPhase_ActorsSpawned, TRUE)
             EndIf
-            IfGt(LVar0, 2250)
-                Set(LVar0, 0) // Reset LVar0 back to 0 when it exceeds 2250
-                Goto(1) // Go to Label 1 to perform additional actions
-            EndIf
-            Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-            Wait(1)
-        EndLoop
-    Goto(0)
-    Label(1)
-        Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-        DebugPrintf("Transition Done!")
-        Call(EnableModel, MODEL_Tunnel, FALSE)
-        Call(RemoveActor, ACTOR_SELF)
+        EndIf
+        Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+        Wait(1)
+    EndLoop
+    Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+    DebugPrintf("Transition Done!")
+    Call(EnableModel, MODEL_Tunnel, FALSE)
+    Call(EnableBattleStatusBar, TRUE)
+    Call(RemoveActor, ACTOR_SELF)
     Return
     End
 };

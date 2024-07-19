@@ -350,9 +350,9 @@ any trouble, should we beat him?[BR]
 
 
 
-#message:2F:(Misc_BowsertheKid)
+#message:2F:(Misc_KoopatheKid)
 {
-Bowser the Kid[End]
+Koopa the Kid[End]
 }
 
 
@@ -361,10 +361,10 @@ Bowser the Kid[End]
 
 
 
-#message:2F:(Misc_BowsertheKidTattle)
+#message:2F:(Misc_KoopatheKidTattle)
 {
 [Style right]
-It's Bowser the Kid![BR]
+It's Koopa the Kid![BR]
 [Pause 10]He's a lot scarier in person![BR]
 [Wait][Next]
 Max HP: 30, Attack Power: 4,[BR]

@@ -41,6 +41,9 @@ extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_Defeat);
+extern ActorBlueprint A(bowser_the_kid);
+extern ActorBlueprint A(koopa_gang);
+extern ActorBlueprint A(hammer_bro);
 extern EvtScript N(EVS_FifthPhaseTransition);
 extern EvtScript N(EVS_Attack_LitBomb);
 extern EvtScript N(EVS_Attack_UnlitBomb);
@@ -55,7 +58,7 @@ enum N(ActorPartIDs) {
 };
 
 enum N(ActorParams) {
-    DMG_LIT_BOMB        = 6,
+    DMG_LIT_BOMB        = 5,
     DMG_UNLIT_BOMB      = 3,
     DMG_POKEY           = 2,
 };
@@ -92,7 +95,7 @@ s32 N(StatusTable)[] = {
 
 ActorPartBlueprint N(ActorParts)[] = {
     {
-        .flags = ACTOR_PART_FLAG_PRIMARY_TARGET,
+        .flags = ACTOR_PART_FLAG_IGNORE_BELOW_CHECK | ACTOR_PART_FLAG_PRIMARY_TARGET,
         .index = PRT_MAIN,
         .posOffset = { 0, 0, 0 },
         .targetOffset = { -5, 36 },
@@ -236,6 +239,7 @@ EvtScript N(EVS_Init) = {
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_ActorsSpawned, FALSE)
     Exec(N(EVS_ManageFourthPhase))
     Return
     End
@@ -245,7 +249,7 @@ EvtScript N(EVS_ManageFourthPhase) = {
     // Call(EnableModel, MODEL_BombBox, TRUE)
     // Call(EnableModel, MODEL_BombPile, TRUE)
     // Call(EnableModel, MODEL_BarrelRed, TRUE)
-    Call(N(FadeScreenFromBlack))
+    // Call(N(FadeScreenFromBlack))
     Return
     End
 };
@@ -305,17 +309,7 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 EvtScript N(EVS_Defeat) = {
-    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-    Wait(10)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
-    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Add(LVar1, 50)
-    Add(LVar2, 2)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
-    Wait(10)
-    // ExecWait(N(EVS_FifthPhaseTransition))
+    Call(EnableBattleStatusBar, FALSE)
     Call(ActorExists, ACTOR_PYRO_GUY, LVar2)
     IfNe(LVar2, FALSE)
         Call(GetActorHP, ACTOR_PYRO_GUY, LVar2)
@@ -394,9 +388,16 @@ EvtScript N(EVS_Defeat) = {
             EndThread
         EndIf
     EndIf
-    SetConst(LVar0, PRT_MAIN)
-    SetConst(LVar1, THIS_ANIM_HURT)
-    ExecWait(EVS_Enemy_DeathWithoutRemove)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Wait(10)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 50)
+    Add(LVar2, 2)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_PYRO_GUY, LVar0)
         IfNe(LVar0, FALSE)
@@ -408,137 +409,135 @@ EvtScript N(EVS_Defeat) = {
             Wait(1)
             Goto(0)
         EndIf
-    Call(RemoveActor, ACTOR_SELF)
-    Call(SetBattleFlagBits, BS_FLAGS1_DISABLE_CELEBRATION | BS_FLAGS1_BATTLE_FLED, TRUE)
-    Call(SetBattleFlagBits2, BS_FLAGS2_DONT_STOP_MUSIC, TRUE)
-    Call(SetEndBattleFadeOutRate, 20)
-    Call(N(FadeScreenToBlack))
+    ExecWait(N(EVS_FifthPhaseTransition))
     Return
     End
+};
+
+Vec3i N(BowsertheKidSpawnPos) = { 80, 45, 20 };
+
+Formation N(SpawnBowsertheKid) = {
+    ACTOR_BY_POS(A(bowser_the_kid), N(BowsertheKidSpawnPos), 75),
+};
+
+Vec3i N(KoopaGangSpawnPos) = { 20, 0, 20 };
+
+Formation N(SpawnKoopaGang) = {
+    ACTOR_BY_POS(A(koopa_gang), N(KoopaGangSpawnPos), 100),
+};
+
+Vec3i N(HammerBroSpawnPos) = { 130, 0, 20 };
+
+Formation N(SpawnHammerBro) = {
+    ACTOR_BY_POS(A(hammer_bro), N(HammerBroSpawnPos), 50),
 };
 
 EvtScript N(EVS_FifthPhaseTransition) = {
     Call(CancelEnemyTurn, 1)
     Call(EnableModel, MODEL_Tunnel, TRUE)
-    Set(LVar0, 0)
-    Label(0)
-        Set(LVar0, 0) // Reset LVar0 to 0
-        Loop(0)
-            Add(LVar0, 10) // Increment LVar0 by 10
-            IfGt(LVar0, 1000)
-                // Models
+    Set(LVarA, 0)
+    Loop(0)
+        Add(LVarA, 10) // Increment LVarA by 10
+        IfGt(LVarA, 2250)
+            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            BreakLoop
+        EndIf
+        IfGt(LVarA, 1000)
+            Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_ActorsSpawned, LVarB)
+            IfEq(LVarB, FALSE)
                 Call(EnableModel, MODEL_BombBox, FALSE)
                 Call(EnableModel, MODEL_BombPile, FALSE)
                 Call(EnableModel, MODEL_BarrelRed, FALSE)
-                // Red Phase Actors AKA Fourth Phase Actors
-                Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-                Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-                Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                // Bowser Phase Actors AKA Fifth Phase Actors
-                Call(SetActorPos, ACTOR_BOWSER_THE_KID, 130, 35, 20)
-                Call(ForceHomePos, ACTOR_BOWSER_THE_KID, 130, 35, 20)
-                Call(SetActorFlagBits, ACTOR_BOWSER_THE_KID, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                Call(SetPartFlagBits, ACTOR_BOWSER_THE_KID, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                Call(SetActorPos, ACTOR_KOOPA_GANG, 60, 0, 20)
-                Call(ForceHomePos, ACTOR_KOOPA_GANG, 60, 0, 20)
-                Call(SetActorFlagBits, ACTOR_KOOPA_GANG, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, FALSE)
-                Call(SetPartFlagBits, ACTOR_KOOPA_GANG, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                Call(SetActorPos, ACTOR_HAMMER_BRO, 15, 0, 20)
-                Call(ForceHomePos, ACTOR_HAMMER_BRO, 15, 0, 20)
-                Call(SetActorFlagBits, ACTOR_HAMMER_BRO, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                Call(SetPartFlagBits, ACTOR_HAMMER_BRO, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
-
+                Call(SummonEnemy, Ref(N(SpawnBowsertheKid)), FALSE)
+                Call(SummonEnemy, Ref(N(SpawnKoopaGang)), FALSE)
+                Call(SummonEnemy, Ref(N(SpawnHammerBro)), FALSE)
+                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_ActorsSpawned, TRUE)
             EndIf
-            IfGt(LVar0, 2250)
-                Set(LVar0, 0) // Reset LVar0 back to 0 when it exceeds 2250
-                Goto(1) // Go to Label 1 to perform additional actions
-            EndIf
-            Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-            Wait(1)
-        EndLoop
-    Goto(0)
-    Label(1)
-        Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-        // DebugPrintf("Transition Done!")
-        Call(EnableModel, MODEL_Tunnel, FALSE)
+        EndIf
+        Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+        Wait(1)
+    EndLoop
+    Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+    Call(EnableModel, MODEL_Tunnel, FALSE)
+    Call(EnableBattleStatusBar, TRUE)
+    Call(RemoveActor, ACTOR_SELF)
     Return
     End
 };
 
-#define LBL_ENDTURN 0
 EvtScript N(EVS_TakeTurn) = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_PyroDefeated, LVar3)
-    Set(LVar3, FALSE) // Set Bomb Attack/Move to be Lit or Unlit
+    // Set(LVar3, FALSE) // Set Bomb Attack/Move to be Lit or Unlit
     Switch(LVar3)
         CaseEq(FALSE)
             Call(ActorExists, ACTOR_BOB_OMB, LVar4)
             IfEq(LVar4, FALSE)
                 Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_SummonedBobomb, LVar5)
                 IfEq(LVar5, FALSE) // If Bobomb is not summoned
-                    DebugPrintf("Bobomb is not summoned")
-                    Call(RandInt, 100, LVar1)
-                    Switch(LVar1)
-                        CaseLt(60)
-                            Set(LVar0, AVAL_RedPhase_LitBombAttack)
+                    // DebugPrintf("Bobomb is not summoned")
+                    Call(RandInt, 100, LVar6)
+                    Switch(LVar6)
+                        CaseLt(10)
+                            Set(LVar7, AVAL_RedPhase_LitBombAttack)
                         CaseLt(30)
-                            Set(LVar0, AVAL_RedPhase_LitBobombSummon)
+                            Set(LVar7, AVAL_RedPhase_LitBobombSummon)
                         CaseDefault
-                            Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                            Set(LVar7, AVAL_RedPhase_PokeyAttack)
                     EndSwitch
-                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                    Set(LVar0, AVAL_RedPhase_LitBobombSummon) // Set Attack/Move
-                    Switch(LVar0)
+                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                    // Set(LVar0, AVAL_RedPhase_LitBobombSummon) // Set Attack/Move
+                    Switch(LVar7)
                         CaseEq(AVAL_RedPhase_LitBombAttack)
                             ExecWait(N(EVS_Attack_LitBomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_LitBobombSummon)
                             ExecWait(N(EVS_Summon_LitBobomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_PokeyAttack)
                             ExecWait(N(EVS_Attack_Pokey))
-                            Goto(LBL_ENDTURN)
+                            Return
                     EndSwitch
                 Else
-                    DebugPrintf("Bobomb is summoned")
-                    Call(RandInt, 100, LVar1)
-                    Switch(LVar1)
-                        CaseLt(90)
-                            Set(LVar0, AVAL_RedPhase_LitBombAttack)
+                    // DebugPrintf("Bobomb is summoned")
+                    Call(RandInt, 100, LVar6)
+                    Switch(LVar6)
+                        CaseLt(60)
+                            Set(LVar7, AVAL_RedPhase_LitBombAttack)
                         CaseDefault
-                            Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                            Set(LVar7, AVAL_RedPhase_PokeyAttack)
                     EndSwitch
-                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                    Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
-                    Switch(LVar0)
+                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                    // Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
+                    Switch(LVar7)
                         CaseEq(AVAL_RedPhase_LitBombAttack)
                             ExecWait(N(EVS_Attack_LitBomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_PokeyAttack)
                             ExecWait(N(EVS_Attack_Pokey))
-                            Goto(LBL_ENDTURN)
+                            Return
                     EndSwitch
                 EndIf
             Else
-                DebugPrintf("Bobomb is summoned")
-                Call(RandInt, 100, LVar1)
-                Switch(LVar1)
-                    CaseLt(90)
-                        Set(LVar0, AVAL_RedPhase_LitBombAttack)
+                // DebugPrintf("Bobomb is summoned")
+                Call(RandInt, 100, LVar6)
+                Switch(LVar6)
+                    CaseLt(60)
+                        Set(LVar7, AVAL_RedPhase_LitBombAttack)
                     CaseDefault
-                        Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                        Set(LVar7, AVAL_RedPhase_PokeyAttack)
                 EndSwitch
-                Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
-                Switch(LVar0)
+                Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                // Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
+                Switch(LVar7)
                     CaseEq(AVAL_RedPhase_LitBombAttack)
                         ExecWait(N(EVS_Attack_LitBomb))
-                        Goto(LBL_ENDTURN)
+                        Return
                     CaseEq(AVAL_RedPhase_PokeyAttack)
                         ExecWait(N(EVS_Attack_Pokey))
-                        Goto(LBL_ENDTURN)
+                        Return
                 EndSwitch
             EndIf
         CaseEq(TRUE)
@@ -546,71 +545,70 @@ EvtScript N(EVS_TakeTurn) = {
             IfEq(LVar4, FALSE)
                 Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_SummonedBobomb, LVar5)
                 IfEq(LVar5, FALSE)
-                    DebugPrintf("Bobomb is not summoned")
-                    Call(RandInt, 100, LVar1)
-                    Switch(LVar1)
-                        CaseLt(60)
-                            Set(LVar0, AVAL_RedPhase_UnlitBombAttack)
-                        CaseLt(30)
-                            Set(LVar0, AVAL_RedPhase_UnlitBobombSummon)
+                    // DebugPrintf("Bobomb is not summoned")
+                    Call(RandInt, 100, LVar6)
+                    Switch(LVar6)
+                        CaseLt(40)
+                            Set(LVar7, AVAL_RedPhase_UnlitBombAttack)
+                        CaseLt(40)
+                            Set(LVar7, AVAL_RedPhase_UnlitBobombSummon)
                         CaseDefault
-                            Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                            Set(LVar7, AVAL_RedPhase_PokeyAttack)
                     EndSwitch
-                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                    Set(LVar0, AVAL_RedPhase_UnlitBobombSummon) // Set Attack/Move
-                    Switch(LVar0)
+                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                    // Set(LVar0, AVAL_RedPhase_UnlitBobombSummon) // Set Attack/Move
+                    Switch(LVar7)
                         CaseEq(AVAL_RedPhase_UnlitBombAttack)
                             ExecWait(N(EVS_Attack_UnlitBomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_UnlitBobombSummon)
                             ExecWait(N(EVS_Summon_UnlitBobomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_PokeyAttack)
                             ExecWait(N(EVS_Attack_Pokey))
-                            Goto(LBL_ENDTURN)
+                            Return
                     EndSwitch
                 Else
-                    DebugPrintf("Bobomb is not summoned")
-                    Call(RandInt, 100, LVar1)
-                    Switch(LVar1)
-                        CaseLt(90)
-                            Set(LVar0, AVAL_RedPhase_UnlitBombAttack)
+                    // DebugPrintf("Bobomb is not summoned")
+                    Call(RandInt, 100, LVar6)
+                    Switch(LVar6)
+                        CaseLt(60)
+                            Set(LVar7, AVAL_RedPhase_UnlitBombAttack)
                         CaseDefault
-                            Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                            Set(LVar7, AVAL_RedPhase_PokeyAttack)
                     EndSwitch
-                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                    Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
-                    Switch(LVar0)
+                    Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                    // Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
+                    Switch(LVar7)
                         CaseEq(AVAL_RedPhase_UnlitBombAttack)
                             ExecWait(N(EVS_Attack_UnlitBomb))
-                            Goto(LBL_ENDTURN)
+                            Return
                         CaseEq(AVAL_RedPhase_PokeyAttack)
                             ExecWait(N(EVS_Attack_Pokey))
-                            Goto(LBL_ENDTURN)
+                            Return
                     EndSwitch
                 EndIf
             Else
-                DebugPrintf("Bobomb is summoned")
-                Call(RandInt, 100, LVar1)
-                Switch(LVar1)
-                    CaseLt(90)
-                        Set(LVar0, AVAL_RedPhase_UnlitBombAttack)
+                // DebugPrintf("Bobomb is summoned")
+                Call(RandInt, 100, LVar6)
+                Switch(LVar6)
+                    CaseLt(60)
+                        Set(LVar7, AVAL_RedPhase_UnlitBombAttack)
                     CaseDefault
-                        Set(LVar0, AVAL_RedPhase_PokeyAttack)
+                        Set(LVar7, AVAL_RedPhase_PokeyAttack)
                 EndSwitch
-                Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar0)
-                Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
-                Switch(LVar0)
+                Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_RandomAttack, LVar7)
+                // Set(LVar0, AVAL_RedPhase_PokeyAttack) // Set Attack/Move
+                Switch(LVar7)
                     CaseEq(AVAL_RedPhase_UnlitBombAttack)
                         ExecWait(N(EVS_Attack_UnlitBomb))
-                        Goto(LBL_ENDTURN)
+                        Return
                     CaseEq(AVAL_RedPhase_PokeyAttack)
                         ExecWait(N(EVS_Attack_Pokey))
-                        Goto(LBL_ENDTURN)
+                        Return
                 EndSwitch
             EndIf
     EndSwitch
-    Label(LBL_ENDTURN)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Return
@@ -693,7 +691,7 @@ EvtScript N(EVS_Attack_LitBomb) = {
             Wait(1)
         EndLoop
         Call(GetPartPos, ACTOR_SELF, PRT_BOMB, LVar0, LVar1, LVar2)
-        Add(LVar0, 15)
+        Add(LVar0, 17)
         Sub(LVar1, 10)
         Call(SetPartPos, ACTOR_SELF, PRT_BOMB, LVar0, LVar1, LVar2)
     EndThread
@@ -712,7 +710,7 @@ EvtScript N(EVS_Attack_LitBomb) = {
             Wait(1)
         EndLoop
         Call(GetPartPos, ACTOR_SELF, PRT_BOMB, LVar0, LVar1, LVar2)
-        Sub(LVar0, 15)
+        Sub(LVar0, 17)
         Add(LVar1, 10)
         Call(SetPartPos, ACTOR_SELF, PRT_BOMB, LVar0, LVar1, LVar2)
     EndThread

@@ -36,6 +36,8 @@ extern EvtScript N(EVS_Idle);
 extern EvtScript N(EVS_HandleEvent);
 extern EvtScript N(EVS_HandlePhase);
 extern EvtScript N(EVS_Defeat);
+extern ActorBlueprint A(red_bandit_koopa);
+extern ActorBlueprint A(pyro_guy);
 extern EvtScript N(EVS_FourthPhaseTransition);
 extern EvtScript N(EVS_TakeTurn);
 extern EvtScript N(EVS_Attack_SniperShot);
@@ -206,6 +208,7 @@ EvtScript N(EVS_Init) = {
     // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_State, AVAL_Koopa_State_Ready)
     // Call(SetActorVar, ACTOR_SELF, AVAR_Koopa_ToppleTurns, 0)
+    Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, FALSE)
     Exec(N(EVS_ManageThirdPhase))
     Return
     End
@@ -214,7 +217,7 @@ EvtScript N(EVS_Init) = {
 EvtScript N(EVS_ManageThirdPhase) = {
     // Call(EnableModel, MODEL_SnipingCrate, TRUE)
     // Call(EnableModel, MODEL_BarrelBlack, TRUE)
-    Call(N(FadeScreenFromBlack))
+    // Call(N(FadeScreenFromBlack))
     Return
     End
 };
@@ -278,15 +281,7 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 EvtScript N(EVS_Defeat) = {
-    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-    Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-    Wait(10)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
-    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Add(LVar1, 20)
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
-    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
-    Wait(10)
+    Call(EnableBattleStatusBar, FALSE)
     Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar2)
     IfNe(LVar2, FALSE)
         Call(GetActorHP, ACTOR_SHY_GUY_RIDER_1, LVar2)
@@ -349,9 +344,16 @@ EvtScript N(EVS_Defeat) = {
             EndThread
         EndIf
     EndIf
-    SetConst(LVar0, PRT_MAIN)
-    SetConst(LVar1, THIS_ANIM_HURT)
-    ExecWait(EVS_Enemy_DeathWithoutRemove)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Wait(10)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, THIS_ANIM_HURT)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 20)
+    Add(LVar2, 2)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_EMOTE_IDEA)
+    PlayEffect(EFFECT_EMOTE, EMOTE_EXCLAMATION, 0, LVar0, LVar1, LVar2, 24, 0, 25, 0, 0)
+    Wait(25)
     Label(0)
         Call(ActorExists, ACTOR_SHY_GUY_RIDER_1, LVar0)
         IfNe(LVar0, FALSE)
@@ -363,80 +365,54 @@ EvtScript N(EVS_Defeat) = {
             Wait(1)
             Goto(0)
         EndIf
-    Call(RemoveActor, ACTOR_SELF)
-    Call(SetBattleFlagBits, BS_FLAGS1_DISABLE_CELEBRATION | BS_FLAGS1_BATTLE_FLED, TRUE)
-    Call(SetBattleFlagBits2, BS_FLAGS2_DONT_STOP_MUSIC, TRUE)
-    Call(SetEndBattleFadeOutRate, 20)
-    Call(N(FadeScreenToBlack))
+    ExecWait(N(EVS_FourthPhaseTransition))
     Return
     End
+};
+
+Vec3i N(RedBanditSpawnPos) = { 115, 25, 20 };
+
+Formation N(SpawnRedBandit) = {
+    ACTOR_BY_POS(A(red_bandit_koopa), N(RedBanditSpawnPos), 100),
+};
+
+Vec3i N(PyroGuySpawnPos) = { 145, 55, 25 };
+
+Formation N(SpawnPyroGuy) = {
+    ACTOR_BY_POS(A(pyro_guy), N(PyroGuySpawnPos), 75),
 };
 
 EvtScript N(EVS_FourthPhaseTransition) = {
     Call(CancelEnemyTurn, 1)
     Call(EnableModel, MODEL_Tunnel, TRUE)
-    Set(LVar0, 0)
-    Label(0)
-        Set(LVar0, 0) // Reset LVar0 to 0
-        Loop(0)
-            Add(LVar0, 10) // Increment LVar0 by 10
-            IfGt(LVar0, 1000)
-                //* Models
-                Call(EnableModel, MODEL_SnipingCrate, FALSE)
+    Set(LVarA, 0)
+    Loop(0)
+        Add(LVarA, 10) // Increment LVarA by 10
+        IfGt(LVarA, 2250)
+            Set(LVarA, 0) // Reset LVarA back to 0 when it exceeds 2250
+            BreakLoop
+        EndIf
+        IfGt(LVarA, 1000)
+            Call(GetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, LVarB)
+            IfEq(LVarB, FALSE)
                 Call(EnableModel, MODEL_BarrelBlack, FALSE)
+                Call(EnableModel, MODEL_SnipingCrate, FALSE)
                 Call(EnableModel, MODEL_BombBox, TRUE)
                 Call(EnableModel, MODEL_BombPile, TRUE)
                 Call(EnableModel, MODEL_BarrelRed, TRUE)
-
-                // BLACKANCHOR Actors
-                Call(SetActorPos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-                Call(ForceHomePos, ACTOR_BLACK_BANDIT, NPC_DISPOSE_LOCATION)
-                Call(SetActorFlagBits, ACTOR_BLACK_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-                Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                // Call(RemoveActor, ACTOR_BLACK_BANDIT)
-                Call(SetActorPos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-                Call(ForceHomePos, ACTOR_CRATE, NPC_DISPOSE_LOCATION)
-                Call(SetActorFlagBits, ACTOR_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
-                Call(SetPartFlagBits, ACTOR_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                // Call(RemoveActor, ACTOR_CRATE)
-                Call(SetActorPos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-                Call(ForceHomePos, ACTOR_DYANMITE_CRATE, NPC_DISPOSE_LOCATION)
-                Call(SetActorFlagBits, ACTOR_DYANMITE_CRATE, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
-                Call(SetPartFlagBits, ACTOR_DYANMITE_CRATE, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                // Call(RemoveActor, ACTOR_DYANMITE_CRATE)
-                Call(SetActorPos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-                Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_1, NPC_DISPOSE_LOCATION)
-                Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_1, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
-                Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_1, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-                // Call(RemoveActor, ACTOR_SHY_GUY_RIDER_1)
-                Call(SetActorPos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-                Call(ForceHomePos, ACTOR_SHY_GUY_RIDER_2, NPC_DISPOSE_LOCATION)
-                Call(SetActorFlagBits, ACTOR_SHY_GUY_RIDER_2, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN, TRUE)
-                Call(SetPartFlagBits, ACTOR_SHY_GUY_RIDER_2, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, TRUE)
-
-                // REDANCHOR Actors
-                Call(SetActorPos, ACTOR_RED_BANDIT, 115, 25, 20)
-                Call(ForceHomePos, ACTOR_RED_BANDIT, 115, 25, 20)
-                Call(SetActorFlagBits, ACTOR_RED_BANDIT, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                Call(SetPartFlagBits, ACTOR_RED_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_INVISIBLE, FALSE)
-                Call(SetActorPos, ACTOR_PYRO_GUY, 145, 55, 25)
-                Call(ForceHomePos, ACTOR_PYRO_GUY, 145, 55, 25)
-                Call(SetActorYaw, ACTOR_PYRO_GUY, 180)
-                Call(SetActorFlagBits, ACTOR_PYRO_GUY, ACTOR_FLAG_NO_ATTACK | ACTOR_FLAG_SKIP_TURN | ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
-                Call(SetPartFlagBits, ACTOR_PYRO_GUY, PRT_MAIN, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+                Call(SummonEnemy, Ref(N(SpawnRedBandit)), FALSE)
+                Call(SummonEnemy, Ref(N(SpawnPyroGuy)), FALSE)
+                Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE, TRUE)
+                Call(SetActorVar, ACTOR_SELF, AVAR_BlackPhase_ActorsSpawned, TRUE)
             EndIf
-            IfGt(LVar0, 2250)
-                Set(LVar0, 0) // Reset LVar0 back to 0 when it exceeds 2250
-                Goto(1) // Go to Label 1 to perform additional actions
-            EndIf
-            Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-            Wait(1)
-        EndLoop
-    Goto(0)
-    Label(1)
-        Call(TranslateModel, MODEL_Tunnel, LVar0, 0, 0)
-        // DebugPrintf("Transition Done!")
-        Call(EnableModel, MODEL_Tunnel, FALSE)
+        EndIf
+        Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+        Wait(1)
+    EndLoop
+    Call(TranslateModel, MODEL_Tunnel, LVarA, 0, 0)
+    Call(EnableModel, MODEL_Tunnel, FALSE)
+    Call(EnableBattleStatusBar, TRUE)
+    Call(RemoveActor, ACTOR_SELF)
     Return
     End
 };

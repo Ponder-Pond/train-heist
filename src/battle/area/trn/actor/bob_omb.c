@@ -22,8 +22,7 @@ enum N(ActorVars) {
 };
 
 enum N(ActorParams) {
-    DMG_TACKLE          = 1,
-    DMG_EXPLOSION       = 2,
+    DMG_EXPLOSION       = 6,
 };
 
 s32 N(DefaultAnims)[] = {
@@ -525,116 +524,6 @@ EvtScript N(EVS_HandleEvent_Ignited) = {
     End
 };
 
-EvtScript N(EVS_Attack_Tackle) = {
-    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
-    Call(BattleCamTargetActor, ACTOR_SELF)
-    Call(func_8024ECF8, BTL_CAM_MODEY_MINUS_1, BTL_CAM_MODEX_1, FALSE)
-    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Run)
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(AddGoalPos, ACTOR_SELF, 50, 0, 0)
-    Call(SetActorSpeed, ACTOR_SELF, Float(6.0))
-    Call(RunToGoal, ACTOR_SELF, 0, FALSE)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Idle)
-    Call(SetActorDispOffset, ACTOR_SELF, 0, -1, 0)
-    Wait(1)
-    Call(SetActorDispOffset, ACTOR_SELF, 0, -2, 0)
-    Wait(5)
-    Call(SetActorDispOffset, ACTOR_SELF, 0, 0, 0)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Run)
-    Call(EnemyTestTarget, ACTOR_SELF, LVar0, 0, 0, 1, BS_FLAGS1_INCLUDE_POWER_UPS)
-    Switch(LVar0)
-        CaseOrEq(HIT_RESULT_MISS)
-        CaseOrEq(HIT_RESULT_LUCKY)
-            Set(LVarA, LVar0)
-            Call(SetGoalToTarget, ACTOR_SELF)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Sub(LVar0, 5)
-            Set(LVar1, 0)
-            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.1))
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 20, FALSE, TRUE, FALSE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Dizzy)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Sub(LVar0, 20)
-            Call(SetActorJumpGravity, ACTOR_SELF, Float(3.0))
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 6, FALSE, TRUE, FALSE)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Sub(LVar0, 15)
-            Call(SetActorJumpGravity, ACTOR_SELF, Float(3.0))
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 5, FALSE, TRUE, FALSE)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Wait(8)
-            IfEq(LVarA, HIT_RESULT_LUCKY)
-                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
-            EndIf
-            Wait(5)
-            Call(YieldTurn)
-            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-            Call(SetActorYaw, ACTOR_SELF, 180)
-            Call(AddActorDecoration, ACTOR_SELF, PRT_MAIN, 0, ACTOR_DECORATION_SWEAT)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Run)
-            Call(SetGoalToHome, ACTOR_SELF)
-            Call(SetActorSpeed, ACTOR_SELF, Float(8.0))
-            Call(RunToGoal, ACTOR_SELF, 0, FALSE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Idle)
-            Call(RemoveActorDecoration, ACTOR_SELF, PRT_MAIN, 0)
-            Call(SetActorYaw, ACTOR_SELF, 0)
-            Return
-        EndCaseGroup
-        CaseEq(HIT_RESULT_HIT_STATIC)
-            Call(SetGoalToTarget, ACTOR_SELF)
-            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.1))
-            Call(JumpToGoal, ACTOR_SELF, 20, FALSE, TRUE, FALSE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Buildup)
-            Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(GetActorSize, ACTOR_SELF, LVar3, LVar4)
-            PlayEffect(EFFECT_FLASHING_BOX_SHOCKWAVE, 0, LVar0, LVar1, LVar2, LVar4, LVar3, 0)
-            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_HIT_SHOCK)
-            Wait(20)
-            ExecWait(N(EVS_Explode))
-            Call(EnemyDamageTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_BLAST, 0, 0, DMG_EXPLOSION, BS_FLAGS1_TRIGGER_EVENTS)
-            Return
-    EndSwitch
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(1.1))
-    Call(JumpToGoal, ACTOR_SELF, 20, FALSE, TRUE, FALSE)
-    Wait(2)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVar0, 0, 0, 0, DMG_TACKLE, BS_FLAGS1_TRIGGER_EVENTS)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Idle)
-    Switch(LVar0)
-        CaseOrEq(HIT_RESULT_HIT)
-        CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Add(LVar0, 40)
-            Set(LVar1, 0)
-            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.8))
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 10, FALSE, TRUE, FALSE)
-            Add(LVar0, 30)
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 8, FALSE, TRUE, FALSE)
-            Add(LVar0, 20)
-            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-            Call(JumpToGoal, ACTOR_SELF, 6, FALSE, TRUE, FALSE)
-            Wait(4)
-            Call(YieldTurn)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Run)
-            Call(SetGoalToHome, ACTOR_SELF)
-            Call(SetActorSpeed, ACTOR_SELF, Float(8.0))
-            Call(RunToGoal, ACTOR_SELF, 0, FALSE)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Bobomb_Idle)
-        EndCaseGroup
-    EndSwitch
-    Return
-    End
-};
-
 EvtScript N(EVS_Attack_Blast) = {
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetGoalToTarget, ACTOR_SELF)
@@ -708,7 +597,7 @@ EvtScript N(EVS_TakeTurn) = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, LVar0)
     IfFalse(LVar0)
-        ExecWait(N(EVS_Attack_Tackle))
+        ExecWait(N(EVS_Ignite))
     Else
         ExecWait(N(EVS_Attack_Blast))
         Return

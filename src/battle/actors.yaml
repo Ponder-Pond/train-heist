@@ -2435,8 +2435,8 @@
     shadowOffset: 0
 - BowserTheKid:
     level: 0
-    nameMsg: MSG_Misc_BowsertheKid
-    tattleMsg: MSG_Misc_BowsertheKidTattle
+    nameMsg: MSG_Misc_KoopatheKid
+    tattleMsg: MSG_Misc_KoopatheKidTattle
     walkSound: [ SOUND_NONE, SOUND_NONE ]
     flySound: [ SOUND_NONE, SOUND_NONE ]
     jumpSound: SOUND_NONE

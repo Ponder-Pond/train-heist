@@ -223,9 +223,13 @@ EvtScript N(EVS_CrateExplode) = {
         Wait(5)
         Call(RemoveActor, ACTOR_SHY_GUY_RIDER_2)
         Wait(5)
+        Call(SetPartFlagBits, ACTOR_BLACK_BANDIT, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
     EndIf
     Wait(30)
-    Call(RemoveActor, ACTOR_SELF)
+    // Call(RemoveActor, ACTOR_SELF)
+    SetConst(LVar0, PRT_MAIN)
+    SetConst(LVar1, -1)
+    ExecWait(EVS_Enemy_Death)
     Return
     End
 };

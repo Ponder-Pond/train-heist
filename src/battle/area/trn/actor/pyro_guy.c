@@ -1,5 +1,6 @@
 #include "../area.h"
 #include "sprite/npc/PyroGuy.h"
+#include "boss.h"
 
 #define NAMESPACE A(pyro_guy)
 
@@ -152,6 +153,7 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar2, -1)
             ExecWait(EVS_Enemy_BurnHit)
         CaseEq(EVENT_BURN_DEATH)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             SetConst(LVar2, -1)
@@ -165,6 +167,7 @@ EvtScript N(EVS_HandleEvent) = {
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_SpinSmashHit)
         CaseEq(EVENT_SPIN_SMASH_DEATH)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_SpinSmashHit)
@@ -182,6 +185,7 @@ EvtScript N(EVS_HandleEvent) = {
             Call(SetActorSpeed, ACTOR_SELF, Float(4.0))
             ExecWait(N(EVS_ReturnHome))
         CaseEq(EVENT_SHOCK_DEATH)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_ShockHit)
@@ -197,6 +201,7 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_NoDamageHit)
         EndCaseGroup
         CaseEq(EVENT_DEATH)
+            Call(SetActorVar, ACTOR_RED_BANDIT, AVAR_RedPhase_PyroDefeated, TRUE)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_PyroGuy_Anim06)
             ExecWait(EVS_Enemy_Hit)

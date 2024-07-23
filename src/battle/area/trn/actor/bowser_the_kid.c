@@ -1,5 +1,5 @@
 #include "../area.h"
-#include "sprite/npc/KoopaTheKid.h"
+#include "sprite/npc/BowserTheKid.h"
 #include "sprite/npc/KoopaGang.h"
 #include "sprite/npc/HammerBrosSMB3.h"
 #include "boss.h"
@@ -38,16 +38,16 @@ enum N(ActorParams) {
 };
 
 s32 N(DefaultAnims)[] = {
-    STATUS_KEY_NORMAL,    ANIM_KoopaTheKid_Idle,
-    STATUS_KEY_STONE,     ANIM_KoopaTheKid_Still,
-    STATUS_KEY_SLEEP,     ANIM_KoopaTheKid_Idle,
-    STATUS_KEY_POISON,    ANIM_KoopaTheKid_Idle,
-    STATUS_KEY_STOP,      ANIM_KoopaTheKid_Still,
-    STATUS_KEY_STATIC,    ANIM_KoopaTheKid_Still,
-    STATUS_KEY_PARALYZE,  ANIM_KoopaTheKid_Still,
-    STATUS_KEY_PARALYZE,  ANIM_KoopaTheKid_Still,
-    STATUS_KEY_DIZZY,     ANIM_KoopaTheKid_Idle,
-    STATUS_KEY_DIZZY,     ANIM_KoopaTheKid_Idle,
+    STATUS_KEY_NORMAL,    ANIM_BowserTheKid_Idle,
+    STATUS_KEY_STONE,     ANIM_BowserTheKid_Still,
+    STATUS_KEY_SLEEP,     ANIM_BowserTheKid_Idle,
+    STATUS_KEY_POISON,    ANIM_BowserTheKid_Idle,
+    STATUS_KEY_STOP,      ANIM_BowserTheKid_Still,
+    STATUS_KEY_STATIC,    ANIM_BowserTheKid_Still,
+    STATUS_KEY_PARALYZE,  ANIM_BowserTheKid_Still,
+    STATUS_KEY_PARALYZE,  ANIM_BowserTheKid_Still,
+    STATUS_KEY_DIZZY,     ANIM_BowserTheKid_Idle,
+    STATUS_KEY_DIZZY,     ANIM_BowserTheKid_Idle,
     STATUS_END,
 };
 
@@ -241,48 +241,48 @@ EvtScript N(EVS_HandleEvent) = {
     Switch(LVar0)
         CaseEq(EVENT_BEGIN_FIRST_STRIKE)
         CaseEq(EVENT_HIT_COMBO)
-            Set(LVar1, ANIM_KoopaTheKid_Hurt)
+            Set(LVar1, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_Hit))
             Return
         CaseEq(EVENT_HIT)
-            Set(LVar1, ANIM_KoopaTheKid_Hurt)
+            Set(LVar1, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_BasicHit))
             Return
         CaseEq(EVENT_DEATH)
-            SetConst(LVar1, ANIM_KoopaTheKid_Hurt)
+            SetConst(LVar1, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_Hit))
             Wait(10)
             SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_KoopaTheKid_Hurt)
+            SetConst(LVar1, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_Death))
             Return
         CaseEq(EVENT_BURN_HIT)
             Set(LVar0, PRT_MAIN)
-            Set(LVar1, ANIM_KoopaTheKid_Hurt)
-            Set(LVar2, ANIM_KoopaTheKid_Hurt)
+            Set(LVar1, ANIM_BowserTheKid_Hurt)
+            Set(LVar2, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_BurnHit))
             Return
         CaseEq(EVENT_BURN_DEATH)
             Set(LVar0, PRT_MAIN)
-            Set(LVar1, ANIM_KoopaTheKid_Hurt)
-            Set(LVar2, ANIM_KoopaTheKid_Hurt)
+            Set(LVar1, ANIM_BowserTheKid_Hurt)
+            Set(LVar2, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_BurnHit))
             SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_KoopaTheKid_Hurt)
+            SetConst(LVar1, ANIM_BowserTheKid_Hurt)
             ExecWait(N(EVS_Death))
             Return
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_IMMUNE)
-            Set(LVar1, ANIM_KoopaTheKid_Idle)
+            Set(LVar1, ANIM_BowserTheKid_Idle)
             ExecWait(N(EVS_NoDamageHit))
         EndCaseGroup
         CaseEq(EVENT_AIR_LIFT_FAILED)
             SetConst(LVar0, PRT_MAIN)
-            Set(LVar1, ANIM_KoopaTheKid_Idle)
+            Set(LVar1, ANIM_BowserTheKid_Idle)
             ExecWait(EVS_Enemy_NoDamageHit)
         CaseEq(EVENT_RECOVER_STATUS)
             SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_KoopaTheKid_Idle)
+            SetConst(LVar1, ANIM_BowserTheKid_Idle)
             ExecWait(EVS_Enemy_Recover)
         CaseDefault
     EndSwitch
@@ -593,7 +593,7 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_ENEMY1, ACTOR_PLAYER)
     Call(SetGoalToTarget, ACTOR_ENEMY1)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Hide)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_Hide)
     Wait(30)
     Call(ActorExists, ACTOR_ENEMY1, LVar3)
     IfEq(LVar3, TRUE)
@@ -610,11 +610,11 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
         Call(JumpToGoal, ACTOR_ENEMY1, 10, FALSE, TRUE, FALSE)
     EndIf
     Wait(10)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Close)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_Close)
     Wait(5)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SuckUp)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_SuckUp)
     Wait(20)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Shake)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_Shake)
     Wait(20)
     Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_IGNORE_DEFENSE, 0, 0, BS_FLAGS1_INCLUDE_POWER_UPS)
     Switch(LVar0)
@@ -623,7 +623,7 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
             Sub(LVar0, 15)
             Add(LVar2, 2)
             Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_SpitOut)
             Call(SetGoalToTarget, ACTOR_ENEMY1)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Add(LVar0, -5)
@@ -642,7 +642,7 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
             Sub(LVar0, 15)
             Add(LVar2, 2)
             Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_SpitOut)
             Call(SetGoalToTarget, ACTOR_ENEMY1)
             Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
             Add(LVar1, 30)
@@ -660,7 +660,7 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
     Sub(LVar0, 15)
     Add(LVar2, 2)
     Call(SetActorPos, ACTOR_ENEMY1, LVar0, LVar1, LVar2)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_SpitOut)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_SpitOut)
     Call(SetGoalToTarget, ACTOR_ENEMY1)
     Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
     Add(LVar1, 25)
@@ -696,7 +696,7 @@ EvtScript N(EVS_Attack_KoopaGangSpit) = {
 EvtScript N(EVS_Attack_BallDrop) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_KoopaTheKid_Hide)
+    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_BowserTheKid_Hide)
     Wait(30)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)

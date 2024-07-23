@@ -133,7 +133,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = 0, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
+    .flags = ACTOR_FLAG_NO_SHADOW, // ACTOR_FLAG_NO_HEALTH_BAR | ACTOR_FLAG_NO_ATTACK,
     .type = THIS_ACTOR_TYPE,
     .level = THIS_LEVEL,
     .maxHP = 1,
@@ -1183,7 +1183,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = 0,
+    .flags = ACTOR_FLAG_NO_SHADOW,
     .type = ACTOR_TYPE_BUZZY_BEETLE,
     .level = ACTOR_LEVEL_BUZZY_BEETLE,
     .maxHP = 5,

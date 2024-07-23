@@ -167,6 +167,7 @@ EvtScript N(EVS_Ignite) = {
         Return
     EndIf
     Label(0)
+    Call(SetActorVar, ACTOR_SELF, AVAR_IgnitedOnce, TRUE)
     Call(SetActorVar, ACTOR_SELF, AVAR_RedPhase_BobOmbIgnited, TRUE)
     Call(SetIdleAnimations, ACTOR_SELF, PRT_MAIN, Ref(N(IgnitedAnims)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent_Ignited)))

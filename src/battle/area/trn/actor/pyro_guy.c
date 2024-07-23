@@ -82,7 +82,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = 0,
+    .flags = ACTOR_FLAG_NO_SHADOW,
     .type = ACTOR_TYPE_PYRO_GUY,
     .level = 0,
     .maxHP = 10,

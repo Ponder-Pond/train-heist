@@ -16,7 +16,7 @@ enum N(BattleCommon) {
     ACTOR_SHY_GUY_RIDER_2               = ACTOR_ENEMY5,
     ACTOR_RED_BANDIT                    = ACTOR_ENEMY1,
     ACTOR_PYRO_GUY                      = ACTOR_ENEMY2,
-    ACTOR_BOB_OMB                       = ACTOR_ENEMY3,
+    ACTOR_BOB_OMB                       = ACTOR_ENEMY0,
     ACTOR_BOWSER_THE_KID                = ACTOR_ENEMY0,
     ACTOR_KOOPA_GANG                    = ACTOR_ENEMY1,
     ACTOR_HAMMER_BRO                    = ACTOR_ENEMY2,

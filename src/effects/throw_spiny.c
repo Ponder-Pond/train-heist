@@ -28,7 +28,7 @@ EffectInstance* throw_spiny_main(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg
 
     bp.init = throw_spiny_init;
     bp.update = throw_spiny_update;
-    bp.renderWorld = throw_spiny_render;
+    bp.renderScene = throw_spiny_render;
     bp.unk_00 = 0;
     bp.renderUI = NULL;
     bp.effectID = EFFECT_THROW_SPINY;
@@ -113,7 +113,7 @@ void throw_spiny_update(EffectInstance* effectInstance) {
     if (state < 7) {
         spinyObject->xScale = D_E00C8718[state] * 0.01f;
         spinyObject->yScale = D_E00C8720[state] * 0.01f;
-        spinyObject->state += 1;
+        spinyObject->state++;
         spinyObject->yaw -= 40.0f;
     } else {
         spinyObject->gravity += -0.2f;
@@ -166,7 +166,7 @@ void throw_spiny_appendGfx(void* effect) {
     f32 scale = data->unk_40 * SPRITE_WORLD_SCALE_D;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
 
     guTranslateF(sp18, data->pos.x, data->pos.y, data->pos.z);
     guScaleF(sp58, scale * data->xScale, scale * data->yScale, scale);
@@ -176,7 +176,7 @@ void throw_spiny_appendGfx(void* effect) {
     guMtxF2L(sp18, &gDisplayContext->matrixStack[gMatrixListPos]);
 
     gSPMatrix(gMainGfxPos++, &gDisplayContext->matrixStack[gMatrixListPos++], G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPMatrix(gMainGfxPos++, camera->unkMatrix, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gMainGfxPos++, camera->mtxBillboard, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gDPSetPrimColor(gMainGfxPos++, 0, 0, data->unk_30, data->unk_34, data->unk_38, temp_s5);
     gSPDisplayList(gMainGfxPos++, D_E00C8710[temp_s6]);
     gSPDisplayList(gMainGfxPos++, D_090009F0_3D04E0);

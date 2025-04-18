@@ -11,7 +11,7 @@ s16 gNpcCount;
 static NpcList gWorldNpcList;
 static NpcList gBattleNpcList;
 static NpcList* gCurrentNpcListPtr;
-static b8 gNpcPlayerCollisionsEnabled;
+static s8 gNpcPlayerCollisionsEnabled;
 
 #define PAL_ANIM_END 0xFF
 
@@ -60,7 +60,7 @@ void mtx_ident_mirror_y(Matrix4f mtx) {
 void clear_npcs(void) {
     s32 i;
 
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentNpcListPtr = &gWorldNpcList;
     } else {
         gCurrentNpcListPtr = &gBattleNpcList;
@@ -75,7 +75,7 @@ void clear_npcs(void) {
 }
 
 void init_npc_list(void) {
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentNpcListPtr = &gWorldNpcList;
     } else {
         gCurrentNpcListPtr = &gBattleNpcList;
@@ -181,7 +181,7 @@ s32 create_npc_impl(NpcBlueprint* blueprint, AnimID* animList, s32 isPeachNpc) {
     npc->shadowIndex = create_shadow_type(SHADOW_VARYING_CIRCLE, npc->pos.x, npc->pos.y, npc->pos.z);
     npc->shadowScale = 1.0f;
 
-    if (gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context != CONTEXT_WORLD) {
         i |= BATTLE_NPC_ID_BIT;
     }
     return i;
@@ -791,7 +791,7 @@ f32 npc_get_render_yaw(Npc* npc) {
                 }
             }
 
-            if (npc->flags & NPC_FLAG_200000) {
+            if (npc->flags & NPC_FLAG_FLIP_INSTANTLY) {
                 npc->turnAroundYawAdjustment = 0;
             }
 
@@ -877,7 +877,6 @@ void appendGfx_npc(void* data) {
             guMtxCatF(mtx2, mtx1, mtx1);
         }
 
-
         if (npc->scale.x * SPRITE_WORLD_SCALE_D != 1.0f
             || (npc->scale.y * npc->verticalStretch) * SPRITE_WORLD_SCALE_D != 1.0f
             || npc->scale.z * SPRITE_WORLD_SCALE_D != 1.0f
@@ -945,7 +944,7 @@ void render_npcs(void) {
             && (npc->flags != 0)
             && !(npc->flags & (NPC_FLAG_SUSPENDED | NPC_FLAG_HAS_NO_SPRITE | NPC_FLAG_INACTIVE | NPC_FLAG_INVISIBLE))
         ) {
-            transform_point(cam->perspectiveMatrix, npc->pos.x, npc->pos.y, npc->pos.z, 1.0f, &x, &y, &z, &s);
+            transform_point(cam->mtxPerspective, npc->pos.x, npc->pos.y, npc->pos.z, 1.0f, &x, &y, &z, &s);
             if (!(s < 0.01) || !(s > -0.01)) {
                 renderDist = ((z * 5000.0f) / s) + 5000.0f;
                 if (renderDist < 0.0f) {
@@ -2197,7 +2196,7 @@ void init_encounter_status(void) {
         currentEncounter->encounterList[i] = 0;
     }
 
-    currentEncounter->flags = ENCOUNTER_STATUS_FLAG_0;
+    currentEncounter->flags = ENCOUNTER_FLAG_NONE;
     currentEncounter->numEncounters = 0;
     currentEncounter->firstStrikeType = FIRST_STRIKE_NONE;
     currentEncounter->hitType = 0;
@@ -2218,7 +2217,7 @@ void init_encounter_status(void) {
 
     func_80045AC0();
     gEncounterState = ENCOUNTER_STATE_NONE;
-    create_worker_world(NULL, npc_render_worker_do_nothing);
+    create_worker_scene(NULL, npc_render_worker_do_nothing);
 }
 
 void clear_encounter_status(void) {
@@ -2257,7 +2256,7 @@ void clear_encounter_status(void) {
 
     func_80045AC0();
     gEncounterState = ENCOUNTER_STATE_NONE;
-    create_worker_world(NULL, npc_render_worker_do_nothing);
+    create_worker_scene(NULL, npc_render_worker_do_nothing);
 }
 
 void func_8003E50C(void) {
@@ -2353,7 +2352,7 @@ void make_npcs(s32 flags, s32 mapID, s32* npcGroupList) {
 
     if (npcGroupList != NULL) {
         gEncounterState = ENCOUNTER_STATE_CREATE;
-        D_8009A678 = 1;
+        EncounterStateChanged = TRUE;
         gEncounterSubState = ENCOUNTER_SUBSTATE_CREATE_INIT;
     }
 }
@@ -2427,7 +2426,7 @@ void kill_enemy(Enemy* enemy) {
         }
     }
 
-    if (!(enemy->flags & ENEMY_FLAG_4)
+    if (!(enemy->flags & ENEMY_FLAG_DO_NOT_KILL)
         && (!(enemy->flags & ENEMY_FLAG_ENABLE_HIT_SCRIPT) || (enemy == encounterStatus->curEnemy))
         && !(enemy->flags & ENEMY_FLAG_PASSIVE)
         && !(enemy->flags & ENEMY_FLAG_FLED)

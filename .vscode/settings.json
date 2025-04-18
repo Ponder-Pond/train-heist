@@ -27,7 +27,7 @@
         "ver/jp/expected": true,
         "ver/us/expected": true,
         "ver/pal/expected": true,
-        "ver/ique/expected": true
+        "ver/ique/expected": true,
     },
     "python.autoComplete.extraPaths": [
         "./tools"
@@ -57,7 +57,12 @@
         ".ninja*": true,
         "ver/current": true,
         "expected": true,
-        "**/*.i": true
+        "**/*.i": true,
+        ".run_hash": true,
+        ".n2_db": true,
+        "venv": true,
+        "compile_commands.json": true,
+        ".nix-profile*": true,
     },
     "[python]": {
         "editor.formatOnType": true,
@@ -70,25 +75,6 @@
         "-l 120"
     ],
     "search.useIgnoreFiles": false,
-    "discord.enabled": true,
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#805300",
-        "activityBar.background": "#805300",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#002015",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#805300",
-        "statusBar.background": "#4d3200",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#805300",
-        "statusBarItem.remoteBackground": "#4d3200",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#4d3200",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#4d320099",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.remoteColor": "#4d3200",
+    "nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix",
+    "workbench.editor.labelFormat": "short",
 }

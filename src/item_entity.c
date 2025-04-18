@@ -45,7 +45,7 @@ BSS s16 ItemSpawnWithinPlayerPickupDelay;
 BSS s16 D_801565A8;
 #endif
 BSS PopupMenu ItemPickupMenu;
-BSS s32 ItemPickupIconID;
+BSS HudElemID ItemPickupIconHID;
 BSS s32 ItemPickupStateDelay;
 BSS s32 ThrowAwayMenuIdx;
 BSS s32 ThrowAwayItemID;
@@ -243,7 +243,7 @@ void reveal_item_entity(ItemEntity* item) {
 void clear_item_entity_data(void) {
     s32 i;
 
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentItemEntities = WorldItemEntities;
     } else {
         gCurrentItemEntities = BattleItemEntities;
@@ -259,11 +259,11 @@ void clear_item_entity_data(void) {
     CoinSparkleCenterZ = 0;
     ItemEntityAlternatingSpawn = 0;
 
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         ItemEntityRenderGroup = 0;
     }
 
-    create_worker_world(NULL, draw_item_entities);
+    create_worker_scene(NULL, draw_item_entities);
     create_worker_frontUI(NULL, draw_ui_item_entities);
     isPickingUpItem = FALSE;
 #if !VERSION_JP
@@ -272,7 +272,7 @@ void clear_item_entity_data(void) {
 }
 
 void init_item_entity_list(void) {
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentItemEntities = WorldItemEntities;
     } else {
         gCurrentItemEntities = BattleItemEntities;
@@ -328,7 +328,7 @@ void item_entity_load(ItemEntity* item) {
                         ASSERT(*gHudElementCacheSize + size < 0x11000);
                         nuPiReadRom((s32)icon_ROM_START + raster, entry->data, size);
                         *gHudElementCacheSize += size;
-                        if (!gGameStatusPtr->isBattle) {
+                        if (gGameStatusPtr->context == CONTEXT_WORLD) {
                             *pos = i;
                         } else {
                             *pos = (u16)(*pos) | (i << 16);
@@ -338,7 +338,7 @@ void item_entity_load(ItemEntity* item) {
                     } else {
                         cond = entry->id == raster;  // TODO required to match
                         if (cond) {
-                            if (!gGameStatusPtr->isBattle) {
+                            if (gGameStatusPtr->context == CONTEXT_WORLD) {
                                 *pos = i;
                             } else {
                                 *pos = (u16)(*pos) | (i << 16);
@@ -361,7 +361,7 @@ void item_entity_load(ItemEntity* item) {
                         ASSERT(*gHudElementCacheSize + 0x20 < 0x11000);
                         nuPiReadRom((s32)icon_ROM_START + palette, entry->data, 0x20);
                         *gHudElementCacheSize += 0x20;
-                        if (!gGameStatusPtr->isBattle) {
+                        if (gGameStatusPtr->context == CONTEXT_WORLD) {
                             *pos = i;
                         } else {
                             *pos = (u16)(*pos) | (i << 16);
@@ -369,7 +369,7 @@ void item_entity_load(ItemEntity* item) {
                         pos++;
                         break;
                     } else if (entry->id == palette) {
-                        if (!gGameStatusPtr->isBattle) {
+                        if (gGameStatusPtr->context == CONTEXT_WORLD) {
                             *pos = i;
                         } else {
                             *pos = (u16)(*pos) | (i << 16);
@@ -792,7 +792,7 @@ void item_entity_update(ItemEntity* entity) {
                 entity->nextUpdate = *args++;
                 *args++;
                 *args++;
-                if (!gGameStatusPtr->isBattle) {
+                if (gGameStatusPtr->context == CONTEXT_WORLD) {
                     entity->lookupRasterIndex  = *args++;
                     entity->lookupPaletteIndex = *args++;
                 } else {
@@ -1376,7 +1376,7 @@ b32 test_item_player_collision(ItemEntity* item) {
     }
 
     hammerHitboxHeight = tmpYTopThreshold;
-    if (get_time_freeze_mode() != TIME_FREEZE_NORMAL) {
+    if (get_time_freeze_mode() != TIME_FREEZE_NONE) {
         return FALSE;
     }
 
@@ -2027,7 +2027,7 @@ void update_item_entity_collectable(ItemEntity* item) {
             D_801565A8 = FALSE;
 #endif
             remove_item_entity_by_reference(item);
-            resume_all_group(EVT_GROUP_02);
+            resume_all_group(EVT_GROUP_FLAG_MENUS);
         }
     }
 
@@ -2143,9 +2143,9 @@ void update_item_entity_pickup(ItemEntity* item) {
                 }
             }
 
-            ItemPickupIconID = hud_element_create(gItemHudScripts[gItemTable[item->itemID].hudElemID].enabled);
-            hud_element_set_flags(ItemPickupIconID, HUD_ELEMENT_FLAG_80);
-            hud_element_set_render_pos(ItemPickupIconID, -100, -100);
+            ItemPickupIconHID = hud_element_create(gItemHudScripts[gItemTable[item->itemID].hudElemID].enabled);
+            hud_element_set_flags(ItemPickupIconHID, HUD_ELEMENT_FLAG_80);
+            hud_element_set_render_pos(ItemPickupIconHID, -100, -100);
             item->state = ITEM_PICKUP_STATE_SHOW_GOT_ITEM;
 
             if (!(item->flags & ITEM_ENTITY_FLAG_2000000)) {
@@ -2355,12 +2355,12 @@ block_47: // TODO required to match
             }
         case ITEM_PICKUP_STATE_DONE:
             if (!(item->flags & ITEM_ENTITY_FLAG_2000000)) {
-                set_time_freeze_mode(TIME_FREEZE_NORMAL);
+                set_time_freeze_mode(TIME_FREEZE_NONE);
                 enable_player_input();
                 partner_enable_input();
                 gOverrideFlags &= ~GLOBAL_OVERRIDES_40;
             }
-            hud_element_free(ItemPickupIconID);
+            hud_element_free(ItemPickupIconHID);
             remove_item_entity_by_reference(item);
             sort_consumables();
             decrement_status_bar_disabled();
@@ -2422,7 +2422,7 @@ block_47: // TODO required to match
                     ThrowAwayMenuIdx = 1;
                 }
                 ThrowAwayItemID = menu->userIndex[ThrowAwayMenuIdx - 1];
-                hud_element_set_script(ItemPickupIconID, menu->ptrIcon[ThrowAwayMenuIdx - 1]);
+                hud_element_set_script(ItemPickupIconHID, menu->ptrIcon[ThrowAwayMenuIdx - 1]);
 
                 get_item_entity(
                     make_item_entity_delayed(
@@ -2461,11 +2461,11 @@ block_47: // TODO required to match
             break;
         case ITEM_PICKUP_STATE_THROW_AWAY_DONE:
             suggest_player_anim_always_forward(ANIM_Mario1_Idle);
-            set_time_freeze_mode(TIME_FREEZE_NORMAL);
+            set_time_freeze_mode(TIME_FREEZE_NONE);
             enable_player_input();
             partner_enable_input();
             gOverrideFlags &= ~GLOBAL_OVERRIDES_40;
-            hud_element_free(ItemPickupIconID);
+            hud_element_free(ItemPickupIconHID);
             remove_item_entity_by_reference(item);
             sort_consumables();
             decrement_status_bar_disabled();
@@ -2676,8 +2676,8 @@ void draw_content_pickup_item_header(ItemEntity* item, s32 posX, s32 posY) {
             } else {
                 draw_msg(itemMsg, posX + X_PICKUP_ITEM_2, posY + Y_PICKUP_ITEM_2, 255, MSG_PAL_2F, 0);
                 if (!(item->pickupMsgFlags & (ITEM_PICKUP_FLAG_1_COIN | ITEM_PICKUP_FLAG_3_STAR_PIECES))) {
-                    hud_element_set_render_pos(ItemPickupIconID, posX + 20, posY + 20);
-                    hud_element_draw_next(ItemPickupIconID);
+                    hud_element_set_render_pos(ItemPickupIconHID, posX + 20, posY + 20);
+                    hud_element_draw_next(ItemPickupIconHID);
                 }
             }
             break;
@@ -2685,8 +2685,8 @@ void draw_content_pickup_item_header(ItemEntity* item, s32 posX, s32 posY) {
         case ITEM_PICKUP_STATE_HIDE_THREW_AWAY:
             set_message_text_var(gItemTable[ThrowAwayItemID].nameMsg, 0);
             draw_msg(MSG_Menus_005F, posX + X_PICKUP_THREW, posY + Y_PICKUP_THREW, 255, MSG_PAL_2F, 0);
-            hud_element_set_render_pos(ItemPickupIconID, posX + 20, posY + 20);
-            hud_element_draw_next(ItemPickupIconID);
+            hud_element_set_render_pos(ItemPickupIconHID, posX + 20, posY + 20);
+            hud_element_draw_next(ItemPickupIconHID);
             break;
     }
 }

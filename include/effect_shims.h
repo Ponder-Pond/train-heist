@@ -21,7 +21,7 @@ b32 shim_npc_raycast_down_sides(s32, f32*, f32*, f32*, f32*);
 s32 shim_load_effect(s32 effectIndex);
 float shim_sqrtf(float value);
 void shim_mdl_draw_hidden_panel_surface(Gfx**, u16 treeIndex);
-s32 shim_is_point_visible(f32, f32, f32, s32, f32*, f32*);
+b32 shim_is_point_visible(f32, f32, f32, s32, f32*, f32*);
 void shim_guPerspectiveF(f32 mf[4][4], u16* perspNorm, f32 fovy, f32 aspect, f32 near, f32 far, f32 scale);
 void shim_transform_point(Matrix4f mtx, f32 inX, f32 inY, f32 inZ, f32 inS, f32* outX, f32* outY, f32* outZ, f32* outW);
 void shim_guPositionF(float mf[4][4], float r, float p, float h, float s, float x, float y, float z);
@@ -37,7 +37,7 @@ void shim_draw_msg(s32, s32, s32, s32, s32, s32);
 s32 shim_get_msg_width(s32, u16);
 void shim_mdl_get_shroud_tint_params(u8* r, u8* g, u8* b, u8* a);
 void shim_sfx_play_sound_at_position(s32 soundID, s32 value2, f32 posX, f32 posY, f32 posZ);
-void shim_is_debug_panic(const char* message, const char* file, u32 line, const char* func);
+void shim_is_debug_panic(const char* message);
 
 #define guRotateF shim_guRotateF
 #define guTranslateF shim_guTranslateF

@@ -286,7 +286,7 @@ EvtScript N(EVS_Idle) = {
 
 EvtScript N(EVS_HandleEvent) = {
     Call(UseIdleAnimation, ACTOR_PARTNER, FALSE)
-    Call(CloseActionCommandInfo)
+    Call(InterruptActionCommand)
     Call(GetLastEvent, ACTOR_PARTNER, LVar0)
     Switch(LVar0)
         CaseOrEq(EVENT_HIT_COMBO)
@@ -465,10 +465,10 @@ EvtScript N(firstStrike) = {
     End
 };
 
-EvtScript N(returnHomeOnMiss) = {
+EvtScript N(EVS_ReturnHome_Miss) = {
     Call(ResetActorSounds, ACTOR_PARTNER, ACTOR_SOUND_WALK)
     Thread
-        Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+        Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
         Wait(30)
         Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     EndThread
@@ -498,9 +498,9 @@ EvtScript N(returnHomeOnMiss) = {
     End
 };
 
-EvtScript N(EVS_ReturnHome) = {
+EvtScript N(EVS_ReturnHome_Success) = {
     Call(ResetActorSounds, ACTOR_PARTNER, ACTOR_SOUND_WALK)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+    Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
     Call(PartnerYieldTurn)
     Call(GetActorPos, ACTOR_PARTNER, LVar0, LVar1, LVar2)
     Sub(LVar0, 30)
@@ -567,11 +567,11 @@ EvtScript N(shellToss) = {
             BreakLoop
         EndIf
     EndLoop
-    Call(action_command_hammer_start, 0, 50 * DT - 3, 3)
-    Call(SetActionQuality, 0)
+    Call(action_command_hammer_start, 0, 50 * DT - 3, AC_DIFFICULTY_3)
+    Call(SetActionProgress, 0)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_KOOPER_SHELL_SPINUP)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_59)
+    Call(UseBattleCamPreset, BTL_CAM_PARTNER_CLOSE_UP)
     Set(LVar9, 0)
     Set(LVar1, 0)
     Loop(50 * DT)
@@ -599,7 +599,7 @@ EvtScript N(shellToss) = {
                 PlayEffect(EFFECT_SMOKE_IMPACT, 1, LVar4, LVar5, LVar6, 32, 4, 0, 10, 0)
         EndSwitch
         Add(LVar9, 1)
-        Call(GetActionQuality, LVar0)
+        Call(GetActionProgress, LVar0)
         IfNe(LVar0, 0)
             IfNe(LVar1, TRUE)
                 Set(LVar1, 1)
@@ -628,12 +628,12 @@ EvtScript N(shellToss) = {
             Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinFastest)
     EndSwitch
     Add(LVar9, 1)
-    Call(GetActionSuccess, LVar0)
+    Call(GetSmashActionQuality, LVar0)
     IfEq(LVar0, 0)
         Goto(0)
     EndIf
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_PARAKARRY_AIR_RAID_1)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(MoveBattleCamOver, 15)
     ExecWait(N(getShellTossMoveTime))
     Call(AddActorDecoration, ACTOR_SELF, PRT_ZERO, 0, ACTOR_DECORATION_GREY_SMOKE_TRAIL)
@@ -680,7 +680,7 @@ EvtScript N(shellToss) = {
         Return
     EndIf
     Call(RemoveActorDecoration, ACTOR_SELF, PRT_ZERO, 0)
-    Call(GetPartnerActionSuccess, LVar0)
+    Call(GetPartnerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(0)
             Call(PartnerDamageEnemy, LVar0, 0, SUPPRESS_EVENTS_KOOPER_DAMAGE, 0, LVarF, BS_FLAGS1_NICE_HIT | BS_FLAGS1_TRIGGER_EVENTS | BS_FLAGS1_INCLUDE_POWER_UPS)
@@ -691,11 +691,11 @@ EvtScript N(shellToss) = {
     Switch(LVar0)
         CaseOrEq(HIT_RESULT_HIT)
         CaseOrEq(HIT_RESULT_NO_DAMAGE)
-            ExecWait(N(EVS_ReturnHome))
+            ExecWait(N(EVS_ReturnHome_Success))
         EndCaseGroup
         CaseOrEq(HIT_RESULT_NICE)
         CaseOrEq(HIT_RESULT_NICE_NO_DAMAGE)
-            ExecWait(N(returnHomeOnMiss))
+            ExecWait(N(EVS_ReturnHome_Miss))
         EndCaseGroup
     EndSwitch
     Return
@@ -736,9 +736,9 @@ EvtScript N(powerShell) = {
             BreakLoop
         EndIf
     EndLoop
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_59)
-    Call(action_command_hammer_start, 0, 47, 3)
-    Call(SetActionQuality, 0)
+    Call(UseBattleCamPreset, BTL_CAM_PARTNER_CLOSE_UP)
+    Call(action_command_hammer_start, 0, 47, AC_DIFFICULTY_3)
+    Call(SetActionProgress, 0)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_KOOPER_SHELL_SPINUP)
     Set(LVar9, 0)
@@ -768,7 +768,7 @@ EvtScript N(powerShell) = {
                 PlayEffect(EFFECT_SMOKE_IMPACT, 1, LVar4, LVar5, LVar6, 32, 4, 0, 10, 0)
         EndSwitch
         Add(LVar9, 1)
-        Call(GetActionQuality, LVar0)
+        Call(GetActionProgress, LVar0)
         IfNe(LVar0, 0)
             IfNe(LVar1, TRUE)
                 Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
@@ -798,13 +798,13 @@ EvtScript N(powerShell) = {
             Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinFastest)
     EndSwitch
     Add(LVar9, 1)
-    Call(GetActionSuccess, LVar0)
+    Call(GetSmashActionQuality, LVar0)
     IfEq(LVar0, 0)
         Goto(0)
     EndIf
     Call(SetActorVar, ACTOR_SELF, AVAR_Unk_0, 0)
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_PARAKARRY_AIR_RAID_2)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(MoveBattleCamOver, 15)
     Set(LVarB, 260)
     DivF(LVarB, LVarA)
@@ -833,16 +833,16 @@ EvtScript N(powerShell) = {
             Goto(12)
         EndIf
         IfEq(LFlag0, FALSE)
-            Call(GetPartnerActionSuccess, LVar0)
+            Call(GetPartnerActionQuality, LVar0)
             Switch(LVar0)
                 CaseGt(0)
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                    Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
                 CaseDefault
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                    Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
             EndSwitch
         EndIf
         Set(LFlag0, TRUE)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(0)
                 Call(PartnerDamageEnemy, LVar0, DAMAGE_TYPE_MULTIPLE_POPUPS, SUPPRESS_EVENTS_KOOPER_DAMAGE, 0, LVarF, BS_FLAGS1_NICE_HIT | BS_FLAGS1_TRIGGER_EVENTS | BS_FLAGS1_INCLUDE_POWER_UPS)
@@ -856,12 +856,12 @@ EvtScript N(powerShell) = {
             Goto(10)
         EndIf
     IfEq(LFlag0, FALSE)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(0)
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
             CaseDefault
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
         EndSwitch
     EndIf
     Label(11)
@@ -870,12 +870,12 @@ EvtScript N(powerShell) = {
             Wait(1)
             Goto(11)
         EndIf
-    Call(GetPartnerActionSuccess, LVar0)
+    Call(GetPartnerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(0)
-            ExecWait(N(EVS_ReturnHome))
+            ExecWait(N(EVS_ReturnHome_Success))
         CaseDefault
-            ExecWait(N(returnHomeOnMiss))
+            ExecWait(N(EVS_ReturnHome_Miss))
     EndSwitch
     Return
     End
@@ -897,14 +897,14 @@ EvtScript N(dizzyShell) = {
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_NONE)
     Wait(15)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_59)
+    Call(UseBattleCamPreset, BTL_CAM_PARTNER_CLOSE_UP)
     Call(MoveBattleCamOver, 75 * DT)
     Set(LVarD, 75 * DT)
     Set(LVarA, LVarD)
     Add(LVarA, -3)
-    Call(battle_partner_kooper_AverageTargetDizzyChance)
-    Call(action_command_dizzy_shell_start, 0, LVarA, 3, LVar0)
-    Call(SetActionQuality, 0)
+    Call(N(AverageTargetDizzyChance))
+    Call(action_command_dizzy_shell_start, 0, LVarA, AC_DIFFICULTY_3, LVar0)
+    Call(SetActionProgress, 0)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_KOOPER_SHELL_SPINUP)
     Set(LVar9, 0)
@@ -915,7 +915,7 @@ EvtScript N(dizzyShell) = {
     Set(LVar9, 1)
     Loop(LVarD)
         Wait(1)
-        Call(GetActionQuality, LVar0)
+        Call(GetActionProgress, LVar0)
         Switch(LVar0)
             CaseLt(20 * DT)
                 Set(LVarA, Float(10.0))
@@ -946,7 +946,7 @@ EvtScript N(dizzyShell) = {
         EndSwitch
     EndLoop
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_DIZZY_SHELL_LAUNCH)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(MoveBattleCamOver, 15)
     Set(LVarB, 300)
     DivF(LVarB, LVarA)
@@ -988,17 +988,17 @@ EvtScript N(dizzyShell) = {
             Goto(12)
         EndIf
         IfEq(LFlag0, FALSE)
-            Call(GetPartnerActionSuccess, LVar0)
+            Call(GetPartnerActionQuality, LVar0)
             Switch(LVar0)
                 CaseGt(99)
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                    Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
                 CaseDefault
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                    Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
             EndSwitch
         EndIf
         Set(LFlag0, TRUE)
-        Call(GetActionQuality, LVarF)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetActionProgress, LVarF)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(0)
                 IfEq(LVar9, 1)
@@ -1025,12 +1025,12 @@ EvtScript N(dizzyShell) = {
             Goto(10)
         EndIf
     IfEq(LFlag0, FALSE)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(99)
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
             CaseDefault
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
         EndSwitch
     EndIf
     Label(11)
@@ -1069,12 +1069,12 @@ EvtScript N(fireShell) = {
     Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_NONE)
     Wait(15)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_59)
+    Call(UseBattleCamPreset, BTL_CAM_PARTNER_CLOSE_UP)
     Call(MoveBattleCamOver, 75 * DT)
     Set(LVarD, 75 * DT)
     Set(LVarC, LVarD)
     Add(LVarC, -3)
-    Call(action_command_fire_shell_start, 0, LVarC, 3)
+    Call(action_command_fire_shell_start, 0, LVarC, AC_DIFFICULTY_3)
     Call(SetActorVar, ACTOR_SELF, AVAR_Unk_1, 0)
     Set(LVarA, Float(8.0))
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
@@ -1093,7 +1093,7 @@ EvtScript N(fireShell) = {
     Set(LVar9, 30)
     Loop(LVarD)
         Wait(1)
-        Call(GetActionQuality, LVar0)
+        Call(GetActionProgress, LVar0)
         Switch(LVar0)
             CaseGe(80 * DT)
                 Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinFastest)
@@ -1168,18 +1168,18 @@ EvtScript N(fireShell) = {
     Switch(LVarE)
         CaseOrEq(0)
         CaseOrEq(1)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+            Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
             Call(MoveBattleCamOver, 50)
             SetF(LVarA, Float(10.0))
         EndCaseGroup
         CaseOrEq(2)
         CaseOrEq(3)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+            Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
             Call(MoveBattleCamOver, 30)
             SetF(LVarA, Float(10.0))
         EndCaseGroup
         CaseEq(4)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+            Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
             Call(MoveBattleCamOver, 15)
             SetF(LVarA, Float(16.0))
     EndSwitch
@@ -1234,17 +1234,17 @@ EvtScript N(fireShell) = {
             Goto(12)
         EndIf
         IfEq(LFlag0, FALSE)
-            Call(GetPartnerActionSuccess, LVar0)
+            Call(GetPartnerActionQuality, LVar0)
             Switch(LVar0)
                 CaseGt(99)
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                    Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
                 CaseDefault
-                    Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                    Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
             EndSwitch
         EndIf
         Set(LFlag0, TRUE)
-        Call(GetActionQuality, LVar0)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetActionProgress, LVar0)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(99)
                 Call(PartnerDamageEnemy, LVar0, DAMAGE_TYPE_FIRE | DAMAGE_TYPE_MULTIPLE_POPUPS, SUPPRESS_EVENTS_KOOPER_DAMAGE, 0, LVarF, BS_FLAGS1_NICE_HIT | BS_FLAGS1_TRIGGER_EVENTS | BS_FLAGS1_INCLUDE_POWER_UPS)
@@ -1258,12 +1258,12 @@ EvtScript N(fireShell) = {
             Goto(10)
         EndIf
     IfEq(LFlag0, FALSE)
-        Call(GetPartnerActionSuccess, LVar0)
+        Call(GetPartnerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(99)
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_04)
+                Call(UseBattleCamPreset, BTL_CAM_RETURN_HOME)
             CaseDefault
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_51)
+                Call(UseBattleCamPreset, BTL_CAM_PARTNER_MISTAKE)
         EndSwitch
     EndIf
     Label(11)
@@ -1291,7 +1291,7 @@ EvtScript N(shellTossOnFirstStrike) = {
     Add(LVar0, 60)
     Call(SetActorPos, ACTOR_PARTNER, LVar0, LVar1, LVar2)
     Call(InitTargetIterator)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(MoveBattleCamOver, 15)
     Call(SetAnimation, ACTOR_PARTNER, -1, ANIM_BattleKooper_ShellSpinSlowest)
     Call(SetGoalToTarget, ACTOR_PARTNER)
@@ -1356,7 +1356,7 @@ EvtScript N(shellTossOnFirstStrike) = {
         CaseEq(MOVE_SHELL_TOSS3)
             Call(PlaySoundAtActor, ACTOR_PARTNER, SOUND_NONE)
     EndSwitch
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(GetGoalPos, ACTOR_PARTNER, LVar0, LVar1, LVar2)
     Sub(LVar0, 40)
     Set(LVar1, 0)

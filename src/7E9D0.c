@@ -11,9 +11,12 @@
 #include "sprite/npc/WorldClubba.h"
 #include "sprite/npc/WorldKoopatrol.h"
 #include "sprite/npc/HammerBros.h"
-
-//TODO memory layout?
-#define PLAYER_ACTION_VRAM_DEF texture_memory_VRAM_END
+#ifdef SHIFT
+extern Addr world_action_CLASS_VRAM;
+#define PLAYER_ACTION_VRAM_DEF world_action_CLASS_VRAM
+#else
+#define PLAYER_ACTION_VRAM_DEF (void*) 0x802B6000
+#endif
 
 void* LastLoadedActionOffset;
 s32 PeachDisguiseReapplyDelay;
@@ -41,7 +44,6 @@ void phys_set_landing_adjust_cam_check(s32 (*funcPtr)(void)) {
 }
 
 s32 phys_adjust_cam_on_landing(void) {
-    PlayerStatus* playerStatus = &gPlayerStatus;
     s32 ret = LANDING_CAM_CHECK_SURFACE;
 
     if (LandingAdjustCamCallback != NULL) {
@@ -628,7 +630,7 @@ s32 peach_disguise_check_overlaps(void) {
         f32 x = playerStatus->pos.x + (dx * radius);
         f32 y = playerStatus->pos.y + 4.0f;
         f32 z = playerStatus->pos.z - (dy * radius);
-        hitID = player_test_lateral_overlap(PLAYER_COLLISION_3, playerStatus, &x, &y, &z, 4.0f, yaw);
+        hitID = player_test_lateral_overlap(PLAYER_COLLISION_HAMMER, playerStatus, &x, &y, &z, 4.0f, yaw);
         if (hitID > NO_COLLIDER) {
             break;
         }

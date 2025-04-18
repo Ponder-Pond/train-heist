@@ -330,11 +330,9 @@ HitID player_raycast_up_corner(f32* x, f32* y, f32* z, f32* length) {
     f32 hitNy;
     f32 hitNz;
     s32 hitID;
-    Entity* entity;
     s32 ret;
     f32 sx, sy, sz;
     f32 sx2, sy2, sz2;
-    f32 startX, startY, startZ;
 
     ret = NO_COLLIDER;
 
@@ -406,7 +404,7 @@ HitID player_test_lateral_overlap(s32 mode, PlayerStatus* playerStatus, f32* x, 
     hitDepth = length + radius;
     hitID = player_raycast_general(mode, *x, *y + height, *z, sinTheta, 0, cosTheta, &hitX, &hitY, &hitZ, &hitDepth, &hitNx, &hitNy, &hitNz);
 
-    if (mode == 3) {
+    if (mode == PLAYER_COLLISION_HAMMER) {
         targetDx = 0.0f;
         targetDz = 0.0f;
     } else {
@@ -460,12 +458,12 @@ HitID player_raycast_general(s32 mode, f32 startX, f32 startY, f32 startZ, f32 d
         } else {
             ret = entityID | COLLISION_WITH_ENTITY_BIT;
         }
-    } else if (mode == PLAYER_COLLISION_3) {
+    } else if (mode == PLAYER_COLLISION_HAMMER) {
         ret = test_ray_colliders(COLLIDER_FLAG_IGNORE_SHELL, startX, startY, startZ, dirX, dirY, dirZ,
             hitX, hitY, hitZ, hitDepth, hitNx, hitNy, hitNz);
     }
 
-    if (mode == PLAYER_COLLISION_1 || mode == PLAYER_COLLISION_3) {
+    if (mode == PLAYER_COLLISION_1 || mode == PLAYER_COLLISION_HAMMER) {
         return ret;
     }
 
@@ -738,10 +736,16 @@ void check_input_use_partner(void) {
 
 void phys_update_standard(void) {
     PlayerStatus* playerStatus = &gPlayerStatus;
-    s32 flags;
 
     check_input_use_partner();
     phys_update_action_state();
+
+    #if DX_DEBUG_MENU
+        if (dx_debug_is_cheat_enabled(DEBUG_CHEAT_FLY) && playerStatus->curButtons & BUTTON_L) {
+            playerStatus->pos.y += 5.0f;
+            playerStatus->flags |= PS_FLAG_JUMPING;
+        }
+    #endif
 
     if (!(playerStatus->flags & PS_FLAG_FLYING)) {
         if (playerStatus->flags & PS_FLAG_JUMPING) {
@@ -1057,7 +1061,6 @@ void clear_ispy_icon(void) {
 
 /// unavoidable use of hardcoded map and area IDs
 void check_for_pulse_stone(void) {
-    PlayerStatus* playerStatus = &gPlayerStatus;
     s32 dx, dy;
 
     if (PulseStoneNotificationCallback == NULL) {
@@ -1065,7 +1068,7 @@ void check_for_pulse_stone(void) {
             return;
         }
 
-        if (gGameStatusPtr->areaID != AREA_SBK || gGameStatusPtr->isBattle) {
+        if (gGameStatusPtr->areaID != AREA_SBK || gGameStatusPtr->context != CONTEXT_WORLD) {
             return;
         }
 
@@ -1111,7 +1114,7 @@ s32 has_valid_conversation_npc(void) {
     s32 ret = FALSE;
     s32 cond;
 
-    if (npc != NULL && !(npc->flags & NPC_FLAG_10000000)) {
+    if (npc != NULL && !(npc->flags & NPC_FLAG_USE_INSPECT_ICON)) {
         cond = !(playerStatus->flags & PS_FLAG_INPUT_DISABLED) && (playerStatus->flags & PS_FLAG_HAS_CONVERSATION_NPC);
         ret = cond;
     }
@@ -1171,7 +1174,7 @@ s32 func_800E06D8(void) {
     if (playerStatus->flags & PS_FLAG_HAS_CONVERSATION_NPC
         && !(playerStatus->flags & PS_FLAG_INPUT_DISABLED)
         && playerStatus->encounteredNPC != NULL
-        && playerStatus->encounteredNPC->flags & NPC_FLAG_10000000
+        && playerStatus->encounteredNPC->flags & NPC_FLAG_USE_INSPECT_ICON
     ) {
         playerStatus->interactingWithID = NO_COLLIDER;
         return TRUE;
@@ -1245,7 +1248,7 @@ void check_for_interactables(void) {
                 (!(playerStatus->flags & PS_FLAG_INPUT_DISABLED))
                 && (playerStatus->flags & PS_FLAG_HAS_CONVERSATION_NPC)
                 && (npc != NULL)
-                && (npc->flags & NPC_FLAG_10000000)
+                && (npc->flags & NPC_FLAG_USE_INSPECT_ICON)
             ) {
                 curInteraction = npc->npcID | COLLISION_WITH_NPC_BIT;
                 if (playerStatus->interactingWithID == curInteraction) {
@@ -1283,7 +1286,7 @@ void check_for_interactables(void) {
         }
 
         playerStatus->interactingWithID = curInteraction;
-        if (!collidingWithEntity || curInteraction > NO_COLLIDER && get_entity_by_index(curInteraction)->flags & ENTITY_FLAG_SHOWS_INSPECT_PROMPT) {
+        if (!collidingWithEntity || (curInteraction > NO_COLLIDER && get_entity_by_index(curInteraction)->flags & ENTITY_FLAG_SHOWS_INSPECT_PROMPT)) {
             if (playerStatus->actionState == ACTION_STATE_IDLE || playerStatus->actionState == ACTION_STATE_WALK || playerStatus->actionState == ACTION_STATE_RUN) {
                 playerStatus->animFlags |= PA_FLAG_INTERACT_PROMPT_AVAILABLE;
                 func_800EF3D4(2);
@@ -1326,7 +1329,7 @@ void clear_interact_prompt(void) {
 void update_partner_timers(void) {
     PlayerData* playerData = &gPlayerData;
 
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         s32 i;
 
         for (i = 1; i < ARRAY_COUNT(playerData->partnerUnlockedTime); i++) {
@@ -1690,7 +1693,6 @@ void update_player_shadow(void) {
     f32 hitRx, hitRz;
     f32 x, y, z;
     f32 playerX, playerZ;
-    s32 dist;
     f32 raycastYaw;
 
     if (playerStatus->spriteFacingAngle >= 90.0f && playerStatus->spriteFacingAngle < 270.0f) {

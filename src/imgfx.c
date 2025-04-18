@@ -3,7 +3,6 @@
 #include "sprite.h"
 #include "imgfx.h"
 
-
 #if VERSION_JP // TODO remove once segments are split
 extern Addr imgfx_data_ROM_START;
 #endif
@@ -487,7 +486,6 @@ void imgfx_init_instance(ImgFXState* state) {
 void imgfx_update(u32 idx, ImgFXType type, s32 imgfxArg1, s32 imgfxArg2, s32 imgfxArg3, s32 imgfxArg4, s32 flags) {
     ImgFXState* state = &(*ImgFXInstances)[idx];
     s32 oldFlags;
-    s32 t1;
     u8 r, g, b, a;
 
     if (!(state->flags & IMGFX_FLAG_VALID) || (idx >= MAX_IMGFX_INSTANCES)) {
@@ -686,6 +684,8 @@ void imgfx_update(u32 idx, ImgFXType type, s32 imgfxArg1, s32 imgfxArg2, s32 img
             }
             state->floats.overlay.posX = 0.0f;
             state->floats.overlay.posY = 0.0f;
+            break;
+        case IMGFX_CLEAR:
             break;
     }
 }
@@ -1513,7 +1513,7 @@ void imgfx_appendGfx_mesh_basic(ImgFXState* state, Matrix4f mtx) {
                 ) {
                     cam = &gCameras[gCurrentCamID];
 
-                    if (gGameStatusPtr->isBattle == 2) {
+                    if (gGameStatusPtr->context == CONTEXT_PAUSE) {
                         gSPViewport(gMainGfxPos++, &D_8014EE50);
                     } else {
                         gSPViewport(gMainGfxPos++, &cam->vpAlt);
@@ -1552,7 +1552,7 @@ void imgfx_appendGfx_mesh_basic(ImgFXState* state, Matrix4f mtx) {
                     alpha2 = 255;
                     cam = &gCameras[gCurrentCamID];
 
-                    if (gGameStatusPtr->isBattle == 2) {
+                    if (gGameStatusPtr->context == CONTEXT_PAUSE) {
                         gSPViewport(gMainGfxPos++, &D_8014EE50);
                     } else {
                         gSPViewport(gMainGfxPos++, &cam->vpAlt);
@@ -1607,7 +1607,7 @@ void imgfx_appendGfx_mesh_basic(ImgFXState* state, Matrix4f mtx) {
             && (state->flags & someFlags)
         ) {
             cam = &gCameras[gCurrentCamID];
-            if (gGameStatusPtr->isBattle == 2) {
+            if (gGameStatusPtr->context == CONTEXT_PAUSE) {
                 gSPViewport(gMainGfxPos++, &D_8014EE40);
                 D_8014EE50.vp.vtrans[0] = D_8014EE40.vp.vtrans[0] + gGameStatusPtr->altViewportOffset.x;
                 D_8014EE50.vp.vtrans[1] = D_8014EE40.vp.vtrans[1] + gGameStatusPtr->altViewportOffset.y;

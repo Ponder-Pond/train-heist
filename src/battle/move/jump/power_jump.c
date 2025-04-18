@@ -6,9 +6,9 @@
 
 #include "battle/common/move/JumpSupport.inc.c"
 
-extern EvtScript N(EVS_UseMove_ImplA);
-extern EvtScript N(EVS_UseMove_ImplB);
-extern EvtScript N(EVS_UseMove_ImplC);
+extern EvtScript N(EVS_UseMove_Basic);
+extern EvtScript N(EVS_UseMove_Super);
+extern EvtScript N(EVS_UseMove_Ultra);
 
 EvtScript N(EVS_UseMove) = {
     Call(EnablePlayerBlur, ACTOR_BLUR_ENABLE)
@@ -16,11 +16,11 @@ EvtScript N(EVS_UseMove) = {
     Call(GetMenuSelection, LVar0, LVar1, LVar2)
     Switch(LVar1)
         CaseEq(0)
-            ExecWait(N(EVS_UseMove_ImplA))
+            ExecWait(N(EVS_UseMove_Basic))
         CaseEq(1)
-            ExecWait(N(EVS_UseMove_ImplB))
+            ExecWait(N(EVS_UseMove_Super))
         CaseEq(2)
-            ExecWait(N(EVS_UseMove_ImplC))
+            ExecWait(N(EVS_UseMove_Ultra))
     EndSwitch
     Call(EnablePlayerBlur, ACTOR_BLUR_DISABLE)
     Return
@@ -39,8 +39,8 @@ EvtScript N(EVS_802A26B4) = {
     End
 };
 
-EvtScript N(EVS_UseMove_ImplA) = {
-    ExecWait(N(EVS_JumpSupport_InitCommand))
+EvtScript N(EVS_UseMove_Basic) = {
+    ExecWait(N(EVS_JumpSupport_ApproachAndJump))
     Call(PlayerTestEnemy, LVar0, DAMAGE_TYPE_JUMP, 0, 0, 1, 0)
     IfEq(LVar0, HIT_RESULT_MISS)
         ExecWait(N(EVS_JumpSupport_Miss))
@@ -48,7 +48,7 @@ EvtScript N(EVS_UseMove_ImplA) = {
     EndIf
     ExecWait(N(EVS_802A26B4))
     Wait(1)
-    Call(GetPlayerActionSuccess, LVar0)
+    Call(GetPlayerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(FALSE)
             Call(SetActorSounds, ACTOR_PLAYER, ACTOR_SOUND_HURT, SOUND_ACTOR_JUMPED_1, SOUND_NONE)
@@ -59,16 +59,16 @@ EvtScript N(EVS_UseMove_ImplA) = {
     EndSwitch
     Switch(LVar0)
         CaseGt(HIT_RESULT_HIT)
-            ExecWait(N(EVS_JumpSupport_E))
+            ExecWait(N(EVS_JumpSupport_Rebound))
         CaseDefault
-            ExecWait(N(EVS_JumpSupport_F))
+            ExecWait(N(EVS_JumpSupport_WeakRebound))
     EndSwitch
     Return
     End
 };
 
-EvtScript N(EVS_UseMove_ImplB) = {
-    ExecWait(N(EVS_JumpSupport_InitCommand))
+EvtScript N(EVS_UseMove_Super) = {
+    ExecWait(N(EVS_JumpSupport_ApproachAndJump))
     Call(PlayerTestEnemy, LVar0, DAMAGE_TYPE_JUMP, 0, 0, 1, 0)
     IfEq(LVar0, HIT_RESULT_MISS)
         ExecWait(N(EVS_JumpSupport_Miss))
@@ -76,7 +76,7 @@ EvtScript N(EVS_UseMove_ImplB) = {
     EndIf
     ExecWait(N(EVS_802A26B4))
     Wait(1)
-    Call(GetPlayerActionSuccess, LVar0)
+    Call(GetPlayerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(FALSE)
             Call(SetActorSounds, ACTOR_PLAYER, ACTOR_SOUND_HURT, SOUND_ACTOR_JUMPED_2, SOUND_NONE)
@@ -87,16 +87,16 @@ EvtScript N(EVS_UseMove_ImplB) = {
     EndSwitch
     Switch(LVar0)
         CaseGt(HIT_RESULT_HIT)
-            ExecWait(N(EVS_JumpSupport_E))
+            ExecWait(N(EVS_JumpSupport_Rebound))
         CaseDefault
-            ExecWait(N(EVS_JumpSupport_F))
+            ExecWait(N(EVS_JumpSupport_WeakRebound))
     EndSwitch
     Return
     End
 };
 
-EvtScript N(EVS_UseMove_ImplC) = {
-    ExecWait(N(EVS_JumpSupport_InitCommand))
+EvtScript N(EVS_UseMove_Ultra) = {
+    ExecWait(N(EVS_JumpSupport_ApproachAndJump))
     Call(PlayerTestEnemy, LVar0, DAMAGE_TYPE_JUMP, 0, 0, 1, 0)
     IfEq(LVar0, HIT_RESULT_MISS)
         ExecWait(N(EVS_JumpSupport_Miss))
@@ -104,7 +104,7 @@ EvtScript N(EVS_UseMove_ImplC) = {
     EndIf
     ExecWait(N(EVS_802A26B4))
     Wait(1)
-    Call(GetPlayerActionSuccess, LVar0)
+    Call(GetPlayerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(FALSE)
             Call(SetActorSounds, ACTOR_PLAYER, ACTOR_SOUND_HURT, SOUND_ACTOR_JUMPED_3, SOUND_NONE)
@@ -115,9 +115,9 @@ EvtScript N(EVS_UseMove_ImplC) = {
     EndSwitch
     Switch(LVar0)
         CaseGt(HIT_RESULT_HIT)
-            ExecWait(N(EVS_JumpSupport_E))
+            ExecWait(N(EVS_JumpSupport_Rebound))
         CaseDefault
-            ExecWait(N(EVS_JumpSupport_F))
+            ExecWait(N(EVS_JumpSupport_WeakRebound))
     EndSwitch
     Return
     End

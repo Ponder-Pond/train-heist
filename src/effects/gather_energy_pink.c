@@ -28,7 +28,7 @@ void gather_energy_pink_main(s32 type, f32 posX, f32 posY, f32 posZ, f32 scale, 
     bp.unk_00 = 0;
     bp.init = gather_energy_pink_init;
     bp.update = gather_energy_pink_update;
-    bp.renderWorld = gather_energy_pink_render;
+    bp.renderScene = gather_energy_pink_render;
     bp.renderUI = NULL;
     bp.effectID = EFFECT_GATHER_ENERGY_PINK;
 
@@ -117,7 +117,7 @@ void gather_energy_pink_update(EffectInstance* effect) {
         part->unk_1C += (part->unk_20 + sin_deg(unk_28 * 10) * 0.1 * part->unk_20 - part->unk_1C) * 0.3;
     }
 
-    transform_point(&gCameras[gCurrentCameraID].perspectiveMatrix[0], part->posA.x, part->posA.y, part->posA.z, 1.0f, &sp28, &sp2C, &sp30, &sp34);
+    transform_point(&gCameras[gCurrentCameraID].mtxPerspective[0], part->posA.x, part->posA.y, part->posA.z, 1.0f, &sp28, &sp2C, &sp30, &sp34);
 
     sp34 = 1.0f / sp34;
     sp28 *= sp34;
@@ -172,7 +172,7 @@ void gather_energy_pink_appendGfx(void* effect) {
     s32 i;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
     gSPDisplayList(gMainGfxPos++, dlist);
 
     guTranslateF(sp20, part->posB.x, part->posB.y, part->posB.z);

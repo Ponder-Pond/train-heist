@@ -21,7 +21,7 @@ FlamePreset FlamePresets[] = {
         .colorScale = { 255, 109, 255 },
         .keyCenter = 92,
         .envColor = { 102, 191, 255 },
-        .primIntensity = 75, 
+        .primIntensity = 75,
         .sizeScale = 50,
         .dlist = D_09000800_3543B0,
     },
@@ -29,7 +29,7 @@ FlamePreset FlamePresets[] = {
         .colorScale = { 255, 255, 255 },
         .keyCenter = 0,
         .envColor = { 255, 32, 0 },
-        .primIntensity = 75, 
+        .primIntensity = 75,
         .sizeScale = 100,
         .dlist = D_09000800_3543B0,
     },
@@ -37,7 +37,7 @@ FlamePreset FlamePresets[] = {
         .colorScale = { 255, 0, 255 },
         .keyCenter = 92,
         .envColor = { 107, 168, 255 },
-        .primIntensity = 75, 
+        .primIntensity = 75,
         .sizeScale = 10,
         .dlist = D_09000800_3543B0,
     },
@@ -45,13 +45,13 @@ FlamePreset FlamePresets[] = {
         .colorScale = { 255, 255, 255 },
         .keyCenter = 244,
         .envColor = { 247, 175, 175 },
-        .primIntensity = 22, 
+        .primIntensity = 22,
         .sizeScale = 30,
         .dlist = D_09000800_3543B0,
     },
 };
 
-s32 LastFlameRenderFrame;
+s32 LastFlameRenderFrame = 0;
 
 void flame_init(EffectInstance* effect);
 void flame_update(EffectInstance* effect);
@@ -78,7 +78,7 @@ void flame_main(
 
     bpPtr->init = flame_init;
     bpPtr->update = flame_update;
-    bpPtr->renderWorld = flame_render;
+    bpPtr->renderScene = flame_render;
     bpPtr->unk_00 = 0;
     bpPtr->renderUI = NULL;
     bpPtr->effectID = EFFECT_FLAME;
@@ -143,7 +143,7 @@ void flame_render(EffectInstance* effect) {
     f32 outZ;
     f32 outW;
 
-    transform_point(gCameras[gCurrentCameraID].perspectiveMatrix, data->pos.x, data->pos.y, data->pos.z, 1.0f,
+    transform_point(gCameras[gCurrentCameraID].mtxPerspective, data->pos.x, data->pos.y, data->pos.z, 1.0f,
                          &outX, &outY, &outZ, &outW);
 
     outDist = outZ + 5000;
@@ -177,7 +177,7 @@ void flame_appendGfx(void* effect) {
     Matrix4f sp98;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
 
     if (LastFlameRenderFrame != gGameStatusPtr->frameCounter) {
         LastFlameRenderFrame = gGameStatusPtr->frameCounter;

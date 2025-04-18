@@ -92,11 +92,10 @@ Gfx N(displayList)[] = {
 
 EntityModelScript N(modelCommandList) = STANDARD_ENTITY_MODEL_SCRIPT(N(displayList), RENDER_MODE_ALPHATEST);
 
-
 EvtScript N(EVS_UseItem) = {
     SetConst(LVarA, ITEM_INSECTICIDE_HERB)
     ExecWait(N(UseItemWithEffect))
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_03)
+    Call(UseBattleCamPreset, BTL_CAM_VIEW_ENEMIES)
     Call(MoveBattleCamOver, 15)
     Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Throw)
     Call(PlaySound, SOUND_THROW)

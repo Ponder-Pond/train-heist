@@ -3,11 +3,14 @@
 #include "hud_element.h"
 #include "model.h"
 #include "pause/pause_common.h"
+#include "inventory.h"
 
+#if !VERSION_JP
 extern u8 MessagePlural[];
 extern u8 MessageSingular[];
-extern HudScript HES_ItemCoin;
+#endif
 
+extern HudScript HES_ItemCoin;
 void create_shop_popup_menu(PopupMenu* popup);
 
 s32 shop_get_sell_price(s32 itemID);
@@ -100,6 +103,7 @@ s32 shop_owner_buy_dialog(s32 messageIndex, s32 itemName, s32 coinCost, s32 bpCo
 
     if (bpCost > 0) {
         set_message_int_var(bpCost, 2);
+#if !VERSION_JP
     } else {
         if (coinCost == 1) {
             suffix = MessageSingular;
@@ -107,6 +111,7 @@ s32 shop_owner_buy_dialog(s32 messageIndex, s32 itemName, s32 coinCost, s32 bpCo
             suffix = MessagePlural;
         }
         set_message_text_var((s32) suffix, 2);
+#endif
     }
 
     script = start_script(&EVS_ShopBeginSpeech, EVT_PRIORITY_1, 0);
@@ -139,6 +144,7 @@ s32 shop_owner_continue_speech_with_quantity(s32 messageIndex, s32 amount) {
 
     set_message_int_var(amount, 0);
 
+#if !VERSION_JP
     if (amount == 1) {
         suffixMsg = MessageSingular;
     } else {
@@ -146,6 +152,7 @@ s32 shop_owner_continue_speech_with_quantity(s32 messageIndex, s32 amount) {
     }
 
     set_message_text_var((s32) suffixMsg, 1);
+#endif
 
     script = start_script(&EVS_ShopContinueSpeech, EVT_PRIORITY_1, 0);
     script->varTable[0] = shopMsgID;
@@ -811,7 +818,7 @@ void draw_shop_items(void) {
             inY = shopItemEntities->pos.y + 30.0f;
             inZ = shopItemEntities->pos.z;
 
-            transform_point(camera->perspectiveMatrix, inX, inY, inZ, 1.0f, &x, &y, &z, &s);
+            transform_point(camera->mtxPerspective, inX, inY, inZ, 1.0f, &x, &y, &z, &s);
 
             s = 1.0f / s;
 
@@ -834,9 +841,9 @@ void draw_shop_items(void) {
                 }
 
                 if (i == shop->curItemSlot) {
-                    hud_element_set_render_pos(shop->costIconID, (xTemp + xOffset) - 6, yTemp + 5);
-                    hud_element_set_scale(shop->costIconID, 0.7f);
-                    hud_element_draw_clipped(shop->costIconID);
+                    hud_element_set_render_pos(shop->costHID, (xTemp + xOffset) - 6, yTemp + 5);
+                    hud_element_set_scale(shop->costHID, 0.7f);
+                    hud_element_draw_clipped(shop->costHID);
                 }
             }
         }
@@ -929,12 +936,16 @@ API_CALLABLE(MakeShop) {
         numShopItems++;
     }
 
-    shop->costIconID = hud_element_create(&HES_ItemCoin);
-    hud_element_set_flags(shop->costIconID, HUD_ELEMENT_FLAG_80);
-    hud_element_clear_flags(shop->costIconID, HUD_ELEMENT_FLAG_FILTER_TEX);
+    shop->costHID = hud_element_create(&HES_ItemCoin);
+    hud_element_set_flags(shop->costHID, HUD_ELEMENT_FLAG_80);
+    hud_element_clear_flags(shop->costHID, HUD_ELEMENT_FLAG_FILTER_TEX);
     get_worker(create_worker_frontUI(NULL, draw_shop_items));
     set_window_properties(WIN_SHOP_ITEM_NAME, 100, 66, 120, 28, WINDOW_PRIORITY_0, shop_draw_item_name, NULL, -1);
+#if VERSION_JP
+    set_window_properties(WIN_SHOP_ITEM_DESC, 39, 184, 242, 32, WINDOW_PRIORITY_1, shop_draw_item_desc, NULL, -1);
+#else
     set_window_properties(WIN_SHOP_ITEM_DESC, 32, 184, 256, 32, WINDOW_PRIORITY_1, shop_draw_item_desc, NULL, -1);
+#endif
     gWindowStyles[10].defaultStyleID = WINDOW_STYLE_9;
     gWindowStyles[11].defaultStyleID = WINDOW_STYLE_3;
     shop->curItemSlot = 0;

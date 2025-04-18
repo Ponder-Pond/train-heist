@@ -186,7 +186,7 @@ API_CALLABLE(N(CreateRitualCards)) {
     imgfx_update(imgfxIdx, IMGFX_SET_ANIM, IMGFX_ANIM_FLIP_CARD_3, 1, 1, 0, IMGFX_FLAG_800);
     evt_set_variable(script, RITUAL_VAR_FILP3_IMGFX, imgfxIdx);
 
-    evt_set_variable(script, RITUAL_VAR_WORKER, create_worker_world(
+    evt_set_variable(script, RITUAL_VAR_WORKER, create_worker_scene(
         N(card_worker_update),
         N(card_worker_render)));
     return ApiStatus_DONE2;
@@ -343,7 +343,6 @@ void N(card_worker_update)(void) {
             N(RitualCards)[1].spriteID = 1;
             N(RitualCards)[1].rasterIndex = 48;
             N(RitualCards)[1].xoffset = 0;
-
 
             N(RitualCards)[2].spriteID = 8;
             N(RitualCards)[2].rasterIndex = 5;
@@ -742,25 +741,24 @@ EvtScript N(EVS_PerformRitual) = {
 
 EvtScript N(EVS_BeginMerleeCamera) = {
     Call(GetNpcPos, NPC_Merlee, LVar0, LVar1, LVar2)
-    Call(UseSettingsFrom, 0, LVar0, LVar1, LVar2)
-    Call(SetCamDistance, 0, 200)
-    Call(SetPanTarget, 0, LVar0, LVar1, LVar2)
-    Call(SetCamSpeed, 0, Float(8.0))
-    Call(SetCamPitch, 0, 20, -15)
-    Call(PanToTarget, 0, 0, 1)
-    Call(WaitForCam, 0, Float(1.0))
+    Call(UseSettingsFrom, CAM_DEFAULT, LVar0, LVar1, LVar2)
+    Call(SetCamDistance, CAM_DEFAULT, 200)
+    Call(SetPanTarget, CAM_DEFAULT, LVar0, LVar1, LVar2)
+    Call(SetCamSpeed, CAM_DEFAULT, Float(8.0))
+    Call(SetCamPitch, CAM_DEFAULT, 20, -15)
+    Call(PanToTarget, CAM_DEFAULT, 0, TRUE)
+    Call(WaitForCam, CAM_DEFAULT, Float(1.0))
     Return
     End
 };
 
 EvtScript N(EVS_EndMerleeCamera) = {
-    Call(PanToTarget, 0, 0, 0)
-    Call(SetCamSpeed, 0, Float(3.0))
-    Call(WaitForCam, 0, Float(1.0))
+    Call(PanToTarget, CAM_DEFAULT, 0, FALSE)
+    Call(SetCamSpeed, CAM_DEFAULT, Float(3.0))
+    Call(WaitForCam, CAM_DEFAULT, Float(1.0))
     Return
     End
 };
-
 
 EvtScript N(EVS_NpcInteract_Merlee) = {
     Call(func_802D2C14, 1)

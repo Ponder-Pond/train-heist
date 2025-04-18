@@ -333,7 +333,6 @@ s32 N(IdleHeadAngles)[] = {
     255,            255,            255
 };
 
-
 EvtScript N(EVS_AnimBowser_IdleHead) = {
     UseArray(FakeBowserAnimState)
     UseFBuf(Ref(N(IdleHeadAngles)))
@@ -450,7 +449,7 @@ EvtScript N(EVS_AnimBowser_DeathMain) = {
     UseArray(FakeBowserAnimState)
     Call(N(StartRumbleWithParams), 256, 30)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 20, Float(3.0))
     EndThread
     Call(SetPartFlagBits, ACTOR_SELF, PRT_HEAD, ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION, TRUE)
@@ -476,35 +475,35 @@ EvtScript N(EVS_AnimBowser_DeathMain) = {
     Wait(30)
     Call(PlaySoundAtModel, MODEL_k1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(1.0))
     EndThread
     Call(N(StartRumbleWithParams), 100, 20)
     Wait(20)
     Call(PlaySoundAtModel, MODEL_u1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 10, Float(1.5))
     EndThread
     Call(N(StartRumbleWithParams), 150, 20)
     Wait(30)
     Call(PlaySoundAtModel, MODEL_p1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 10, Float(1.0))
     EndThread
     Call(N(StartRumbleWithParams), 100, 20)
     Wait(30)
     Call(PlaySoundAtModel, MODEL_d1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.7))
     EndThread
     Call(N(StartRumbleWithParams), 70, 20)
     Wait(20)
     Call(PlaySoundAtModel, MODEL_s1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 10, Float(1.0))
     EndThread
     Call(N(StartRumbleWithParams), 100, 20)
@@ -512,12 +511,12 @@ EvtScript N(EVS_AnimBowser_DeathMain) = {
     Call(PlaySoundAtModel, MODEL_km1, SOUND_DISTANT_THUD, SOUND_SPACE_DEFAULT)
     Call(N(StartRumbleWithParams), 60, 20)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.6))
     EndThread
     Wait(20)
     Thread
-        SetGroup(EVT_GROUP_00)
+        SetGroup(EVT_GROUP_NEVER_PAUSE)
         Call(ShakeCam, CAM_BATTLE, 0, 5, Float(0.3))
     EndThread
     Call(N(StartRumbleWithParams), 30, 20)
@@ -1542,10 +1541,10 @@ EvtScript N(EVS_FakeBowser_TakeTurn) = {
         Return
     EndIf
     Call(EnableBattleStatusBar, FALSE)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+    Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     Call(SetBattleCamTarget, 28, 75, -101)
-    Call(SetBattleCamOffsetZ, 0)
-    Call(SetBattleCamZoom, 500)
+    Call(SetBattleCamOffsetY, 0)
+    Call(SetBattleCamDist, 500)
     Call(MoveBattleCamOver, 20)
     Wait(15)
     Call(GetActorVar, ACTOR_SELF, AVAR_Boss_BowserTaunts, LVar0)
@@ -1558,10 +1557,10 @@ EvtScript N(EVS_FakeBowser_TakeTurn) = {
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_BowserTaunts, 2)
         CaseEq(2)
             Call(ActorSpeak, MSG_CH1_0100, ACTOR_SELF, PRT_TARGET, -1, -1)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+            Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
             Call(SetBattleCamTarget, 85, 81, 0)
-            Call(SetBattleCamOffsetZ, 0)
-            Call(SetBattleCamZoom, 249)
+            Call(SetBattleCamOffsetY, 0)
+            Call(SetBattleCamDist, 249)
             Call(MoveBattleCamOver, 10)
             Wait(10)
             Call(ActorSpeak, MSG_CH1_0101, ACTOR_SELF, PRT_TARGET, -1, -1)
@@ -1570,10 +1569,10 @@ EvtScript N(EVS_FakeBowser_TakeTurn) = {
             Call(SetActorVar, ACTOR_SELF, AVAR_Boss_BowserTaunts, 3)
         CaseEq(3)
             Call(ActorSpeak, MSG_CH1_0103, ACTOR_SELF, PRT_TARGET, -1, -1)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+            Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
             Call(SetBattleCamTarget, 85, 81, 0)
-            Call(SetBattleCamOffsetZ, 0)
-            Call(SetBattleCamZoom, 249)
+            Call(SetBattleCamOffsetY, 0)
+            Call(SetBattleCamDist, 249)
             Call(MoveBattleCamOver, 10)
             Wait(10)
             Call(ActorSpeak, MSG_CH1_0104, ACTOR_SELF, PRT_TARGET, -1, -1)
@@ -1594,11 +1593,11 @@ EvtScript N(EVS_FakeBowser_HandlePhase) = {
         CaseEq(PHASE_PLAYER_BEGIN)
             Call(GetActorVar, BOSS_ACTOR, AVAR_Boss_Flags, LVar0)
             IfNotFlag(LVar0, AFLAG_Boss_Dialogue_BowserReveal)
-                Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+                Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
                 Call(SetBattleCamTarget, -4, 46, -2)
                 Call(SetBattleCamYaw, 24)
-                Call(SetBattleCamOffsetZ, 30)
-                Call(SetBattleCamZoom, 461)
+                Call(SetBattleCamOffsetY, 30)
+                Call(SetBattleCamDist, 461)
                 Call(MoveBattleCamOver, 30)
                 Wait(30)
                 Call(ActorSpeak, MSG_CH1_00FD, ACTOR_SELF, PRT_TARGET, -1, -1)
@@ -1746,10 +1745,10 @@ EvtScript N(EVS_KoopaBrosEnter) = {
         Call(SetAnimation, RED_ACTOR, 1, ANIM_KoopaBros_Red_IdleCrouch)
     EndThread
     Wait(30)
-    Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+    Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
     Call(SetBattleCamTarget, 70, 46, 0)
-    Call(SetBattleCamOffsetZ, 0)
-    Call(SetBattleCamZoom, 292)
+    Call(SetBattleCamOffsetY, 0)
+    Call(SetBattleCamDist, 292)
     Call(MoveBattleCamOver, 20)
     Wait(28)
     Call(SetAnimation, GREEN_ACTOR, 1, ANIM_KoopaBros_Green_ThumbsUp)
@@ -1866,9 +1865,9 @@ EvtScript N(EVS_BuildTowerWithKoopa) = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TopKoopaID, LVar1)
             Call(GetHomePos, LVar1, LVar2, LVar3, LVar4)
             Call(SetBattleCamTarget, LVar2, LVar3, LVar4)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
-            Call(SetBattleCamOffsetZ, 50)
-            Call(SetBattleCamZoom, 400)
+            Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
+            Call(SetBattleCamOffsetY, 50)
+            Call(SetBattleCamDist, 400)
             Call(MoveBattleCamOver, LVar0)
             Wait(LVar0)
             Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TopKoopaID, LVar1)
@@ -2243,9 +2242,9 @@ EvtScript N(EVS_UpdateTowerWithKoopa) = {
             Call(GetActorVar, ACTOR_SELF, AVAR_Boss_TopKoopaID, LVar1)
             Call(GetHomePos, LVar1, LVar2, LVar3, LVar4)
             Call(SetBattleCamTarget, LVar2, LVar3, LVar4)
-            Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
-            Call(SetBattleCamOffsetZ, 50)
-            Call(SetBattleCamZoom, 400)
+            Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
+            Call(SetBattleCamOffsetY, 50)
+            Call(SetBattleCamDist, 400)
             Call(MoveBattleCamOver, 30)
             IfEq(LVarD, 2)
                 Wait(25)
@@ -2498,7 +2497,7 @@ EvtScript N(EVS_TryFormingTower) = {
     Return
     End
     #undef VAR_STANDING_COUNT
-    #undef VAR_CUR_KOOPA_IDX 
+    #undef VAR_CUR_KOOPA_IDX
 };
 
 // count the number of standing koopa bros
@@ -3048,10 +3047,10 @@ EvtScript N(EVS_KoopaBros_TakeTurn) = {
     EndLoop
     // zoom in to show the toppled koopa bros and have them try to get up
     IfEq(LFlag0, TRUE)
-        Call(UseBattleCamPreset, BTL_CAM_PRESET_19)
+        Call(UseBattleCamPreset, BTL_CAM_REPOSITION)
         Call(SetBattleCamTarget, 90, 0, 0)
-        Call(SetBattleCamZoom, 350)
-        Call(SetBattleCamOffsetZ, 40)
+        Call(SetBattleCamDist, 350)
+        Call(SetBattleCamOffsetY, 40)
         Call(MoveBattleCamOver, 15)
         Wait(15)
     EndIf

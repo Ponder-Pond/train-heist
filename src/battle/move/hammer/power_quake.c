@@ -6,33 +6,33 @@
 
 #include "battle/common/move/HammerSupport.inc.c"
 
-extern EvtScript N(EVS_802A3168);
+extern EvtScript N(EVS_UseMove_Impl);
 
 EvtScript N(EVS_UseMove) = {
     Call(ShowActionHud, TRUE)
     Call(GetMenuSelection, LVar0, LVar1, LVar2)
     Switch(LVar1)
         CaseEq(0)
-            Set(LVarD, 80)
-            Set(LVarE, 2)
-            Set(LVarF, 4)
-            ExecWait(N(EVS_802A3168))
+            Set(LVarD, 80) // duration
+            Set(LVarE, SUPER_HAMMER_DMG_BAD)
+            Set(LVarF, SUPER_HAMMER_DMG_GOOD)
+            ExecWait(N(EVS_UseMove_Impl))
         CaseEq(1)
-            Set(LVarD, 80)
-            Set(LVarE, 2)
-            Set(LVarF, 4)
-            ExecWait(N(EVS_802A3168))
+            Set(LVarD, 80) // duration
+            Set(LVarE, SUPER_HAMMER_DMG_BAD)
+            Set(LVarF, SUPER_HAMMER_DMG_GOOD)
+            ExecWait(N(EVS_UseMove_Impl))
         CaseEq(2)
-            Set(LVarD, 80)
-            Set(LVarE, 2)
-            Set(LVarF, 4)
-            ExecWait(N(EVS_802A3168))
+            Set(LVarD, 80) // duration
+            Set(LVarE, SUPER_HAMMER_DMG_BAD)
+            Set(LVarF, SUPER_HAMMER_DMG_GOOD)
+            ExecWait(N(EVS_UseMove_Impl))
     EndSwitch
     Return
     End
 };
 
-EvtScript N(EVS_802A3168) = {
+EvtScript N(EVS_UseMove_Impl) = {
     Call(GetMenuSelection, LVar0, LVar1, LVar2)
     Switch(LVar1)
         CaseEq(0)
@@ -53,7 +53,7 @@ EvtScript N(EVS_802A3168) = {
         Wait(2)
         PlayEffect(EFFECT_SMOKE_IMPACT, 1, LVar0, LVar1, LVar2, 60, 8, 66, 30, 0, 0, 0, 0, 0)
     EndThread
-    Call(GetPlayerActionSuccess, LVar0)
+    Call(GetPlayerActionQuality, LVar0)
     Switch(LVar0)
         CaseGt(FALSE)
             Call(StartRumble, BTL_RUMBLE_PLAYER_EXTREME)
@@ -102,12 +102,12 @@ EvtScript N(EVS_802A3168) = {
                 PlayEffect(EFFECT_SMOKE_IMPACT, 0, LVar0, LVar1, LVar2, 96, 8, 72, 30, 0, 0, 0, 0, 0)
             EndThread
     EndSwitch
-    Call(GetPlayerActionSuccess, LVar0)
+    Call(GetPlayerActionQuality, LVar0)
     IfGt(LVar0, FALSE)
-        Call(UseBattleCamPreset, BTL_CAM_PRESET_46)
+        Call(UseBattleCamPreset, BTL_CAM_PLAYER_HAMMER_QUAKE)
         Call(MoveBattleCamOver, 5)
     Else
-        Call(UseBattleCamPreset, BTL_CAM_PRESET_46)
+        Call(UseBattleCamPreset, BTL_CAM_PLAYER_HAMMER_QUAKE)
         Call(MoveBattleCamOver, 50)
     EndIf
     Call(GetMenuSelection, LVar0, LVar1, LVar2)
@@ -137,7 +137,7 @@ EvtScript N(EVS_802A3168) = {
         IfEq(LVar0, HIT_RESULT_MISS)
             Goto(11)
         EndIf
-        Call(GetPlayerActionSuccess, LVar0)
+        Call(GetPlayerActionQuality, LVar0)
         Switch(LVar0)
             CaseGt(FALSE)
                 Call(PlayerDamageEnemy, LVar0, DAMAGE_TYPE_QUAKE | DAMAGE_TYPE_QUAKE_HAMMER | DAMAGE_TYPE_IGNORE_DEFENSE | DAMAGE_TYPE_NO_CONTACT | DAMAGE_TYPE_MULTIPLE_POPUPS, SUPPRESS_EVENTS_HAMMER, 0, LVarF, BS_FLAGS1_TRIGGER_EVENTS | BS_FLAGS1_INCLUDE_POWER_UPS | BS_FLAGS1_NICE_HIT)
@@ -156,7 +156,7 @@ EvtScript N(EVS_802A3168) = {
         Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Idle)
     EndThread
     Wait(10)
-    ExecWait(N(EVS_Hammer_ReturnHome_B))
+    ExecWait(N(EVS_HammerSupport_ReturnHome_Quake))
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
     Return
     End

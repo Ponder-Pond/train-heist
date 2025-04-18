@@ -44,7 +44,7 @@ EffectInstance* peach_star_beam_main(s32 type, f32 x, f32 y, f32 z, f32 arg4, s3
     bp.unk_00 = 0;
     bp.init = peach_star_beam_init;
     bp.update = peach_star_beam_update;
-    bp.renderWorld = peach_star_beam_render;
+    bp.renderScene = peach_star_beam_render;
     bp.renderUI = NULL;
     bp.effectID = EFFECT_PEACH_STAR_BEAM;
 
@@ -172,7 +172,7 @@ void peach_star_beam_appendGfx(void* effect) {
     s32 i;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x9, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x9, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
     gSPDisplayList(gMainGfxPos++, D_09005090_3EAFC0);
 
     for (i = 0; i < ARRAY_COUNT(data->spirits); i++) {
@@ -210,7 +210,7 @@ void peach_star_beam_appendGfx(void* effect) {
 
     gSPMatrix(gMainGfxPos++, &gDisplayContext->matrixStack[gMatrixListPos++],
               G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPMatrix(gMainGfxPos++, camera->unkMatrix, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gMainGfxPos++, camera->mtxBillboard, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gDPSetPrimColor(gMainGfxPos++, 0, 0, data->primR, data->primG, data->primB, alpha);
     gDPSetEnvColor(gMainGfxPos++, data->envR, data->envG, data->envB, data->envA);
     gSPDisplayList(gMainGfxPos++, D_E010CA14[0]);

@@ -43,12 +43,12 @@ API_CALLABLE(N(func_802A120C_74D77C)) {
     return ApiStatus_DONE2;
 }
 
-EvtScript N(EVS_UseMove1) = {
+EvtScript N(EVS_UseMove_Unimplemented) = {
     Return
     End
 };
 
-EvtScript N(EVS_UseMove0) = {
+EvtScript N(EVS_UseMove) = {
     Call(UseBattleCamPreset, BTL_CAM_PLAYER_CHARGE_UP)
     Wait(10)
     ChildThread
@@ -80,7 +80,7 @@ EvtScript N(EVS_UseMove0) = {
         Call(GetActorPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
         Call(SetJumpAnimations, ACTOR_PLAYER, 0, ANIM_Mario1_Jump, ANIM_Mario1_Fall, ANIM_Mario1_Land)
         Call(SetGoalPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
-        Call(func_80273444, 20, 0, 0)
+        Call(PlayerHopToGoal, 20, 0, 0)
         Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Land)
         Wait(4)
         Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Idle)

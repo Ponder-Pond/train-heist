@@ -233,7 +233,7 @@ void spr_appendGfx_component_flat(
         gDPSetTileSize(gMainGfxPos++, 2, 0, 0, 63 << 2, 0);
         if (gSpriteShadingProfile->flags & SPR_SHADING_FLAG_SET_VIEWPORT) {
             Camera* camera = &gCameras[gCurrentCamID];
-            if (gGameStatusPtr->isBattle == 2) {
+            if (gGameStatusPtr->context == CONTEXT_PAUSE) {
                 gSPViewport(gMainGfxPos++, &SprPauseVpAlt);
             } else {
                 gSPViewport(gMainGfxPos++, &camera->vpAlt);
@@ -260,7 +260,7 @@ void spr_appendGfx_component_flat(
                                  256, 256);
         if (gSpriteShadingProfile->flags & SPR_SHADING_FLAG_SET_VIEWPORT) {
             Camera* camera =  &gCameras[gCurrentCamID];
-            if (gGameStatusPtr->isBattle == 2) {
+            if (gGameStatusPtr->context == CONTEXT_PAUSE) {
                 gSPViewport(gMainGfxPos++, &SprPauseVpAlt);
             } else {
                 gSPViewport(gMainGfxPos++, &camera->vpAlt);
@@ -296,7 +296,7 @@ void spr_appendGfx_component_flat(
     if (gSpriteShadingProfile->flags & SPR_SHADING_FLAG_SET_VIEWPORT) {
         Camera* camera =  &gCameras[gCurrentCamID];
 
-        if (gGameStatusPtr->isBattle == 2) {
+        if (gGameStatusPtr->context == CONTEXT_PAUSE) {
             gSPViewport(gMainGfxPos++, &SprPauseVp);
             SprPauseVpAlt.vp.vtrans[0] = SprPauseVp.vp.vtrans[0] + gGameStatusPtr->altViewportOffset.x;
             SprPauseVpAlt.vp.vtrans[1] = SprPauseVp.vp.vtrans[1] + gGameStatusPtr->altViewportOffset.y;
@@ -937,7 +937,6 @@ s32 spr_draw_player_sprite(s32 spriteInstanceID, s32 yaw, s32 alphaIn, PAL_PTR* 
     D_802DFEA0[1] = yaw;
     D_802DFEA0[2] = 0;
 
-
     if (spriteInstanceID & DRAW_SPRITE_OVERRIDE_ALPHA) {
         alpha = alphaIn & 0xFF;
         if (alphaIn == 0) {
@@ -1091,7 +1090,7 @@ s32 spr_update_sprite(s32 spriteInstanceID, s32 animID, f32 timeScale) {
     palID = (animID >> 8) & 0xFF;
     spr_set_anim_timescale(timeScale);
     if ((spriteInstanceID & DRAW_SPRITE_OVERRIDE_ALPHA) || ((SpriteInstances[i].curAnimID & 0xFF) != animIndex)) {
-        ASSERT_MSG(animList != -1, "Anim %x is not loaded", animID);
+        ASSERT_MSG(animList != -1, "Anim %lx is not loaded", animID);
         spr_init_anim_state(compList, animList);
         SpriteInstances[i].curAnimID = (palID << 8) | animIndex;
         SpriteInstances[i].notifyValue = 0;
@@ -1266,7 +1265,7 @@ s32 spr_get_comp_position(s32 spriteIdx, s32 compListIdx, s32* outX, s32* outY, 
     u32* spriteData;
 
     if (sprite->componentList == NULL) {
-        return; // bug: does not return a value
+        return -1;
     }
 
     animID = sprite->curAnimID;
@@ -1293,8 +1292,6 @@ s32 spr_get_comp_position(s32 spriteIdx, s32 compListIdx, s32* outX, s32* outY, 
                 animCompList++;
             }
         }
-    } else {
-        return; // bug: does not return a value
     }
     return -1;
 }

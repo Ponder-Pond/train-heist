@@ -11,7 +11,6 @@ void N(AvoidPlayerAI_ChaseInit)(Evt* script, MobileAISettings* npcAISettings, En
     f32 distFwd;
     f32 distCW;
     f32 distCCW;
-    f32 distToPlayer;
     s32 detectedPlayer;
 
     f32 posXFwd;
@@ -76,9 +75,6 @@ void N(AvoidPlayerAI_ChaseInit)(Evt* script, MobileAISettings* npcAISettings, En
                 clamp_angle(yawFwd - 35.0f), npc->collisionHeight, npc->collisionDiameter)) {
             distCCW = dist2D(npc->pos.x, npc->pos.z, posXCCW, posZCCW);
         }
-
-        // unused
-        distToPlayer = dist2D(npc->pos.x, npc->pos.z, gPlayerStatusPtr->pos.x, gPlayerStatusPtr->pos.z);
 
         if ((distFwd < npc->moveSpeed * 1.5) && (distCW < npc->moveSpeed * 1.5) && (distCCW < npc->moveSpeed * 1.5) &&
             (basic_ai_check_player_dist(territory, enemy, npcAISettings->alertRadius, npcAISettings->alertOffsetDist, 0))) {
@@ -173,7 +169,7 @@ API_CALLABLE(N(AvoidPlayerAI_Main)) {
     territory.halfHeight = 100.0f;
     territory.detectFlags = 0;
 
-    if (isInitialCall || (enemy->aiFlags & ENEMY_AI_FLAG_SUSPEND)) {
+    if (isInitialCall || (enemy->aiFlags & AI_FLAG_SUSPEND)) {
         script->functionTemp[0] = AI_STATE_WANDER_INIT;
         npc->duration = 0;
         npc->curAnim = enemy->animList[ENEMY_ANIM_INDEX_IDLE];
@@ -185,10 +181,10 @@ API_CALLABLE(N(AvoidPlayerAI_Main)) {
             npc->flags &= ~NPC_FLAG_GRAVITY;
             npc->flags |= NPC_FLAG_FLYING;
         }
-        if (enemy->aiFlags & ENEMY_AI_FLAG_SUSPEND) {
+        if (enemy->aiFlags & AI_FLAG_SUSPEND) {
             script->functionTemp[0] = AI_STATE_SUSPEND;
             script->functionTemp[1] = AI_STATE_WANDER_INIT;
-            enemy->aiFlags &= ~ENEMY_AI_FLAG_SUSPEND;
+            enemy->aiFlags &= ~AI_FLAG_SUSPEND;
         }
     }
 

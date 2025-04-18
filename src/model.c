@@ -6,6 +6,7 @@
 #include "model_clear_render_tasks.h"
 #include "nu/nusys.h"
 #include "qsort.h"
+#include "gcc/string.h"
 
 // models are rendered in two stages by the RDP:
 // (1) main and aux textures are combined in the color combiner
@@ -1975,8 +1976,8 @@ void appendGfx_model(void* data) {
         }
     }
 
-    if (flags & MODEL_FLAG_USE_CAMERA_UNK_MATRIX) {
-        gSPMatrix((*gfxPos)++, gCameras[gCurrentCamID].unkMatrix, mtxLoadMode | mtxPushMode | G_MTX_MODELVIEW);
+    if (flags & MODEL_FLAG_BILLBOARD) {
+        gSPMatrix((*gfxPos)++, gCameras[gCurrentCamID].mtxBillboard, mtxLoadMode | mtxPushMode | G_MTX_MODELVIEW);
         if (mtxPushMode != G_MTX_NOPUSH) {
             mtxPushMode = G_MTX_NOPUSH;
         }
@@ -2191,13 +2192,16 @@ void load_texture_variants(u32 romOffset, s32 textureID, s32 baseOffset, s32 siz
     s32 paletteSize;
     u32 auxRasterSize;
     u32 auxPaletteSize;
-    s32 bitDepth;
     s32 mainSize;
     s32 currentTextureID = textureID;
 
     for (offset = romOffset; offset < baseOffset + size;) {
         dma_copy((u8*)offset, (u8*)offset + sizeof(iterTextureHeader), &iterTextureHeader);
         header = &iterTextureHeader;
+
+        if (strcmp(header->name, "end_of_textures") == 0) {
+            return;
+        }
 
         if (!header->isVariant) {
             // done reading variants
@@ -2332,7 +2336,7 @@ void mdl_load_all_textures(ModelNode* rootModel, s32 romOffset, s32 size) {
     s32 baseOffset = 0;
 
     // textures are loaded to the upper half of the texture heap when not in the world
-    if (gGameStatusPtr->isBattle != 0) {
+    if (gGameStatusPtr->context != CONTEXT_WORLD) {
         baseOffset = WORLD_TEXTURE_MEMORY_SIZE;
     }
 
@@ -2373,7 +2377,7 @@ s32 mdl_get_child_count(ModelNode* model) {
 void clear_model_data(void) {
     s32 i;
 
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentModels = &wModelList;
         gCurrentTransformGroups = &wTransformGroups;
         gCurrentCustomModelGfxPtr = &wCustomModelGfx;
@@ -2438,7 +2442,7 @@ void clear_model_data(void) {
 }
 
 void init_model_data(void) {
-    if (!gGameStatusPtr->isBattle) {
+    if (gGameStatusPtr->context == CONTEXT_WORLD) {
         gCurrentModels = &wModelList;
         gCurrentTransformGroups = &wTransformGroups;
         gCurrentCustomModelGfxPtr = &wCustomModelGfx;
@@ -2754,22 +2758,22 @@ void render_models(void) {
         break; \
     }
 
-    m00 = camera->perspectiveMatrix[0][0];
-    m01 = camera->perspectiveMatrix[0][1];
-    m02 = camera->perspectiveMatrix[0][2];
-    m03 = camera->perspectiveMatrix[0][3];
-    m10 = camera->perspectiveMatrix[1][0];
-    m11 = camera->perspectiveMatrix[1][1];
-    m12 = camera->perspectiveMatrix[1][2];
-    m13 = camera->perspectiveMatrix[1][3];
-    m20 = camera->perspectiveMatrix[2][0];
-    m21 = camera->perspectiveMatrix[2][1];
-    m22 = camera->perspectiveMatrix[2][2];
-    m23 = camera->perspectiveMatrix[2][3];
-    m30 = camera->perspectiveMatrix[3][0];
-    m31 = camera->perspectiveMatrix[3][1];
-    m32 = camera->perspectiveMatrix[3][2];
-    m33 = camera->perspectiveMatrix[3][3];
+    m00 = camera->mtxPerspective[0][0];
+    m01 = camera->mtxPerspective[0][1];
+    m02 = camera->mtxPerspective[0][2];
+    m03 = camera->mtxPerspective[0][3];
+    m10 = camera->mtxPerspective[1][0];
+    m11 = camera->mtxPerspective[1][1];
+    m12 = camera->mtxPerspective[1][2];
+    m13 = camera->mtxPerspective[1][3];
+    m20 = camera->mtxPerspective[2][0];
+    m21 = camera->mtxPerspective[2][1];
+    m22 = camera->mtxPerspective[2][2];
+    m23 = camera->mtxPerspective[2][3];
+    m30 = camera->mtxPerspective[3][0];
+    m31 = camera->mtxPerspective[3][1];
+    m32 = camera->mtxPerspective[3][2];
+    m33 = camera->mtxPerspective[3][3];
 
     // enqueue all visible models not in transform groups
     for (i = 0; i < ARRAY_COUNT(*gCurrentModels); i++) {
@@ -2872,7 +2876,7 @@ void render_models(void) {
         }
 
         // map all model depths to the interval [0, 10k] and submit render task
-        transform_point(camera->perspectiveMatrix, centerX, centerY, centerZ, 1.0f, &outX, &outY, &outZ, &outW);
+        transform_point(camera->mtxPerspective, centerX, centerY, centerZ, 1.0f, &outX, &outY, &outZ, &outW);
         distance = outZ + 5000.0f;
         if (distance < 0) {
             distance = 0;
@@ -2911,7 +2915,7 @@ void render_models(void) {
         zComp = transformGroup->center.z;
 
         transform_point(
-            camera->perspectiveMatrix,
+            camera->mtxPerspective,
             xComp, yComp, zComp, 1.0f,
             &outX, &outY, &outZ, &outW
         );
@@ -3109,7 +3113,6 @@ void make_texture_gfx(TextureHeader* header, Gfx** gfxPos, IMG_PTR raster, PAL_P
     auxWrapH = header->auxWrapH;
     auxFmt = header->auxFmt;
     auxBitDepth = header->auxBitDepth;
-
 
     if (extraTileType == EXTRA_TILE_AUX_INDEPENDENT) {
         if (palette != NULL) {
@@ -3377,7 +3380,7 @@ void load_model_transforms(ModelNode* model, ModelNode* parent, Matrix4f mdlTran
 
             (*gCurrentModelTreeNodeInfo)[TreeIterPos].modelIndex = -1;
             (*gCurrentModelTreeNodeInfo)[TreeIterPos].treeDepth = treeDepth;
-            TreeIterPos += 1;
+            TreeIterPos++;
             return;
         }
     }
@@ -3400,7 +3403,7 @@ void load_model_transforms(ModelNode* model, ModelNode* parent, Matrix4f mdlTran
 
     mdl_create_model(modelBPptr, 4);
     (*gCurrentModelTreeNodeInfo)[TreeIterPos].treeDepth = treeDepth;
-    TreeIterPos += 1;
+    TreeIterPos++;
 }
 
 s32 get_model_list_index_from_tree_index(s32 treeIndex) {
@@ -4046,7 +4049,6 @@ void mdl_local_gfx_copy_vertices(Vtx* src, s32 num, Vtx* dest) {
     }
 }
 
-
 void mdl_make_local_vertex_copy(s32 copyIndex, u16 modelID, s32 isMakingCopy) {
     s32 numVertices;
     Vtx* baseVtx;
@@ -4301,7 +4303,7 @@ s32 is_model_center_visible(u16 modelID, s32 depthQueryID, f32* screenX, f32* sc
         return FALSE;
     }
     // Transform the model's center into clip space.
-    transform_point(camera->perspectiveMatrix, model->center.x, model->center.y, model->center.z, 1.0f, &outX, &outY, &outZ, &outW);
+    transform_point(camera->mtxPerspective, model->center.x, model->center.y, model->center.z, 1.0f, &outX, &outY, &outZ, &outW);
     if (outW == 0.0f) {
         *screenX = 0.0f;
         *screenY = 0.0f;
@@ -4393,7 +4395,7 @@ s32 is_model_center_visible(u16 modelID, s32 depthQueryID, f32* screenX, f32* sc
 // Every nonnegative value of `depthQueryID` must be unique within a frame, otherwise the result will corrupt the data
 //   of the previous query that shared the same ID.
 // Occlusion visibility checks are always one frame out of date, as they reference the previous frame's depth buffer.
-OPTIMIZE_OFAST s32 is_point_visible(f32 x, f32 y, f32 z, s32 depthQueryID, f32* screenX, f32* screenY) {
+OPTIMIZE_OFAST b32 is_point_visible(f32 x, f32 y, f32 z, s32 depthQueryID, f32* screenX, f32* screenY) {
     Camera* camera = &gCameras[gCurrentCameraID];
     f32 outX;
     f32 outY;
@@ -4411,7 +4413,7 @@ OPTIMIZE_OFAST s32 is_point_visible(f32 x, f32 y, f32 z, s32 depthQueryID, f32* 
         return FALSE;
     }
     // Transform the point into clip space.
-    transform_point(camera->perspectiveMatrix, x, y, z, 1.0f, &outX, &outY, &outZ, &outW);
+    transform_point(camera->mtxPerspective, x, y, z, 1.0f, &outX, &outY, &outZ, &outW);
     if (outW == 0.0f) {
         *screenX = 0.0f;
         *screenY = 0.0f;
@@ -4584,7 +4586,6 @@ OPTIMIZE_OFAST void execute_render_tasks(void) {
     s32* sorted;
     RenderTask* taskList;
     RenderTask* task;
-    RenderTask* task2;
     Matrix4f mtxFlipY;
     void (*appendGfx)(void*);
     s32 tmp;
@@ -4597,20 +4598,20 @@ OPTIMIZE_OFAST void execute_render_tasks(void) {
 
     // sort in ascending order of dist
     taskList = RenderTaskLists[RENDER_TASK_LIST_MID];
-    sorted = &sorteds[RENDER_TASK_LIST_MID];
+    sorted = sorteds[RENDER_TASK_LIST_MID];
 #define LESS(i, j) taskList[sorted[i]].dist < taskList[sorted[j]].dist
 #define SWAP(i, j) tmp = sorted[i], sorted[i] = sorted[j], sorted[j] = tmp
     QSORT(RenderTaskCount[RENDER_TASK_LIST_MID], LESS, SWAP);
 
     // tasks with dist >= 3M sort in descending order
     taskList = RenderTaskLists[RENDER_TASK_LIST_FAR];
-    sorted = &sorteds[RENDER_TASK_LIST_FAR];
+    sorted = sorteds[RENDER_TASK_LIST_FAR];
 #define LESS(i, j) taskList[sorted[i]].dist > taskList[sorted[j]].dist
     QSORT(RenderTaskCount[RENDER_TASK_LIST_FAR], LESS, SWAP);
 
     // tasks with dist <= 800k sort in descending order
     taskList = RenderTaskLists[RENDER_TASK_LIST_NEAR];
-    sorted = &sorteds[RENDER_TASK_LIST_NEAR];
+    sorted = sorteds[RENDER_TASK_LIST_NEAR];
     QSORT(RenderTaskCount[RENDER_TASK_LIST_NEAR], LESS, SWAP);
 
     gLastRenderTaskCount = RenderTaskCount[RENDER_TASK_LIST_MID] + RenderTaskCount[RENDER_TASK_LIST_FAR] + RenderTaskCount[RENDER_TASK_LIST_NEAR];

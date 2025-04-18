@@ -97,6 +97,7 @@ BSS Battle* gCurrentBattlePtr;
 //     [BTL_AREA_OMO2_6]   BTL_AREA_AUX(omo2_6, "エリア ＯＭＯ２＿６"),
 // };
 
+// when adding an area, remember to update battle.h and add the new area to battle_tables.h as well
 BattleArea gBattleAreas[] = {
     [BTL_AREA_TRN]      BTL_AREA(trn, "Train Heist"),
 };
@@ -200,12 +201,12 @@ void load_demo_battle(u32 index) {
     gGameStatusPtr->demoBattleFlags = 0;
     gGameStatusPtr->areaID = 0;
     gGameStatusPtr->mapID = 0;
-    gGameStatusPtr->isBattle = FALSE;
+    gGameStatusPtr->context = CONTEXT_WORLD;
 
     general_heap_create();
     clear_worker_list();
     clear_script_list();
-    create_cameras_a();
+    create_cameras();
     spr_init_sprites(PLAYER_SPRITES_MARIO_WORLD);
     clear_animator_list();
     clear_entity_models();

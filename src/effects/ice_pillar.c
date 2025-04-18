@@ -27,7 +27,7 @@ EffectInstance* ice_pillar_main(s32 arg0, f32 x, f32 y, f32 z, f32 scale, s32 ar
 
     effectBp.init = ice_pillar_init;
     effectBp.update = ice_pillar_update;
-    effectBp.renderWorld = ice_pillar_render;
+    effectBp.renderScene = ice_pillar_render;
     effectBp.unk_00 = 0;
     effectBp.renderUI = NULL;
     effectBp.effectID = EFFECT_ICE_PILLAR;
@@ -158,7 +158,7 @@ void ice_pillar_appendGfx(void* effect) {
     Camera* camera;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
 
     camera = &gCameras[gCurrentCameraID];
     guTranslateF(sp10, data->pos.x, data->pos.y, data->pos.z);
@@ -168,7 +168,7 @@ void ice_pillar_appendGfx(void* effect) {
 
     gSPMatrix(gMainGfxPos++, &gDisplayContext->matrixStack[gMatrixListPos++],
               G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPMatrix(gMainGfxPos++, camera->unkMatrix, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gMainGfxPos++, camera->mtxBillboard, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gDPSetPrimColor(gMainGfxPos++, 0, 0, data->prim.r, data->prim.g, data->prim.b, alpha);
     gDPSetEnvColor(gMainGfxPos++, data->env.r, data->env.g, data->env.b, data->env.a);
     gSPDisplayList(gMainGfxPos++, D_E011E800[0]);

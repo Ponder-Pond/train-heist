@@ -35,7 +35,7 @@ EffectInstance* moving_cloud_main(
 
     bp.init = moving_cloud_init;
     bp.update = moving_cloud_update;
-    bp.renderWorld = moving_cloud_render;
+    bp.renderScene = moving_cloud_render;
     bp.unk_00 = 0;
     bp.renderUI = NULL;
     bp.effectID = EFFECT_MOVING_CLOUD;
@@ -184,7 +184,7 @@ void moving_cloud_appendGfx(void* effect) {
     Matrix4f sp50;
 
     gDPPipeSync(gMainGfxPos++);
-    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->graphics->data));
+    gSPSegment(gMainGfxPos++, 0x09, VIRTUAL_TO_PHYSICAL(((EffectInstance*)effect)->shared->graphics));
 
     guTranslateF(sp10, data->unk_04, data->unk_08, data->unk_0C);
     guScaleF(sp50, data->unk_44, data->unk_44, data->unk_44);
@@ -192,7 +192,7 @@ void moving_cloud_appendGfx(void* effect) {
     guMtxF2L(sp10, &gDisplayContext->matrixStack[gMatrixListPos]);
 
     gSPMatrix(gMainGfxPos++, &gDisplayContext->matrixStack[gMatrixListPos++], G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    gSPMatrix(gMainGfxPos++, camera->unkMatrix, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gMainGfxPos++, camera->mtxBillboard, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gDPSetPrimColor(gMainGfxPos++, 0, 0, data->unk_24, data->unk_28, data->unk_2C, unk_30);
     gDPSetEnvColor(gMainGfxPos++, data->unk_34, data->unk_38, data->unk_3C, data->unk_40);
     gSPDisplayList(gMainGfxPos++, D_E00E8634[0]);

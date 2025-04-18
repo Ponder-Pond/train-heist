@@ -29,6 +29,7 @@ typedef s8 b8;
 
 typedef s32 HitID;
 typedef u32 AnimID;
+typedef s32 HudElemID;
 
 typedef struct {
     u8 r, g, b, a;
@@ -136,13 +137,13 @@ typedef struct Matrix4s {
     /* 0x20 */ s16 frac[4][4];
 } Matrix4s; // size = 0x40
 
-typedef struct CamConfiguration {
+typedef struct CameraRig {
     /* 0x00 */ f32 boomYaw;
     /* 0x04 */ f32 boomLength;
     /* 0x08 */ f32 boomPitch;
     /* 0x0C */ f32 viewPitch;
     /* 0x10 */ Vec3f targetPos;
-} CamConfiguration; // size = 0x1C
+} CameraRig; // size = 0x1C
 
 typedef struct DmaTable {
     /* 0x00 */ u8* start;
@@ -230,7 +231,7 @@ typedef struct Npc {
     /* 0x01C */ f32 jumpVel;
     /* 0x020 */ union {
                 void* any;
-                NpcMotionBlur* motion; ///< Null unless flag 0x100000 is set.
+                NpcMotionBlur* motion; ///< Null unless flag NPC_FLAG_MOTION_BLUR is set.
                 NpcChompBlur*  chomp;
                 NpcQuizmoBlur* quizmo;
                 NpcFollowData* followData;
@@ -660,26 +661,26 @@ typedef struct MusicProximityTrigger {
 } MusicProximityTrigger; // size = 0x18
 
 typedef struct StatusBar {
-    /* 0x00 */ s32 hpIconHIDs[2];
-    /* 0x08 */ s32 fpIconHIDs[2];
-    /* 0x10 */ s32 coinIconHID;
-    /* 0x14 */ s32 coinSparkleHID;
-    /* 0x18 */ s32 spIconHID;
-    /* 0x1C */ s32 spShineHID;
-    /* 0x20 */ s32 hpTimesHID;
-    /* 0x24 */ s32 fpTimesHID;
-    /* 0x28 */ s32 spTimesHID;
-    /* 0x2C */ s32 coinTimesHID;
-    /* 0x30 */ s32 starIconHID;
+    /* 0x00 */ HudElemID hpIconHIDs[2];
+    /* 0x08 */ HudElemID fpIconHIDs[2];
+    /* 0x10 */ HudElemID coinIconHID;
+    /* 0x14 */ HudElemID coinSparkleHID;
+    /* 0x18 */ HudElemID spIconHID;
+    /* 0x1C */ HudElemID spShineHID;
+    /* 0x20 */ HudElemID hpTimesHID;
+    /* 0x24 */ HudElemID fpTimesHID;
+    /* 0x28 */ HudElemID spTimesHID;
+    /* 0x2C */ HudElemID coinTimesHID;
+    /* 0x30 */ HudElemID starIconHID;
     /* 0x34 */ s16 drawPosX; // base position of the whole bar
     /* 0x36 */ s16 drawPosY; // base position of the whole bar, animated when it appears
     /* 0x38 */ s16 showTimer;
-    /* 0x3A */ b8 hidden;
+    /* 0x3A */ b8 hidden; // current state of the status bar's visiblity
     /* 0x3B */ b8 unk_3B;
     /* 0x3C */ b8 unk_3C;
     /* 0x3D */ s8 displayHP;
     /* 0x3E */ s8 displayFP;
-    /* 0x3F */ char unk_3F;
+    /* 0x3F */ char pad_3F;
     /* 0x40 */ s16 displayCoins;
     /* 0x42 */ s16 displayStarpoints;
     /* 0x44 */ s8 ignoreChanges; /* set != 0 to prevent automatic opening from HP/FP changes */
@@ -687,32 +688,32 @@ typedef struct StatusBar {
     /* 0x45 */ s8 alwaysShown; // when set, the status bar will always be shown. used while browsing a shop.
     /* 0x47 */ s8 disabled; /* set != 0 for menu to be disabled completely */
     /* 0x48 */ s16 displayStarPower;
-    /* 0x4A */ s8 hpBlinking; /* bool */
-    /* 0x4B */ s8 hpBlinkCounter;
-    /* 0x4C */ s8 hpBlinkTimer; /* until stop */
-    /* 0x4D */ s8 fpBlinking; /* bool */
-    /* 0x4E */ s8 fpBlinkCounter;
-    /* 0x4F */ s8 fpBlinkTimer; /* until stop */
-    /* 0x50 */ s8 spBlinking;
-    /* 0x51 */ s8 spBlinkCounter;
-    /* 0x52 */ s8 starpointsBlinking; /* bool */
-    /* 0x53 */ s8 starpointsBlinkCounter;
-    /* 0x54 */ s8 coinsBlinking; /* bool */
-    /* 0x55 */ s8 coinsBlinkCounter;
-    /* 0x56 */ s8 coinsBlinkTimer; /* until stop */
-    /* 0x57 */ s8 unk_57;
-    /* 0x58 */ s8 unk_58;
-    /* 0x59 */ s8 unk_59;
-    /* 0x5A */ s8 spBarsToBlink; /* how many sp bars to blink */
-    /* 0x5B */ char unk_5B;
-    /* 0x5C */ s32 coinCountTimesHID;
-    /* 0x60 */ s32 coinCountIconHID;
-    /* 0x64 */ s32 iconIndex12;
-    /* 0x68 */ s32 iconIndex13;
-    /* 0x6C */ s8 coinCounterHideTime;
-    /* 0x6D */ s8 unk_6D;
-    /* 0x6E */ s8 unk_6E;
-    /* 0x6F */ char unk_6F;
+    /* 0x4A */ b8 hpBlinking;
+    /* 0x4B */ s8 hpBlinkAnimTime;
+    /* 0x4C */ s8 hpBlinkTimeLeft;
+    /* 0x4D */ b8 fpBlinking;
+    /* 0x4E */ s8 fpBlinkAnimTime;
+    /* 0x4F */ s8 fpBlinkTimeLeft;
+    /* 0x50 */ b8 starPowerBlinking;
+    /* 0x51 */ s8 starPowerBlinkCounter;
+    /* 0x52 */ b8 starpointsBlinking;
+    /* 0x53 */ s8 starpointsBlinkAnimTime;
+    /* 0x54 */ b8 coinsBlinking;
+    /* 0x55 */ s8 coinsBlinkAnimTime;
+    /* 0x56 */ s8 coinsBlinkTimeLeft;
+    /* 0x57 */ s8 shimmerState;
+    /* 0x58 */ s8 shimmerTime;
+    /* 0x59 */ s8 shimmerLimit;
+    /* 0x5A */ s8 powBarsToBlink; // how many star power bars to blink
+    /* 0x5B */ char pad_5B;
+    /* 0x5C */ HudElemID coinCountTimesHID;
+    /* 0x60 */ HudElemID coinCountIconHID;
+    /* 0x64 */ HudElemID iconIndex12;
+    /* 0x68 */ HudElemID iconIndex13;
+    /* 0x6C */ s8 coinCounterHideDelay;
+    /* 0x6D */ s8 coinCountDisposeTime;
+    /* 0x6E */ s8 prevIgnoreChanges; // while the coin counter is open, ignoreChanges count is pushed here
+    /* 0x6F */ char pad_6F;
 } StatusBar; // size = 0x70
 
 typedef struct CameraInitData {
@@ -727,16 +728,6 @@ typedef struct CameraInitData {
     /* 0x0E */ s16 farClip;
     /* 0x10 */ s16 vfov;
 } CameraInitData; // size = 0x12;
-
-typedef struct CameraUnk {
-    /* 0x00 */ s16 unk_00;
-    /* 0x02 */ s16 unk_02;
-    /* 0x04 */ char unk_04[0x8];
-    /* 0x0C */ s32 unk_0C;
-    /* 0x10 */ char unk_10[0x54];
-    /* 0x64 */ s32 unk_64;
-    /* 0x68 */ char unk_68[0x24];
-} CameraUnk; // size = 0x8C
 
 typedef struct CameraControlSettings {
     /* 0x00 */ s32 type;
@@ -761,75 +752,86 @@ typedef struct CameraControlSettings {
         } three;
     } points;
     /* 0x24 */ f32 viewPitch;
-    /* 0x28 */ s32 flag;
+    /* 0x28 */ b32 flag;
 } CameraControlSettings; // size = 0x2C
 
 typedef struct Camera {
     /* 0x000 */ u16 flags;
     /* 0x002 */ s16 moveFlags;
     /* 0x004 */ s16 updateMode;
-    /* 0x006 */ s16 needsInit;
-    /* 0x008 */ b16 isChangingMap;
+    /* 0x006 */ b16 needsInit;
+    /* 0x008 */ b16 needsReinit; // used when loading from a save point or calling SetCamPerspective
     /* 0x00A */ s16 viewportW;
     /* 0x00C */ s16 viewportH;
     /* 0x00E */ s16 viewportStartX;
     /* 0x010 */ s16 viewportStartY;
     /* 0x012 */ s16 nearClip;
     /* 0x014 */ s16 farClip;
-    /* 0x016 */ char unk_16[2];
     /* 0x018 */ f32 vfov;
-    /* 0x01C */ s16 auxPitch;
-    /* 0x01E */ s16 auxBoomLength;
-    /* 0x020 */ s16 lookAt_dist;
-    /* 0x022 */ s16 auxBoomPitch;
-    /* 0x024 */ s16 auxBoomYaw;
-    /* 0x026 */ s16 auxBoomZOffset;
-    /* 0x028 */ s16 unk_28;
-    /* 0x02A */ s16 zoomPercent;
+                union {
+                    struct {
+                        s16 zoomPercent;
+                    } world;
+                    struct {
+                        s16 dist;
+                        s16 offsetY;
+                        s16 pitch;
+                        s16 yaw;
+                        s16 fovScale; // 100 --> vfov = 25, scales as 1/x so larger values mean smaller vfov
+                        s16 zoomPercent;
+                        b16 skipRecalc;
+                    } basic;
+                    struct {
+                        s16 dist;
+                        s16 offsetY;
+                        s16 pitch;
+                        s16 yaw;
+                    } interp;
+                    struct {
+                        s16 dist;
+                        s16 offsetY;
+                        s16 pitch;
+                        s16 minRadius;
+                    } radial;
+                    struct {
+                        s16 dist;
+                        s16 offsetY;
+                        s16 xLimit;
+                        s16 zLimit;
+                    } confined;
+                } params;
     /* 0x02C */ s16 bgColor[3];
-    /* 0x032 */ Vec3s targetScreenCoords;
+    /* 0x032 */ Vec3s targetScreenCoords; // screen coords corresponding to targetPos
     /* 0x038 */ u16 perspNorm;
-    /* 0x03A */ char unk_3A[2];
-    /* 0x03C */ Vec3f lookAt_eye;
-    /* 0x048 */ Vec3f lookAt_obj;
+    /* 0x03C */ Vec3f lookAt_eye; // used to construct the view matrix
+    /* 0x048 */ Vec3f lookAt_obj; // used to construct the view matrix
     /* 0x054 */ Vec3f lookAt_obj_target;
-    /* 0x060 */ Vec3f targetPos;
+    /* 0x060 */ Vec3f targetPos; // target for camera rig, often but not necessarily the player position
     /* 0x06C */ f32 curYaw;
-    /* 0x070 */ f32 unk_70;
-    /* 0x074 */ f32 curBoomYaw;
+    /* 0x070 */ f32 interpYaw; // no camera mode actually uses this for interpolation
     /* 0x078 */ f32 curBoomLength;
-    /* 0x07C */ f32 curYOffset;
-    /* 0x080 */ char unk_80[4];
-    /* 0x084 */ Vec3f trueRot;
-    /* 0x090 */ f32 curBlendedYawNegated;
-    /* 0x094 */ f32 curPitch;
-    /* 0x098 */ f32 unk_98;
-    /* 0x09C */ f32 unk_9C;
+    /* 0x074 */ f32 curBoomPitch;
+    /* 0x084 */ f32 curBoomYaw;
+    /* 0x07C */ f32 targetOffsetY;
+    /* 0x088 */ f32 targetBoomYaw; // only used by CAM_UPDATE_UNUSED_RADIAL
+    /* 0x090 */ f32 lookAt_yaw;
+    /* 0x094 */ f32 lookAt_pitch;
     /* 0x0A0 */ Vp vp;
     /* 0x0B0 */ Vp vpAlt;
-    /* 0x0C0 */ s32 unk_C0;
-    /* 0x0C4 */ f32 unk_C4;
-    /* 0x0C8 */ char unk_C8[0xC];
-    /* 0x0D4 */ Matrix4f perspectiveMatrix;
-    /* 0x114 */ Matrix4f viewMtxPlayer; /* centers on player */
-    /* 0x154 */ Matrix4f viewMtxLeading; /* leads player slightly */
-    /* 0x194 */ Matrix4f viewMtxShaking; /* used while ShakeCam is active */
-    /* 0x1D4 */ char unk_1D4[0x28];
+    /* 0x0D4 */ Matrix4f mtxPerspective;
+    /* 0x114 */ Matrix4f mtxViewPlayer; // centers on player
+    /* 0x154 */ Matrix4f mtxViewLeading; // leads player slightly
+    /* 0x194 */ Matrix4f mtxViewShaking; // used while ShakeCam is active
     /* 0x1FC */ void (*fpDoPreRender)(struct Camera*);
     /* 0x200 */ void (*fpDoPostRender)(struct Camera*);
-    /* 0x204 */ Mtx* unkMatrix;
-    /* 0x208 */ s32 unk_208;
-    /* 0x20C */ Matrix4s* unkEffectMatrix;
-    /* 0x210 */ char unk_210[0x2];
-    /* 0x212 */ s16 unk_212;
-    /* 0x214 */ CameraUnk unk_214[4];
-    /* 0x444 */ CameraControlSettings* prevController;
-    /* 0x448 */ CameraControlSettings* curController;
-    /* 0x44C */ CamConfiguration prevConfiguration;
-    /* 0x468 */ CamConfiguration goalConfiguration;
+    /* 0x204 */ Mtx* mtxBillboard; // rotation matrix created from -curBoomYaw
+    /* 0x444 */ CameraControlSettings* prevSettings;
+    /* 0x448 */ CameraControlSettings* curSettings;
+    /* 0x44C */ CameraRig prevRig;
+    /* 0x468 */ CameraRig nextRig;
     /* 0x484 */ f32 interpAlpha;
     /* 0x488 */ f32 linearInterp;
-    /* 0x48C */ f32 linearInterpScale; /* 3.0? */
+    /* 0x48C */ f32 linearInterpRate;
     /* 0x490 */ f32 moveSpeed;
     /* 0x494 */ f32 yinterpGoal;
     /* 0x498 */ f32 yinterpAlpha;
@@ -837,29 +839,28 @@ typedef struct Camera {
     /* 0x4A0 */ f32 yinterpCur;
     /* 0x4A4 */ Vec3f prevTargetPos;
     /* 0x4B0 */ Vec3f movePos;
-    /* 0x4BC */ Vec3f prevPrevMovePos;
     /* 0x4C8 */ Vec3f prevMovePos;
-    /* 0x4D4 */ u16 prevPrevFollowPlayer;
-    /* 0x4D6 */ u16 prevFollowPlayer;
-    /* 0x4D8 */ CameraControlSettings controlSettings;
-    /* 0x504 */ u16 followPlayer;
-    /* 0x506 */ u16 panActive;
-    /* 0x508 */ f32 panPhase;
+    /* 0x4BC */ Vec3f prevPrevMovePos;
+    /* 0x4D8 */ CameraControlSettings overrideSettings;
+    /* 0x504 */ b16 useOverrideSettings;
+    /* 0x4D6 */ b16 prevUseOverride;
+    /* 0x4D4 */ b16 prevPrevUseOverride;
+    /* 0x506 */ b16 panActive;
+    /* 0x508 */ f32 interpEasingParameter; // controls whether easing for camera rig interpolation is more cosine-like (values near 0) or quadratic (values near 1)
     /* 0x50C */ f32 leadAmount;
     /* 0x510 */ f32 targetLeadAmount;
     /* 0x514 */ f32 leadInterpAlpha;
     /* 0x518 */ f32 accumulatedStickLead;
     /* 0x51C */ s32 increasingLeadInterp;
     /* 0x520 */ f32 leadAmtScale;
-    /* 0x524 */ f32 leadUnkX;
-    /* 0x528 */ f32 leadUnkZ;
-    /* 0x52C */ s32 unk_52C;
-    /* 0x530 */ s32 unk_530;
-    /* 0x534 */ CameraControlSettings* leadControlSettings;
-    /* 0x538 */ char unk_538[0x18];
-    /* 0x550 */ f32 unk_550;
-    /* 0x554 */ s16 unk_554;
-    /* 0x556 */ s16 unk_556;
+    /* 0x524 */ f32 prevLeadPosX;
+    /* 0x528 */ f32 prevLeadPosZ;
+    /* 0x52C */ s32 leadConstrainDir;
+    /* 0x530 */ b32 needsInitialConstrainDir;
+    /* 0x534 */ CameraControlSettings* prevLeadSettings;
+    /* 0x550 */ f32 unusedLeadAmt;
+    /* 0x554 */ s16 unusedLeadCounter;
+    /* 0x556 */ s16 unusedLeadDir;
 } Camera; // size = 0x558
 
 typedef struct BattleStatus {
@@ -887,11 +888,11 @@ typedef struct BattleStatus {
     /* 0x07B */ u8 damageTaken;
     /* 0x07C */ s8 changePartnerAllowed;
     /* 0x07D */ s8 menuStatus[4]; ///< -1 = automatically pick the first move, 0 = disabled, 1 = enabled
-    /* 0x081 */ s8 actionSuccess;
-    /* 0x082 */ char unk_82;
+    /* 0x081 */ s8 actionQuality; // degree of success for action command, -1 indicates failure, 0 is in progress, >0 is some degree of success
+    /* 0x082 */ s8 maxActionQuality; // seems to indicate the maximum positive value for actionQuality; never read and inconsistently used between various action commands
     /* 0x083 */ s8 actionCommandMode;
-    /* 0x084 */ s8 actionQuality; // actionCommandVar1 ?
-    /* 0x085 */ s8 unk_85; // actionCommandVar2 ?
+    /* 0x084 */ s8 actionProgress;
+    /* 0x085 */ s8 resultTier;
     /* 0x086 */ s8 actionResult; // see enum ActionResult
     /* 0x087 */ s8 blockResult; // see enum BlockResult
     /* 0x088 */ s8 itemUsesLeft; /* set to 2 for double dip, 3 for triple dip */
@@ -1103,22 +1104,23 @@ typedef struct ModelAnimator {
     /* 0x008 */ s16* animReadPos;
     /* 0x00C */ s16* savedReadPos;
     /* 0x010 */ AnimatorNode* rootNode;
-    /* 0x014 */ u8 nextUniqueID;
-    /* 0x015 */ u8 staticNodeIDs[0x7A]; // ?
-    /* 0x08F */ char unk_08F[0x1];
-    /* 0x090 */ f32 nextUpdateTime;
-    /* 0x094 */ f32 timeScale;
-    /* 0x098 */ Mtx mtx;
-    /* 0x0D8 */ void* baseAddr;
-    /* 0x0DC */ s16* animationBuffer;
-    /* 0x0E0 */ StaticAnimatorNode* staticNodes[0x7A];
-    /* 0x2C8 */ StaticAnimatorNode** staticRoot;
-    /* 0x2CC */ s32 treeIndexPos;
-    /* 0x2D0 */ s32 savedTreePos;
-    /* 0x2D4 */ void (*fpRenderCallback)(void*);
-    /* 0x2D8 */ void* renderCallbackArg;
-    /* 0x2DC */ char unk_2DC[4];
-} ModelAnimator; // size = 0x2E0
+    /* 0x014 */ AnimatorNode* nodeCache[0x7A];
+    /* 0x08E */ u8 nextUniqueID;
+    /* 0x08F */ u8 staticNodeIDs[0x7A]; // ?
+    /* 0x109 */ char unk_08F[0x1];
+    /* 0x10A */ f32 nextUpdateTime;
+    /* 0x10E */ f32 timeScale;
+    /* 0x112 */ Mtx mtx;
+    /* 0x152 */ void* baseAddr;
+    /* 0x156 */ s16* animationBuffer;
+    /* 0x15A */ StaticAnimatorNode* staticNodes[0x7A];
+    /* 0x342 */ StaticAnimatorNode** staticRoot;
+    /* 0x346 */ s32 treeIndexPos;
+    /* 0x34A */ s32 savedTreePos;
+    /* 0x34E */ void (*fpRenderCallback)(void*);
+    /* 0x352 */ void* renderCallbackArg;
+    /* 0x356 */ char unk_2DC[4];
+} ModelAnimator; // size = 0x35A
 
 typedef ModelAnimator* AnimatedMeshList[MAX_ANIMATED_MESHES];
 
@@ -1158,8 +1160,8 @@ typedef struct ItemEntity {
     /* 0x1E */ s16 spawnAngle; /* if < 0, a random screen-relative angle is chosen: left or right */
     /* 0x20 */ s16 shadowIndex;
     /* 0x22 */ char unk_22[2];
-    /* 0x24 */ u32* readPos;
-    /* 0x28 */ u32* savedReadPos;
+    /* 0x24 */ s32* readPos;
+    /* 0x28 */ s32* savedReadPos;
     /* 0x2C */ u8 lookupRasterIndex;
     /* 0x2D */ u8 lookupPaletteIndex;
     /* 0x2E */ u8 nextUpdate;
@@ -1402,7 +1404,7 @@ typedef struct GameStatus {
     /* 0x06A */ s8 demoStickX;
     /* 0x06B */ s8 demoStickY;
     /* 0x06C */ s32 mainScriptID;
-    /* 0x070 */ s8 isBattle;
+    /* 0x070 */ s8 context;
     /* 0x071 */ s8 demoState; // see DemoState enum
     /* 0x072 */ s8 nextDemoScene; /* which part of the demo to play next */
     /* 0x073 */ u8 contBitPattern;
@@ -2015,7 +2017,7 @@ typedef struct PlayerStatus {
     /* 0x06C */ f32 maxJumpSpeed;
     /* 0x070 */ f32 gravityIntegrator[4]; // derivatives of y; 0 = velocity, 1 = accel, etc
     /* 0x080 */ f32 targetYaw;
-    /* 0x084 */ f32 curYaw;
+    /* 0x084 */ f32 curYaw; // the direction of player input in world-space (not camera-relative)
     /* 0x088 */ f32 overlapPushYaw;
     /* 0x08C */ f32 pitch;
     /* 0x090 */ f32 flipYaw[4];

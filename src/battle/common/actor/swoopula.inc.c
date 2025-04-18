@@ -187,14 +187,14 @@ EvtScript N(EVS_Flying_HandleEvent) = {
             ExecWait(EVS_Enemy_Death)
             Return
         CaseEq(EVENT_SHOCK_HIT)
-            Call(func_80269470)
+            Call(InterruptLeechActionCommand)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Swooper_Gray_Anim15)
             ExecWait(EVS_Enemy_ShockHit)
             Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
             ExecWait(N(EVS_ReturnHome))
         CaseEq(EVENT_SHOCK_DEATH)
-            Call(func_80269470)
+            Call(InterruptLeechActionCommand)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Swooper_Gray_Anim15)
             ExecWait(EVS_Enemy_ShockHit)
@@ -363,14 +363,14 @@ EvtScript N(EVS_HandleEvent) = {
             EndIf
             Return
         CaseEq(EVENT_SHOCK_HIT)
-            Call(func_80269470)
+            Call(InterruptLeechActionCommand)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Swooper_Gray_Anim15)
             ExecWait(EVS_Enemy_ShockHit_Impl)
             Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
             ExecWait(N(EVS_ReturnHome))
         CaseEq(EVENT_SHOCK_DEATH)
-            Call(func_80269470)
+            Call(InterruptLeechActionCommand)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_Swooper_Gray_Anim15)
             ExecWait(EVS_Enemy_ShockHit_Impl)
@@ -451,7 +451,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
     Else
         Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
         Call(BattleCamTargetActor, ACTOR_SELF)
-        Call(func_8024ECF8, BTL_CAM_MODEY_MINUS_1, BTL_CAM_MODEX_1, FALSE)
+        Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, FALSE)
         Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Swooper_Gray_Anim02)
         Call(SetGoalToTarget, ACTOR_SELF)
         Call(AddGoalPos, ACTOR_SELF, 50, 10, 0)
@@ -564,20 +564,20 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Wait(30)
         EndLoop
     Else
-        Call(ShowMessageBox, BTL_MSG_ACTION_TIP_MASH_BUTTON, 32767)
+        Call(ShowMessageBox, BTL_MSG_ACTION_TIP_MASH_BUTTON, AC_LEECH_MAX_TIME)
         Call(ShowActionHud, TRUE)
         Call(LoadActionCommand, ACTION_COMMAND_STOP_LEECH)
         Call(action_command_stop_leech_init)
         Call(SetupMashMeter, 1, 30, 0, 0, 0, 0)
         Wait(10)
         Call(SetBattleFlagBits, BS_FLAGS1_4000, FALSE)
-        Call(action_command_stop_leech_start, 0, 32767, 3)
+        Call(action_command_stop_leech_start, 0, AC_LEECH_MAX_TIME, AC_DIFFICULTY_3)
         Set(LVarD, 0)
         Loop(MAX_LEECH_COUNT)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Swooper_Gray_Anim02)
             Set(LFlag0, FALSE)
             Loop(21)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -595,7 +595,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -609,7 +609,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.9), Float(1.2), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -623,7 +623,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.8), Float(1.3), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -637,7 +637,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.4), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -651,7 +651,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.5), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -665,7 +665,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.4), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -679,7 +679,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.8), Float(1.3), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -693,7 +693,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(0.9), Float(1.2), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -707,7 +707,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
                 Set(LFlag0, FALSE)
                 Loop(1)
-                    Call(GetActionSuccessCopy, LVar1)
+                    Call(GetMashActionQuality, LVar1)
                     IfEq(LVar1, 1)
                         Set(LFlag0, TRUE)
                         BreakLoop
@@ -724,7 +724,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             EndIf
             Set(LFlag0, FALSE)
             Loop(5)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -739,7 +739,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -753,7 +753,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.9), Float(1.2), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -767,7 +767,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.8), Float(1.3), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -781,7 +781,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.4), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -795,7 +795,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.5), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(2)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -809,7 +809,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.6), Float(1.6), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(10)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -823,7 +823,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(2)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -857,18 +857,18 @@ EvtScript N(EVS_Flying_TakeTurn) = {
             Else
                 Add(LVarD, 1)
                 IfGt(LVarD, 1)
-                    Call(func_80269470)
+                    Call(InterruptLeechActionCommand)
                     BreakLoop
                 EndIf
             EndIf
             Call(GetPlayerHP, LVar1)
             IfEq(LVar1, 0)
-                Call(func_80269470)
+                Call(InterruptLeechActionCommand)
                 BreakLoop
             EndIf
             Set(LFlag0, FALSE)
             Loop(30)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -879,7 +879,7 @@ EvtScript N(EVS_Flying_TakeTurn) = {
                 BreakLoop
             EndIf
         EndLoop
-        Call(func_80269470)
+        Call(InterruptLeechActionCommand)
         Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
     EndIf
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
@@ -908,7 +908,7 @@ EvtScript N(EVS_TakeTurn) = {
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(UseBattleCamPreset, BTL_CAM_ENEMY_APPROACH)
     Call(BattleCamTargetActor, ACTOR_SELF)
-    Call(func_8024ECF8, BTL_CAM_MODEY_MINUS_1, BTL_CAM_MODEX_1, FALSE)
+    Call(SetBattleCamTargetingModes, BTL_CAM_YADJ_TARGET, BTL_CAM_XADJ_AVG, FALSE)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Swooper_Gray_Anim02)
     Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_UPSIDE_DOWN, FALSE)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -1014,20 +1014,20 @@ EvtScript N(EVS_TakeTurn) = {
             Wait(30)
         EndLoop
     Else
-        Call(ShowMessageBox, BTL_MSG_ACTION_TIP_MASH_BUTTON, 32767)
+        Call(ShowMessageBox, BTL_MSG_ACTION_TIP_MASH_BUTTON, AC_LEECH_MAX_TIME)
         Call(ShowActionHud, TRUE)
         Call(LoadActionCommand, ACTION_COMMAND_STOP_LEECH)
         Call(action_command_stop_leech_init)
         Call(SetupMashMeter, 1, 30, 0, 0, 0, 0)
         Wait(10)
         Call(SetBattleFlagBits, BS_FLAGS1_4000, FALSE)
-        Call(action_command_stop_leech_start, 0, 32767, 3)
+        Call(action_command_stop_leech_start, 0, AC_LEECH_MAX_TIME, AC_DIFFICULTY_3)
         Set(LVarD, 0)
         Loop(MAX_LEECH_COUNT)
             Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_Swooper_Gray_Anim02)
             Set(LFlag0, FALSE)
             Loop(21)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1044,7 +1044,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1058,7 +1058,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.9), Float(1.2), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1072,7 +1072,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.8), Float(1.3), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1086,7 +1086,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.4), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(1)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1100,7 +1100,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.7), Float(1.5), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(2)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1114,7 +1114,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(0.6), Float(1.6), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(10)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1128,7 +1128,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
             Set(LFlag0, FALSE)
             Loop(2)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1162,18 +1162,18 @@ EvtScript N(EVS_TakeTurn) = {
             Else
                 Add(LVarD, 1)
                 IfGt(LVarD, 1)
-                    Call(func_80269470)
+                    Call(InterruptLeechActionCommand)
                     BreakLoop
                 EndIf
             EndIf
             Call(GetPlayerHP, LVar1)
             IfEq(LVar1, 0)
-                Call(func_80269470)
+                Call(InterruptLeechActionCommand)
                 BreakLoop
             EndIf
             Set(LFlag0, FALSE)
             Loop(35)
-                Call(GetActionSuccessCopy, LVar1)
+                Call(GetMashActionQuality, LVar1)
                 IfEq(LVar1, 1)
                     Set(LFlag0, TRUE)
                     BreakLoop
@@ -1184,7 +1184,7 @@ EvtScript N(EVS_TakeTurn) = {
                 BreakLoop
             EndIf
         EndLoop
-        Call(func_80269470)
+        Call(InterruptLeechActionCommand)
         Call(SetActorScale, ACTOR_SELF, Float(1.0), Float(1.0), Float(1.0))
     EndIf
     Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
